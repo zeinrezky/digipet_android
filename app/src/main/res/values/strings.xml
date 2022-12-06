@@ -58,6 +58,11 @@
     <string name="collect">Collect</string>
     <string name="image_description">Default Image Desc</string>
 
+    <!-- Intro -->
+    <string name="intro_message_1">Join StellKey to help your kids develop good habits</string>
+    <string name="intro_message_2">Our fun system helps kids develop independence</string>
+    <string name="intro_message_3">The result? More peaceful parenting</string>
+
     <!-- Menu -->
     <string name="home">Home</string>
     <string name="family">Family</string>
@@ -75,7 +80,6 @@
     <string name="success_create_profile">You have created a profile for %s!</string>
 
     <!-- Intro -->
-    <string name="intro_image_desc">Onboarding Image(s)</string>
     <string name="intro_title_temp">Join StellKey to help your kids develop good habits</string>
 
     <!-- Register -->

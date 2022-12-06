@@ -32,6 +32,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
     val detailCarer = MutableLiveData<AllCarersModel?>()
     val detailKid = MutableLiveData<AllKidsModel?>()
 
+    val carerLocaleResponse = MutableLiveData<LocaleModel>()
 
     fun getSubscription() {
         isLoading.value = true
@@ -50,6 +51,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -71,6 +73,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -93,8 +96,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -117,8 +120,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -141,8 +144,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -165,8 +168,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -189,8 +192,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -212,6 +215,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -234,8 +238,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -258,8 +262,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -282,8 +286,8 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
             }
         }
     }
@@ -305,6 +309,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -327,8 +332,30 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
-
                 }
+                else -> {}
+            }
+        }
+    }
+
+    fun putCarerLocale(localeRequest: UpdateLocaleRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.putCarerLocale(localeRequest)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    carerLocaleResponse.value = response.body.data.let { response.body.data }
+                }
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+                else -> {}
             }
         }
     }

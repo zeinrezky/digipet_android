@@ -9,8 +9,10 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import com.stellkey.android.R
 import com.stellkey.android.databinding.ActivityHomeBinding
 import com.stellkey.android.helper.extension.viewBinding
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.carer.account.AccountFragment
+import com.stellkey.android.view.carer.account.SettingFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.log.LogFragment
 import kotlinx.android.synthetic.main.activity_home.*
@@ -27,50 +29,55 @@ class HomeAct : BaseAct() {
     }
 
     private fun setView() {
-        binding.apply {
-            window.apply {
-                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                statusBarColor = ContextCompat.getColor(this@HomeAct, R.color.white)
-            }
+        if(AppPreference.isUpdateLocale()) {
+            AppPreference.putUpdateLocale(false)
+            addFragment(SettingFragment.newInstance())
+        }
+        else{
+            binding.apply {
+                window.apply {
+                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    statusBarColor = ContextCompat.getColor(this@HomeAct, R.color.white)
+                }
 
-            val radius = resources.getDimension(R.dimen.space_x6_half)
-            val bottomNavigationViewBackground =
-                bottomNav.background as MaterialShapeDrawable
-            bottomNavigationViewBackground.shapeAppearanceModel =
-                bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
-                    .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                    .build()
+                val radius = resources.getDimension(R.dimen.space_x6_half)
+                val bottomNavigationViewBackground =
+                    bottomNav.background as MaterialShapeDrawable
+                bottomNavigationViewBackground.shapeAppearanceModel =
+                    bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
+                        .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                        .build()
 
-            addFragment(HomeFragment.newInstance())
+                addFragment(HomeFragment.newInstance())
 
-            bottomNav.setOnItemSelectedListener { item ->
-                when (item.itemId) {
-                    R.id.home -> {
-                        addFragment(HomeFragment.newInstance())
-                        true
-                    }
-                    R.id.family -> {
-                        addFragment(FamilyFragment.newInstance())
-                        true
-                    }
-                    R.id.log -> {
-                        addFragment(LogFragment.newInstance())
-                        true
-                    }
-                    R.id.account -> {
-                        addFragment(AccountFragment.newInstance())
-                        true
-                    }
-                    else -> {
-                        addFragment(HomeFragment.newInstance())
-                        true
+                bottomNav.setOnItemSelectedListener { item ->
+                    when (item.itemId) {
+                        R.id.home -> {
+                            addFragment(HomeFragment.newInstance())
+                            true
+                        }
+                        R.id.family -> {
+                            addFragment(FamilyFragment.newInstance())
+                            true
+                        }
+                        R.id.log -> {
+                            addFragment(LogFragment.newInstance())
+                            true
+                        }
+                        R.id.account -> {
+                            addFragment(AccountFragment.newInstance())
+                            true
+                        }
+                        else -> {
+                            addFragment(HomeFragment.newInstance())
+                            true
+                        }
                     }
                 }
+
             }
-
         }
-
     }
 
     fun showMenu(isShow: Boolean) {

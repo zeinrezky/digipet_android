@@ -8,9 +8,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentSettingBinding
-import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.model.request.UpdateLocaleRequest
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
+import com.stellkey.android.view.carer.home.HomeAct
+import com.zeugmasolutions.localehelper.Locales
 import org.koin.android.ext.android.inject
+
 
 class SettingFragment : BaseFragment() {
 
@@ -18,6 +22,8 @@ class SettingFragment : BaseFragment() {
 
     //private val binding by viewBinding<FragmentSettingBinding>()
     private val viewModel by inject<AccountViewModel>()
+
+    private var selectedLocale = AppPreference.getCarerLocale()
 
     companion object {
         @JvmStatic
@@ -56,6 +62,15 @@ class SettingFragment : BaseFragment() {
                 }
             }
 
+            carerLocaleResponse.observe(viewLifecycleOwner) { it ->
+                AppPreference.putCarerLocale(it.locale)
+                AppPreference.putUpdateLocale(true)
+
+                selectedLocale = AppPreference.getCarerLocale()
+                (activity as HomeAct).updateLocale(if (selectedLocale == "fr") Locales.French else Locales.English)
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
         }
 
         (activity as HomeAct).showMenu(isShow = false)
@@ -63,7 +78,77 @@ class SettingFragment : BaseFragment() {
         setOnClick()
     }
 
-    private fun setView() {}
+    private fun setView() {
+        setLanguageButton(selectedLocale)
+    }
+
+    private fun setLanguageButton(language: String) {
+        dataBinding.apply {
+            if (language == "en") {
+                cvLanguageSwitch.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.light_blue
+                    )
+                )
+                cvFrench.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.light_blue
+                    )
+                )
+                tvFrench.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.primary_50
+                    )
+                )
+                cvEnglish.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
+                tvEnglish.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimary
+                    )
+                )
+            } else if (language == "fr") {
+                cvLanguageSwitch.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
+                cvFrench.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.light_blue
+                    )
+                )
+                tvFrench.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimary
+                    )
+                )
+                cvEnglish.setCardBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
+                tvEnglish.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.primary_50
+                    )
+                )
+            }
+        }
+    }
 
     private fun setOnClick() {
         dataBinding.apply {
@@ -196,72 +281,14 @@ class SettingFragment : BaseFragment() {
                 }
             }
             dataBinding.cvFrench -> {
-                dataBinding.apply {
-                    cvLanguageSwitch.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
-                    cvFrench.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    tvFrench.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
-                        )
-                    )
-                    cvEnglish.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
-                    tvEnglish.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.primary_50
-                        )
-                    )
-                }
+                selectedLocale = "fr"
+                setLanguageButton(selectedLocale)
+                viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
             }
             dataBinding.cvEnglish -> {
-                dataBinding.apply {
-                    cvLanguageSwitch.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    cvFrench.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    tvFrench.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.primary_50
-                        )
-                    )
-                    cvEnglish.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
-                    tvEnglish.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
-                        )
-                    )
-                }
+                selectedLocale = "en"
+                setLanguageButton(selectedLocale)
+                viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
             }
         }
     }

@@ -55,9 +55,14 @@
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="categories">Categories</string>
     <string name="remove_task">Remove Task</string>
-    <string name="add">Add</string>
-    <string name="collect">Collect</string>
+    <string name="add">Ajouter</string>
+    <string name="collect">Récupérer</string>
     <string name="image_description">Default Image Desc</string>
+
+    <!-- Intro -->
+    <string name="intro_message_1">Rejoigner StellKey pour aider votre enfant à développer de bonnes habitudes</string>
+    <string name="intro_message_2">StellKey l\'encourage également à être indépendant</string>
+    <string name="intro_message_3">Pour une parentalité plus sereine</string>
 
     <!-- Menu -->
     <string name="home">Mes Enfants</string>
@@ -76,8 +81,7 @@
     <string name="success_create_profile">You have created a profile for %s!</string>
 
     <!-- Intro -->
-    <string name="intro_image_desc">Onboarding Image(s)</string>
-    <string name="intro_title_temp">Join StellKey to help your kids develop good habits</string>
+    <string name="intro_title_temp">Rejoigner StellKey pour aider votre enfant à développer de bonnes habitudes</string>
 
     <!-- Register -->
     <string name="register_desc">Créons d\'abord votre profile - vous pourrez ensuite créer celui de votre enfant</string>
@@ -89,11 +93,11 @@
     <string name="register_setup_profile_title">Mon profile</string>
     <string name="register_setup_profile_desc">Choisissez un mot de passe.</string>
     <string name="register_pin_title">Enter Your PIN</string>
-    <string name="register_confirm_pin_title">Confirm Your PIN</string>
+    <string name="register_confirm_pin_title">Confirmer le code PIN</string>
     <string name="enter_pin">Enter Your PIN</string>
-    <string name="confirm_your_pin">Confirm Your PIN</string>
+    <string name="confirm_your_pin">Confirmer le code PIN</string>
     <string name="profile_pin">Profile PIN</string>
-    <string name="confirm_pin">Confirm PIN</string>
+    <string name="confirm_pin">Confirmer le PIN</string>
     <string name="register_child_title">Let’s add a kid</string>
     <string name="child_name_placeholder">Mon enfant s\'appelle</string>
     <string name="choose_icon">Choisissez d\'abord un icône</string>
@@ -146,17 +150,17 @@
     <string name="available_for_rewards">disponibles pour les récompenses</string>
     <string name="profile_edit_profile">Modifier son profile</string>
     <string name="kid_age">%d ans</string>
-    <string name="kid_level">Level %d</string>
+    <string name="kid_level">Niveau %d</string>
     <string name="swipe_left">Glisser vers la gauche pour supprimer une mission</string>
     <string name="add_a_task">Ajoutez une mission</string>
     <string name="recommended_tasks">Missions recommandées</string>
     <string name="start_from">Start from</string>
     <string name="add_a_reward">Add a reward</string>
-    <string name="two_stars_reward">2-star reward</string>
-    <string name="eight_stars_reward">8-star reward</string>
-    <string name="recommended_rewards">Recommended rewards</string>
-    <string name="reward">Reward</string>
-    <string name="custom_reward">Custom reward</string>
+    <string name="two_stars_reward">Récompense 2 étoiles</string>
+    <string name="eight_stars_reward">Récompense 8 étoiles</string>
+    <string name="recommended_rewards">Récompenses recommandées</string>
+    <string name="reward">Récompenses</string>
+    <string name="custom_reward">Récompenses personnalisées</string>
 
     <!-- Account -->
     <string name="upgrade_to_premium">Upgrade to Premium</string>
@@ -204,17 +208,17 @@
     <string name="dialog_delete_profile_desc">I want to remove %s profile.</string>
 
     <!-- Kid -->
-    <string name="my_progress">My Progress</string>
+    <string name="my_progress">Mes progrès</string>
     <string name="collect_star_reward">Collect star for reward you want!</string>
 
     <!-- OnBoarding -->
     <string name="onboarding_kid_name">Sammi</string>
-    <string name="onboarding_cycle">19 - 20 Juillet</string>
+    <string name="onboarding_cycle">19 – 20 Juillet</string>
     <string name="onboarding_today_task_name">Mettre sa vaiselle dans le lave-vaiselle</string>
     <string name="onboarding_home_title">Bienvenue dans votre interface!</string>
     <string name="onboarding_home_desc">C’est ici que vous pourrez suivre les progrès de votre enfant.</string>
     <string name="onboarding_family_title">Dans <font color='#FF6222EE'><b>l’onglet Famille</b></font>, vous pourrez <font color='#FF6222EE'><b>ajouter des profiles enfants</b></font> et <font color='#FF6222EE'><b>créer des missions &amp; des récompenses</b></font>.</string>
-    <string name="onboarding_family_task_title"><font color='#FF6222EE'><b>Appuyer sur (+)</b></font> pour ajouter une <font color='#FF6222EE'><b>nouvelle mission</b></font> à Sammi (avec un <font color='#FF6222EE'>maximum de 3 missions par jour<b></b></font> pour développer de bonnes habitudes plus rapidement).</string>
+    <string name="onboarding_family_task_title"><font color='#FF6222EE'><b>Appuyer sur (+)</b></font> pour ajouter une <font color='#FF6222EE'><b>nouvelle mission</b></font> à Sammi (avec un <font color='#FF6222EE'><b>maximum de 3 missions par jour</b></font> pour développer de bonnes habitudes plus rapidement).</string>
     <string name="onboarding_add_task_title">Vous pouvez ajouter une <font color='#FF6222EE'><b>mission recommendée</b></font> ou <font color='#FF6222EE'><b>en créer une spécifique</b></font> pour votre enfant.</string>
     <string name="onboarding_first_recommended_task">Faire son lit le matin</string>
     <string name="onboarding_second_recommended_task">Mettre son linge sale dans le panier</string>

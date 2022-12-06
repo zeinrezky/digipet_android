@@ -18,7 +18,7 @@
             android:layout_height="@dimen/space_x30"
             android:layout_marginStart="@dimen/space_x4"
             android:layout_marginEnd="@dimen/space_x4"
-            android:contentDescription="@string/intro_image_desc"
+            android:contentDescription="@string/image_description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

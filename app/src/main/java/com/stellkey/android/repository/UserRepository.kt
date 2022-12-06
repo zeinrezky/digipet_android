@@ -203,6 +203,18 @@ interface UserService {
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
     /* End of Account Routes */
 
+    /* Locale Routes */
+    @PUT("carer/account/locale")
+    suspend fun updateCarerLocale(
+        @Body updateLocaleRequest: UpdateLocaleRequest
+    ): NetworkResponse<ResponseSuccess<LocaleModel>, ResponseError>
+
+    @PUT("kid/settings/locale")
+    suspend fun updateKidLocale(
+        @Body updateLocaleRequest: UpdateLocaleRequest
+    ): NetworkResponse<ResponseSuccess<LocaleModel>, ResponseError>
+    /* End of Locale Routes */
+
 }
 
 open class UserRepository(private val userService: UserService) {
@@ -441,5 +453,20 @@ open class UserRepository(private val userService: UserService) {
         return userService.deleteLog(deleteLogRequest)
     }
     /* End of Account Routes Functions */
+
+    /* Locale Routes Functions */
+    suspend fun putCarerLocale(
+        localeRequest: UpdateLocaleRequest
+    ): NetworkResponse<ResponseSuccess<LocaleModel>, ResponseError> {
+        return userService.updateCarerLocale(localeRequest)
+    }
+
+    suspend fun putKidLocale(
+        localeRequest: UpdateLocaleRequest
+    ): NetworkResponse<ResponseSuccess<LocaleModel>, ResponseError> {
+        return userService.updateKidLocale(localeRequest)
+    }
+
+    /* End of Locale Routes Functions */
 
 }

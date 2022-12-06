@@ -24,7 +24,6 @@ class AppPreference {
         private const val profileType = "profileType"
         private const val tempEmail = "tempEmail"
         private const val tempPassword = "tempPassword"
-        private const val tempLocale = "tempLocale"
         private const val tempTimezone = "tempTimezone"
         private const val isCompleteLogin = "isCompleteLogin"
         private const val tempCarerName = "tempCarerName"
@@ -33,6 +32,9 @@ class AppPreference {
         private const val isEditProfile = "isEditProfile"
         private const val tempProfileList = "tempProfileList"
         private const val isKidLogin = "isKidLogin"
+        private const val carerLocale = "carerLocale"
+        private const val kidLocale = "isKidLogin"
+        private const val isUpdateLocale = "isUpdateLocale"
 
         //Add Task Temp Data
         private const val tempSelectedChallengeCategoryId = "tempSelectedChallengeCategoryId"
@@ -58,13 +60,15 @@ class AppPreference {
             Hawk.delete(profileType)
             Hawk.delete(tempEmail)
             Hawk.delete(tempPassword)
-            Hawk.delete(tempLocale)
             Hawk.delete(tempTimezone)
             Hawk.delete(isCompleteLogin)
             Hawk.delete(selectedCarerId)
             Hawk.delete(isEditProfile)
             Hawk.delete(tempProfileList)
             Hawk.delete(isKidLogin)
+            Hawk.delete(carerLocale)
+            Hawk.delete(kidLocale)
+            Hawk.delete(isUpdateLocale)
         }
 
         fun deleteProfileIcon() {
@@ -75,7 +79,7 @@ class AppPreference {
         fun deleteTempLoginData() {
             Hawk.delete(tempEmail)
             Hawk.delete(tempPassword)
-            Hawk.delete(tempLocale)
+            Hawk.delete(carerLocale)
             Hawk.delete(tempTimezone)
             Hawk.delete(tempChildName)
             Hawk.delete(tempChildProfilePIN)
@@ -238,14 +242,6 @@ class AppPreference {
             return (Hawk.get(tempPassword, emptyString))
         }
 
-        fun putTempLocale(value: String) {
-            Hawk.put(tempLocale, value)
-        }
-
-        fun getTempLocale(): String {
-            return (Hawk.get(tempLocale, emptyString))
-        }
-
         fun putTempTimezone(value: Int) {
             Hawk.put(tempTimezone, value)
         }
@@ -340,6 +336,30 @@ class AppPreference {
 
         fun isKidLogin(): Boolean {
             return (Hawk.get(isKidLogin, emptyBoolean))
+        }
+
+        fun putCarerLocale(value: String) {
+            Hawk.put(carerLocale, value)
+        }
+
+        fun getCarerLocale(): String {
+            return (Hawk.get(carerLocale, emptyString))
+        }
+
+        fun putKidLocale(value: String) {
+            Hawk.put(kidLocale, value)
+        }
+
+        fun getKidLocale(): String {
+            return (Hawk.get(kidLocale, emptyString))
+        }
+
+        fun putUpdateLocale(value: Boolean) {
+            Hawk.put(isUpdateLocale, value)
+        }
+
+        fun isUpdateLocale(): Boolean {
+            return (Hawk.get(isUpdateLocale, emptyBoolean))
         }
     }
 }

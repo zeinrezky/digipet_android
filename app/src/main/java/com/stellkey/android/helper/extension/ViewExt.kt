@@ -45,6 +45,7 @@ import com.google.android.material.textfield.TextInputLayout
 import com.stellkey.android.R
 import kotlinx.coroutines.delay
 import java.security.MessageDigest
+import java.util.*
 import kotlin.math.round
 
 
@@ -486,11 +487,20 @@ fun Context.alertDialog(
 fun Activity.setTransparentStatusBar() {
 
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-        window?.decorView?.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        window?.decorView?.systemUiVisibility =
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
         window?.statusBarColor = Color.TRANSPARENT
     } else {
         window.setDecorFitsSystemWindows(false)
     }
+}
+
+fun Context.changeLocale(language: String): Context {
+    val locale = Locale(language)
+    Locale.setDefault(locale)
+    val config = this.resources.configuration
+    config.setLocale(locale)
+    return createConfigurationContext(config)
 }
 
 

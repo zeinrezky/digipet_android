@@ -27,6 +27,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
     val confirmAccountResponse = MutableLiveData<ConfirmAccountModel.ConfirmAccountModelData>()
     val listProfileIcons = MutableLiveData<ArrayList<ProfileIconModel.ProfileIconModelData>>()
     val listGlobalChallenges = MutableLiveData<ArrayList<KidGlobalChallengeModel>>()
+    val carerLocaleResponse = MutableLiveData<LocaleModel>()
     val registerLoginResponse = MutableLiveData<LoginModel>()
 
     fun register(register: RegisterEmailRequest) {
@@ -47,8 +48,9 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
-
                 }
+
+                else -> {}
             }
         }
     }
@@ -69,8 +71,8 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
-
                 }
+                else -> {}
             }
         }
     }
@@ -91,8 +93,8 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
-
                 }
+                else -> {}
             }
         }
     }
@@ -113,8 +115,8 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
-
                 }
+                else -> {}
             }
         }
     }
@@ -140,6 +142,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -164,6 +167,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -188,8 +192,8 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
-
                 }
+                else -> {}
             }
         }
     }
@@ -214,6 +218,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -235,6 +240,7 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
             }
         }
     }
@@ -256,6 +262,29 @@ class RegisterViewModel(private val userRepository: UserRepository) : BaseViewMo
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+                else -> {}
+            }
+        }
+    }
+
+    fun putCarerLocale(localeRequest: UpdateLocaleRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.putCarerLocale(localeRequest)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    carerLocaleResponse.value = response.body.data.let { response.body.data }
+                }
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+                else -> {}
             }
         }
     }

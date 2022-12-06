@@ -78,7 +78,7 @@ class RegisterVerificationFragment : BaseFragment() {
             }
             confirmAccountResponse.observe(viewLifecycleOwner) {
                 AppPreference.putCarerToken(it.carerToken)
-                AppPreference.putTempLocale("en")
+                AppPreference.putCarerLocale("en")
                 AppPreference.putTempTimezone(tempTimezone)
 
                 addFragment(RegisterSetupProfileFragment.newInstance())
