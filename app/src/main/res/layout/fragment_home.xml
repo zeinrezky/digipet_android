@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.home.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_bg"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/space_x11"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x4"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:letterSpacing="0"
+                    android:text="@string/home"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvSwitchUser"
+                    android:layout_width="@dimen/space_x21"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@color/colorPrimary"
+                    app:cardCornerRadius="@dimen/space_x7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <View
+                            android:id="@+id/viewSwitchUser"
+                            android:layout_width="@dimen/space_x7"
+                            android:layout_height="@dimen/space_x7"
+                            android:background="@drawable/shape_oval_white"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/clSwitchUserIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/viewSwitchUser"
+                            app:layout_constraintStart_toStartOf="@id/viewSwitchUser"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <View
+                                android:layout_width="@dimen/space_x5"
+                                android:layout_height="@dimen/space_x5"
+                                android:background="@drawable/shape_oval_purple"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivSwitchUser"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_switch"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvSwitchUser"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_x2"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:text="@string/switch_user"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/clSwitchUserIcon"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clHomeUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cvSwitchUser">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clAvatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_x4"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/ivAvatar"
+                            android:layout_width="130dp"
+                            android:layout_height="130dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:src="@drawable/ic_ava_placeholder" />
+
+                        <ImageView
+                            android:id="@+id/ivNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_oval_notification"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toBottomOf="@id/tvNotificationCount"
+                            app:layout_constraintEnd_toEndOf="@id/tvNotificationCount"
+                            app:layout_constraintStart_toStartOf="@id/tvNotificationCount"
+                            app:layout_constraintTop_toTopOf="@id/tvNotificationCount" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvNotificationCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1"
+                            android:layout_marginEnd="@dimen/space_x6"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="16sp"
+                            android:visibility="gone"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/ivAvatar"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="1" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvProfileName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x2"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                            tools:text="Sammi" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clMultiUserHome"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/vpUserHome"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                            android:id="@+id/indicatorUserHome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/space_x1"
+                            android:layout_marginTop="@dimen/space_x3"
+                            app:dotsColor="@color/light_blue"
+                            app:dotsCornerRadius="@dimen/space_half"
+                            app:dotsSize="@dimen/space_x1"
+                            app:dotsSpacing="@dimen/space_x1_quarter"
+                            app:dotsWidthFactor="4"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/vpUserHome"
+                            app:selectedDotColor="@color/colorPrimary" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCurrentCycleRange"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x2"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:letterSpacing="0"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clHomeUser"
+                    tools:text="19-26 July 2021" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x1"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvCurrentCycleRange">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clYesterdayTasks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_x2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvYesterdayTask"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:text="@string/yesterday_task"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvYesterdayTask"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvYesterdayTask"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/item_today_task" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clTodayTasks"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clYesterdayTasks">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvTodayTask"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:text="@string/today_task"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTodayTask"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvTodayTask"
+                            tools:itemCount="2"
+                            tools:listitem="@layout/item_today_task" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNoApproval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x8"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/no_task_reward_approval"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clHomeUser" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

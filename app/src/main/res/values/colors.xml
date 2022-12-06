@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF6222EE</color>
+    <color name="colorSecondary">#FF8871FC</color>
+    <color name="yellow">#FFFEDD31</color>
+    <color name="yellow_2">#FFFFDC1D</color>
+    <color name="light_grey">#FF7C7C7C</color>
+    <color name="light_black">#FF242424</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_2">#FFF4F2FF</color>
+    <color name="white_bg">#FFFCFCFF</color>
+    <color name="white_95">#F2FCFCFF</color>
+    <color name="light_blue">#FFDBDEFD</color>
+    <color name="primary_disabled">#FFAf8FF6</color>
+    <color name="primary_50">#806222EE</color>
+    <color name="grey">#FFF4F2FF</color>
+    <color name="grey_1">#FF707070</color>
+    <color name="purple">#FF9174D1</color>
+    <color name="light_purple_1">#FFDBDEFD</color>
+    <color name="light_purple_2">#FFF5F8FF</color>
+    <color name="light_purple_3">#FFDBDFFC</color>
+    <color name="light_purple_4">#FFDBDEFA</color>
+    <color name="red">#FFEA3131</color>
+    <color name="black">#FF242424</color>
+    <color name="green">#FF00FF27</color>
+    <color name="green_onboarding">#FF00FF31</color>
+    <color name="blue">#FF6D31E9</color>
+    <color name="orange">#FFFC6D21</color>
+    <color name="navy">#FF1F1057</color>
+
+    <color name="transparent">#00FFFFFF</color>
+    <color name="blurWhite">#33FFFFFF</color>
+
+</resources>

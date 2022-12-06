@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_half"
+    android:layout_marginBottom="@dimen/space_half">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvFamily"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/space_x14"
+        app:cardCornerRadius="@dimen/space_x11"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_purple_1"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingStart="@dimen/space_x3"
+            android:paddingTop="@dimen/space_x2"
+            android:paddingEnd="@dimen/space_x3"
+            android:paddingBottom="@dimen/space_x2">
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="@dimen/space_x10"
+                android:layout_height="@dimen/space_x10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_ava_placeholder" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivAvatar"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivFamilyType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="@id/tvFamilyName"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvFamilyName"
+                    tools:src="@drawable/ic_oval_orange" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvFamilyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:maxLines="3"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/ivFamilyType"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Kids" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clProfileAttr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/ivFamilyType"
+                    app:layout_constraintTop_toBottomOf="@id/tvFamilyName">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvProfileLevel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sofia_pro_regular"
+                        android:letterSpacing="0"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Lv. 1" />
+
+                    <ImageView
+                        android:id="@+id/ivProfileStar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_x3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tvProfileLevel"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_star_filled_purple" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvProfileStar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_x1"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sofia_pro_regular"
+                        android:letterSpacing="0"
+                        android:maxLines="1"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="@id/ivProfileStar"
+                        app:layout_constraintStart_toEndOf="@id/ivProfileStar"
+                        app:layout_constraintTop_toTopOf="@id/ivProfileStar"
+                        tools:text="5" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/ivNext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_next_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

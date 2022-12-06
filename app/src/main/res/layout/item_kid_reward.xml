@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_x3_half"
+    android:layout_marginEnd="@dimen/space_x2"
+    android:maxWidth="@dimen/space_x18"
+    android:minWidth="@dimen/space_x18">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clKidReward"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/space_x4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivReward"
+            android:layout_width="@dimen/space_x5_half"
+            android:layout_height="@dimen/space_x5_half"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:src="@drawable/ic_reward_inactive"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvReward"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x1_quarter"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_bold"
+            android:letterSpacing="0"
+            android:maxLines="3"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivReward"
+            tools:text="Popsicle" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRewardAvailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvReward">
+
+            <ImageView
+                android:id="@+id/ivCollectBtn"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_child_collect_inactive" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvCollect"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_x1_half"
+                android:ellipsize="end"
+                android:fontFamily="@font/nove"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:text="@string/collect"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                app:layout_constraintBottom_toBottomOf="@id/ivCollectBtn"
+                app:layout_constraintEnd_toEndOf="@id/ivCollectBtn"
+                app:layout_constraintStart_toStartOf="@id/ivCollectBtn"
+                app:layout_constraintTop_toTopOf="@id/ivCollectBtn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRewardUnavailable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x1"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvReward">
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/piStarProgress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_child_progressbar"
+                android:progress="30"
+                app:indicatorColor="@color/yellow_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackCornerRadius="@dimen/space_x2"
+                app:trackThickness="@dimen/space_x2" />
+
+            <ImageView
+                android:id="@+id/ivStar"
+                android:layout_width="@dimen/space_x2_half"
+                android:layout_height="@dimen/space_x2_half"
+                android:layout_marginEnd="@dimen/space_x1"
+                android:src="@drawable/ic_child_star_filled"
+                app:layout_constraintBottom_toBottomOf="@id/tvStar"
+                app:layout_constraintEnd_toStartOf="@id/tvStar"
+                app:layout_constraintTop_toTopOf="@id/tvStar" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvStar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3_half"
+                android:layout_marginTop="@dimen/space_x1_half"
+                android:fontFamily="@font/sofia_pro_regular"
+                android:letterSpacing="0"
+                android:maxLength="3"
+                android:text="2/8"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/piStarProgress" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

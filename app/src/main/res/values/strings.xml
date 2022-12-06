@@ -1,0 +1,240 @@
+<resources>
+    <string name="app_name">StellKey</string>
+    <string name="app_version">App version</string>
+
+    <!-- Generic -->
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="hello">Hello</string>
+    <string name="email">Email</string>
+    <string name="verification">Verification</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="save">Save</string>
+    <string name="next">Next</string>
+    <string name="create">Create</string>
+    <string name="skip">Skip</string>
+    <string name="got_it">Got It</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="log_in">Log In</string>
+    <string name="contact_admin"><u>Contact admin</u></string>
+    <string name="logout">Logout</string>
+    <string name="all">All</string>
+    <string name="kid">Kid</string>
+    <string name="carer">Carer</string>
+    <string name="kids">Kids</string>
+    <string name="carers">Carers</string>
+    <string name="admin">Admin</string>
+    <string name="cancel">Cancel</string>
+    <string name="continue_label">Continue</string>
+    <string name="pin">PIN</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="edit_password">Edit password</string>
+    <string name="edit_pin">Edit pin</string>
+    <string name="remove_profile">Remove profile</string>
+    <string name="task">Task</string>
+    <string name="tasks">Tasks</string>
+    <string name="rewards">Rewards</string>
+    <string name="clear">Clear</string>
+    <string name="manage">Manage</string>
+    <string name="change">Change</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="infinity">&#8734;</string>
+    <string name="sound">Sound</string>
+    <string name="notification">Notification</string>
+    <string name="language">Language</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password_placeholder">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="categories">Categories</string>
+    <string name="remove_task">Remove Task</string>
+    <string name="add">Add</string>
+    <string name="collect">Collect</string>
+    <string name="image_description">Default Image Desc</string>
+
+    <!-- Menu -->
+    <string name="home">Home</string>
+    <string name="family">Family</string>
+    <string name="log">Log</string>
+    <string name="account">Account</string>
+
+    <!-- Error Message -->
+    <string name="pin_mismatch">PIN does not match</string>
+    <string name="current_pin_mismatch">PIN doesn\'t match our records.\nTry again.</string>
+    <string name="confirm_pin_mismatch">PIN doesn\'t match. Try again.</string>
+    <string name="password_mismatch">Password does not match. Try again.</string>
+
+    <!-- Success Message -->
+    <string name="success_exclamation">Success!</string>
+    <string name="success_create_profile">You have created a profile for %s!</string>
+
+    <!-- Intro -->
+    <string name="intro_image_desc">Onboarding Image(s)</string>
+    <string name="intro_title_temp">Join StellKey to help your kids develop good habits</string>
+
+    <!-- Register -->
+    <string name="register_desc">First, let’s set up your account – you can create your kids’ profiles later.</string>
+    <string name="register_tc">By signing up, you agree to StellKey’s Terms and Conditions of Service, Privacy Policy and default notification settings.</string>
+    <string name="register_now">Register Now</string>
+    <string name="or_sign_up_with">or sign up with</string>
+    <string name="register_verif_desc">Please enter the 4-digit verification code just emailed you.</string>
+    <string name="register_verif_resend_pin">Resend PIN</string>
+    <string name="register_setup_profile_title">Set up my profile</string>
+    <string name="register_setup_profile_desc">Make sure you choose a childproof password.</string>
+    <string name="register_pin_title">Enter Your PIN</string>
+    <string name="register_confirm_pin_title">Confirm Your PIN</string>
+    <string name="enter_pin">Enter Your PIN</string>
+    <string name="confirm_your_pin">Confirm Your PIN</string>
+    <string name="profile_pin">Profile PIN</string>
+    <string name="confirm_pin">Confirm PIN</string>
+    <string name="register_child_title">Let’s add a kid</string>
+    <string name="child_name_placeholder">My kid’s name is…</string>
+    <string name="choose_icon">Choose Icon</string>
+    <string name="register_child_age_title">My kid is</string>
+    <string name="years_old">years old</string>
+    <string name="register_child_age_desc"><u>We won’t share this info with anyone, but here’s why we ask.</u></string>
+    <string name="register_child_age_dialog_title">Why do we need that information?</string>
+    <string name="register_child_age_dialog_desc">Family privacy is important to us. Your child’s age is useful for customizing your family’s experience with appropriate tasks. We do NOT sell your data to marketing third parties. See our <font color='#FF6222EE'>Privacy Policy</font>.</string>
+    <string name="register_child_challenge_title">%s\'s\nfirst task is</string>
+    <string name="register_child_challenge_desc">You can add or change tasks later</string>
+    <string name="register_challenge_start_date_title">Set first task\nstart date</string>
+    <string name="register_challenge_start_date_desc">Your kid will be assigned to this task for\n7-days in a row to build up good habits</string>
+    <string name="register_finish_setup_kid_profile_title">Great – you’ve set up your kid\'s profile!</string>
+    <string name="register_finish_setup_kid_profile_desc">Do you want to set up another\nkid\'s profile?</string>
+    <string name="register_profile_settings_title">Your settings</string>
+    <string name="enable_notifications">Enable notifications</string>
+    <string name="enable_notifications_desc">Keep track of your kid\'s development</string>
+    <string name="language_desc">Please select your preferred language.</string>
+    <string name="start_stellkey_now">Start Stellkey Now</string>
+
+    <!-- Login -->
+    <string name="hi_exclamation">Hi!</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="or_sign_in_with">or sign in with</string>
+    <string name="or_via_qr_code">Or via QR code</string>
+    <string name="login_choose_profile_title">Choose profile</string>
+    <string name="cant_find_profile">Can\'t find your profile?</string>
+    <string name="login_pin_title">Enter PIN</string>
+    <string name="forget_pin_question">Forget PIN?</string>
+
+    <!-- Home -->
+    <string name="today_task">Today\'s tasks</string>
+    <string name="yesterday_task">Yesterday\'s tasks</string>
+    <string name="swipe_right_or_left">Swipe right or left to approve or decline</string>
+    <string name="switch_user">Switch user</string>
+    <string name="no_task_reward_approval">There\'s no task or reward approval</string>
+
+    <!-- Family -->
+    <string name="my_family">My Family</string>
+    <string name="swipe_left_to_delete_profile">Swipe left to delete profile</string>
+    <string name="add_a_member">Add a member</string>
+    <string name="add_kid_enter_pin">Enter a PIN for your\nkid\'s profile</string>
+    <string name="family_privacy"><u>Family privacy</u></string>
+    <string name="add_a_carer">Add a carer</string>
+    <string name="enter_carer_pin">Enter carer\'s PIN</string>
+    <string name="carer_name_placeholder">Carer name</string>
+
+    <!-- Profile -->
+    <string name="total_stars_earned">Total stars\nearned</string>
+    <string name="available_for_rewards">Available for\nrewards</string>
+    <string name="profile_edit_profile">Edit Profile</string>
+    <string name="kid_age">%d y.o.</string>
+    <string name="kid_level">Level %d</string>
+    <string name="swipe_left">Swipe left to delete task</string>
+    <string name="add_a_task">Add a task</string>
+    <string name="recommended_tasks">Recommended tasks</string>
+    <string name="start_from">Start from</string>
+    <string name="add_a_reward">Add a reward</string>
+    <string name="two_stars_reward">2-star reward</string>
+    <string name="eight_stars_reward">8-star reward</string>
+    <string name="recommended_rewards">Recommended rewards</string>
+    <string name="reward">Reward</string>
+    <string name="custom_reward">Custom reward</string>
+
+    <!-- Account -->
+    <string name="upgrade_to_premium">Upgrade to Premium</string>
+    <string name="setting">Setting</string>
+    <string name="log_activity">Log activity</string>
+    <string name="custom_task">Custom task</string>
+    <string name="profile_parental_control">Profile &amp; parental control</string>
+    <string name="membership">Membership</string>
+    <string name="billing_information">Billing information</string>
+    <string name="faq_contact_us">FAQ/ Contact us</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="tnc">Terms and conditions of service</string>
+    <string name="last_24_hours">Last 24 hours</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="last_4_weeks">Last 4 weeks</string>
+    <string name="time_range">Time Range</string>
+    <string name="edit_carer_pin_title">Enter current\ncarer\'s PIN</string>
+    <string name="edit_kid_pin_title">Enter current\nkid\'s PIN</string>
+    <string name="edit_carer_new_pin_title">Enter new\ncarer\'s PIN</string>
+    <string name="edit_kid_new_pin_title">Enter new\nkid\'s PIN</string>
+    <string name="edit_carer_confirm_pin_title">Confirm new\ncarer\'s PIN</string>
+    <string name="edit_kid_confirm_pin_title">Confirm new\nkid\'s PIN</string>
+    <string name="new_password">New password</string>
+    <string name="customised_tasks">Customised tasks</string>
+    <string name="membership_type_trial">Trial membership</string>
+    <string name="membership_type_monthly">1 month membership</string>
+    <string name="membership_type_yearly">12 months membership</string>
+    <string name="membership_type_lifetime">Lifetime membership</string>
+    <string name="next_renews">Next renews on %s</string>
+    <string name="your_membership_type_monthly">Your a Monthly Member</string>
+    <string name="your_membership_type_yearly">Your a Yearly Member</string>
+    <string name="your_membership_type_lifetime">Your a Lifetime Member</string>
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <!-- Dialog -->
+    <string name="dialog_add_member_cancel_title">You’re only a few steps from\ncreating a profile!</string>
+    <string name="dialog_add_member_cancel_desc_kid">Are you sure, you don\'t want to finish\ncreating your kid profile?</string>
+    <string name="dialog_add_member_cancel_desc_carer">Are you sure, you don\'t want to finish\ncreating your carer profile?</string>
+    <string name="dialog_delete_all_log_title">You’re clearing log activity</string>
+    <string name="dialog_delete_all_log_desc">I want to remove all my log activity.</string>
+    <string name="dialog_delete_profile_title">You’re removing a profile</string>
+    <string name="dialog_delete_profile_desc">I want to remove %s profile.</string>
+
+    <!-- Kid -->
+    <string name="my_progress">My Progress</string>
+    <string name="collect_star_reward">Collect star for reward you want!</string>
+
+    <!-- OnBoarding -->
+    <string name="onboarding_kid_name">Sammi</string>
+    <string name="onboarding_cycle">19–26 July</string>
+    <string name="onboarding_today_task_name">Put the dishes in the dishwasher</string>
+    <string name="onboarding_home_title">Welcome to your interface!</string>
+    <string name="onboarding_home_desc">This is where you can <font color='#FF6222EE'><b>monitor</b></font> your kid’s progress.</string>
+    <string name="onboarding_family_title">In the <font color='#FF6222EE'><b>Family tab</b></font>, you can <font color='#FF6222EE'><b>add kids</b></font> and <font color='#FF6222EE'><b>assign tasks &amp; rewards.</b></font></string>
+    <string name="onboarding_family_task_title"><font color='#FF6222EE'><b>Press (+)</b></font> to create a task for Sammi. You can add <font color='#FF6222EE'><b>up to 3 tasks</b></font> at the same time to develop good habits quicker.</string>
+    <string name="onboarding_add_task_title">You can either add a <font color='#FF6222EE'><b>recommended task</b></font> or <font color='#FF6222EE'><b>create your own task.</b></font></string>
+    <string name="onboarding_first_recommended_task">Make your bed in the morning</string>
+    <string name="onboarding_second_recommended_task">Put dirty clothes in the laundry bin</string>
+    <string name="onboarding_third_recommended_task">Eat at least one vegetable every day</string>
+    <string name="onboarding_grouped_task_categories_title">Hygiene</string>
+    <string name="onboarding_grouped_task_title">Brush teeth after breakfast</string>
+    <string name="onboarding_grouped_task_second_categories_title">School</string>
+    <string name="onboarding_grouped_task_third_categories_title">Behaviour</string>
+    <string name="onboarding_choose_task_title"><font color='#FF6222EE'><b>Press</b></font> the <font color='#FF6222EE'><b>task icon</b></font> to <font color='#FF6222EE'><b>add task</b></font></string>
+    <string name="onboarding_switch_interface_title">Great! Now let’s go on Sammi’s interface. <font color='#FF6222EE'><b>Swipe right</b></font> to change profile.</string>
+    <string name="onboarding_kid_task_title">Do music practice for 10 minutes</string>
+    <string name="onboarding_kid_home_title">This is the <font color='#FF6222EE'><b>kid’s interface.</b></font> By <font color='#FF6222EE'><b>completing tasks</b></font>, they can earn <font color='#FF6222EE'><b>Gems</b></font> and <font color='#FF6222EE'><b>Stars</b></font> that they can spend on <font color='#FF6222EE'><b>rewards</b></font>.</string>
+    <string name="onboarding_kid_home_task_title">By pressing the <font color='#FF6222EE'><b>done button</b></font>, kids will let you know they have <font color='#FF6222EE'><b>completed their tasks</b></font>.</string>
+    <string name="onboarding_kid_pet_title">They can use <font color='#FF6222EE'><b>stars</b></font> to <font color='#FF6222EE'><b>claim rewards</b></font> you assigned to them and spend <font color='#FF6222EE'><b>gems</b></font> to <font color='#FF6222EE'><b>buy treats</b></font> for their pet star Stell.</string>
+    <string name="onboarding_reward_popsicle">Popsicle</string>
+    <string name="onboarding_reward_screentime">90-mins Screentime</string>
+    <string name="onboarding_completed_task_title">Great! Sammi has <font color='#FF6222EE'><b>completed 1 task</b></font> on two different days. <font color='#FF6222EE'><b>Click</b></font> on the icon to see more.</string>
+    <string name="onboarding_task_action_title">You can <font color='#FF6222EE'><b>approve tasks</b></font> by <font color='#FF6222EE'><b>swiping right</b></font> or <font color='#FF6222EE'><b>decline</b></font> them by <font color='#FF6222EE'><b>swiping left</b></font>.</string>
+    <string name="onboarding_finish_title">Great!\nYou’re all set!</string>
+    <string name="onboarding_finish_desc">Press <font color='#FF6222EE'><b>Start StellKey!</b></font> Or try the tutorial again if you are still unsure.</string>
+    <string name="onboarding_start_stellkey">Start Stellkey!</string>
+    <string name="onboarding_try_again">Try Again</string>
+
+</resources>

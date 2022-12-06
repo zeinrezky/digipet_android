@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/bg_child" />
+    <item
+        android:width="@dimen/space_x18"
+        android:height="@dimen/space_x8"
+        android:drawable="@drawable/ic_cloud_1"
+        android:start="@dimen/space_x2_half"
+        android:top="@dimen/space_x5" />
+    <item
+        android:width="@dimen/space_x30"
+        android:height="@dimen/space_x14"
+        android:drawable="@drawable/ic_cloud_2"
+        android:start="@dimen/space_x28"
+        android:top="@dimen/space_x12" />
+    <item
+        android:width="@dimen/space_x30"
+        android:height="@dimen/space_x14"
+        android:drawable="@drawable/ic_cloud_3"
+        android:top="@dimen/space_x30" />
+</layer-list>

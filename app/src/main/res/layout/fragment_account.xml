@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.account.AccountViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/space_x11"
+        android:background="@color/white"
+        tools:context=".view.carer.account.AccountFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x4"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:letterSpacing="0"
+                    android:text="@string/account"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clShare"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:id="@+id/viewCircleShare"
+                        android:layout_width="39dp"
+                        android:layout_height="39dp"
+                        android:background="@drawable/shape_ovalblue_outline"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivShare"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_share"
+                        app:layout_constraintBottom_toBottomOf="@id/viewCircleShare"
+                        app:layout_constraintEnd_toEndOf="@id/viewCircleShare"
+                        app:layout_constraintStart_toStartOf="@id/viewCircleShare"
+                        app:layout_constraintTop_toTopOf="@id/viewCircleShare" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Upgrade to Premium-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clPremiumUpgrade"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x4_half"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clPremiumUpgradeDefaultView"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/space_x10"
+                        android:background="@drawable/bg_half_rounded_lightblue"
+                        android:paddingTop="@dimen/space_x3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvPremiumUpgrade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/space_x3"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:text="@string/upgrade_to_premium"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/ivExpandPremiumUpgrade"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:layout_marginEnd="@dimen/space_x3"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:src="@drawable/ic_arrow_right_primary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clExpandPremiumUpgrade"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/clPremiumUpgradeDefaultView">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvPremiumSubscription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_premium_upgrade" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnUpgrade"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1_quarter"
+                            android:layout_marginBottom="@dimen/space_x3"
+                            android:backgroundTint="@color/primary_disabled"
+                            android:clickable="false"
+                            android:elevation="0dp"
+                            android:focusable="false"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:padding="@dimen/space_x1_quarter"
+                            android:text="@string/upgrade"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="@dimen/space_x1"
+                            app:elevation="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvPremiumSubscription" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Setting-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clSetting"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clPremiumUpgrade">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/setting"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivExpandSetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Log Activity-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clLogActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clSetting">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvLogActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/log_activity"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvClearLogActivity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/clear"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Custom Task-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clCustomTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clLogActivity">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvCustomTask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/custom_task"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvManageCustomTask"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_regular"
+                        android:letterSpacing="0"
+                        android:text="@string/manage"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Profile & parental control-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clProfileParentalControl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clCustomTask">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvProfileParentalControl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/profile_parental_control"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivExpandProfileParentalControl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clExpandPPC"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/space_x1"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvProfileParentalControl">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvPPCAdmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1"
+                            android:nestedScrollingEnabled="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_ppc_admin" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvPPCCarer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvPPCAdmin"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_ppc_carer" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvPPCKid"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/rvPPCCarer"
+                            tools:itemCount="1"
+                            tools:listitem="@layout/item_ppc_carer" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Membership-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clMembership"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clProfileParentalControl">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvMembership"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/membership"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivExpandMembership"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clExpandMembership"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/space_x2"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvMembership">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvMembershipType"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/membership_type_monthly" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvRenewalSchedule"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x2"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvMembershipType"
+                            tools:text="@string/next_renews" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!--Billing information-->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clBillingInformation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clMembership">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvBillingInformation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:text="@string/billing_information"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/ivExpandBillingInformation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_arrow_right"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/clExpandBillingInformation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/space_x2"
+                        android:background="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvBillingInformation">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvBillingEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_regular"
+                            android:letterSpacing="0"
+                            android:text="ekofptest3@gmail.com"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvChangeBillingEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/sofia_pro_regular"
+                            android:letterSpacing="0"
+                            android:text="@string/change"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvBillingPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x2"
+                            android:fontFamily="@font/sofia_pro_regular"
+                            android:letterSpacing="0"
+                            android:text="********"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvBillingEmail" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvChangeBillingPassword"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x2"
+                            android:fontFamily="@font/sofia_pro_regular"
+                            android:letterSpacing="0"
+                            android:text="@string/change"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tvChangeBillingEmail" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/viewDividerLightPurple"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:background="@color/light_purple_3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clBillingInformation" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvFAQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x1_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/faq_contact_us"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewDividerLightPurple" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvPrivacyPolicy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x2_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/privacy_policy"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvFAQ" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTNC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x2_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/tnc"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvPrivacyPolicy" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x2_half"
+                    android:layout_marginBottom="@dimen/space_x7"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/logout"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTNC" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

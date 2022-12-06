@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvAlert"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/purple"
+    app:cardCornerRadius="@dimen/space_x12"
+    app:cardElevation="@dimen/space_x1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clInfo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/space_x1_half">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x3"
+            android:layout_marginEnd="@dimen/space_x3"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_bold"
+            android:letterSpacing="0"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Verification has been resent." />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x3"
+            android:layout_marginEnd="@dimen/space_x3"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:text="Check your email for the 4-digit code." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_half"
+    android:layout_marginTop="@dimen/space_x1"
+    android:layout_marginEnd="@dimen/space_half"
+    android:layout_marginBottom="@dimen/space_x1"
+    android:minWidth="@dimen/space_x13"
+    android:minHeight="@dimen/space_x15">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvPremiumUpgrade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/space_x2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_purple_3"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minWidth="@dimen/space_x13"
+            android:minHeight="@dimen/space_x15"
+            android:paddingStart="@dimen/space_x2_quarter"
+            android:paddingTop="@dimen/space_x1"
+            android:paddingEnd="@dimen/space_x2_quarter"
+            android:paddingBottom="@dimen/space_x1">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSubscriptionDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sofia_pro_bold"
+                android:letterSpacing="0"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSubscriptionDurationType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sofia_pro_regular"
+                android:letterSpacing="0"
+                android:maxLines="1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSubscriptionDuration"
+                tools:text="Month" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSubscriptionPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSubscriptionDurationType"
+                tools:text="€4.99/mo" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvBillingType"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sofia_pro_medium"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="9sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvSubscriptionPrice"
+                tools:text="Billed Monthly" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

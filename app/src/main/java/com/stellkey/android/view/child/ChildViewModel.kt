@@ -1,0 +1,68 @@
+package com.stellkey.android.view.child
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import com.haroldadmin.cnradapter.NetworkResponse
+import com.stellkey.android.model.KidInfoModel
+import com.stellkey.android.model.request.KidCompleteTaskRequest
+import com.stellkey.android.repository.UserRepository
+import com.stellkey.android.util.SingleLiveEvent
+import com.stellkey.android.view.base.BaseViewModel
+import kotlinx.coroutines.launch
+
+class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel() {
+
+    val responseError = SingleLiveEvent<Unit>()
+
+    val kidInfoResponse = MutableLiveData<KidInfoModel>()
+    val completeKidTaskResponse = MutableLiveData<Any>()
+
+    fun getKidInfo() {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.getKidInfo()) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    kidInfoResponse.value = response.body.data
+                }
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    responseError.call()
+                }
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    responseError.call()
+                }
+                else -> {}
+            }
+        }
+    }
+
+    fun postCompleteKidTask(kidCompleteTaskRequest: KidCompleteTaskRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.kidCompleteTask(kidCompleteTaskRequest)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    completeKidTaskResponse.value = response.body.data
+                }
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    responseError.call()
+                }
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    responseError.call()
+                }
+                else -> {}
+            }
+        }
+    }
+
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/space_x3"
+    app:cardElevation="0dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_x1_half"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/space_x1">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginTop="@dimen/space_x3"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:fontFamily="@font/sofia_pro_semibold"
+            android:letterSpacing="0"
+            android:text="@string/dialog_delete_all_log_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginTop="@dimen/space_x2"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:lineSpacingMultiplier="1.5"
+            android:text="@string/dialog_delete_all_log_desc"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDesc">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnYes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white_2"
+                android:elevation="0dp"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:padding="@dimen/space_x1_quarter"
+                android:text="@string/yes"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/space_x3"
+                app:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3"
+                android:backgroundTint="@color/white_2"
+                android:elevation="0dp"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:padding="@dimen/space_x1_quarter"
+                android:text="@string/no"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/space_x3"
+                app:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/btnYes"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

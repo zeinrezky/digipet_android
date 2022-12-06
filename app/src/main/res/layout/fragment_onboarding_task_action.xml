@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.onboarding.OnBoardingTaskActionFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x4"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:text="@string/home"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvSwitchUser"
+        android:layout_width="@dimen/space_x21"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_x3"
+        android:layout_marginEnd="@dimen/space_x3"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="@dimen/space_x7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:id="@+id/viewSwitchUser"
+                android:layout_width="@dimen/space_x7"
+                android:layout_height="@dimen/space_x7"
+                android:background="@drawable/shape_oval_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSwitchUserIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/viewSwitchUser"
+                app:layout_constraintStart_toStartOf="@id/viewSwitchUser"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <View
+                    android:layout_width="@dimen/space_x5"
+                    android:layout_height="@dimen/space_x5"
+                    android:background="@drawable/shape_oval_purple"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivSwitchUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_switch"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvSwitchUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:text="@string/switch_user"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/clSwitchUserIcon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCurrentCycleRange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_regular"
+        android:letterSpacing="0"
+        android:text="@string/onboarding_cycle"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTodayTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_semibold"
+        android:letterSpacing="0"
+        android:text="@string/today_task"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCurrentCycleRange" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvKidChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x1_half"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:layout_marginBottom="@dimen/space_x1_half"
+        android:minHeight="@dimen/space_x15"
+        app:cardCornerRadius="@dimen/space_x3_half"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTodayTask"
+        app:strokeColor="@color/light_purple_1"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_x1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChallengeIcon"
+                android:layout_width="@dimen/space_x13"
+                android:layout_height="@dimen/space_x13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivTodayChallenge"
+                    android:layout_width="@dimen/space_x10"
+                    android:layout_height="@dimen/space_x10"
+                    android:contentDescription="@string/image_description"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/primary_disabled" />
+
+                <ImageView
+                    android:id="@+id/ivNotificationCount"
+                    android:layout_width="@dimen/space_x3"
+                    android:layout_height="@dimen/space_x3"
+                    android:src="@drawable/ic_oval_notification"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNotificationCount"
+                    app:layout_constraintEnd_toEndOf="@id/tvNotificationCount"
+                    app:layout_constraintStart_toStartOf="@id/tvNotificationCount"
+                    app:layout_constraintTop_toTopOf="@id/tvNotificationCount" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNotificationCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_x1"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="2"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvChallengeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:ellipsize="end"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:text="@string/onboarding_second_recommended_task"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                app:layout_constraintTop_toTopOf="@id/clChallengeIcon" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAssignmentStar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_x3"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginBottom="@dimen/space_x1"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/clChallengeIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_assignment_star" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:id="@+id/ivTaskAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/img_onboarding_task_acc"
+        android:layout_marginTop="@dimen/space_x1_half"
+        app:layout_constraintTop_toBottomOf="@id/cvKidChallenge"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivTaskDecline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/img_onboarding_task_decline"
+        android:layout_marginTop="@dimen/space_x1_half"
+        app:layout_constraintTop_toBottomOf="@id/ivTaskAcc"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clBtmMenu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_x11"
+        android:background="@drawable/bg_half_rounded_white"
+        android:elevation="@dimen/space_half"
+        android:paddingStart="@dimen/space_x3_half"
+        android:paddingEnd="@dimen/space_x3_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvMenuHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/space_x8"
+                android:layout_height="@dimen/space_x8">
+
+                <ImageView
+                    android:id="@+id/ivMenuHome"
+                    android:layout_width="@dimen/space_x4"
+                    android:layout_height="@dimen/space_x4"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_menu_home"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/colorPrimary" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMenuHome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x1"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/home"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMenuHome" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvMenuFamily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x4"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cvMenuHome"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/space_x8"
+                android:layout_height="@dimen/space_x8"
+                android:padding="@dimen/space_half">
+
+                <ImageView
+                    android:id="@+id/ivMenuFamily"
+                    android:layout_width="@dimen/space_x4"
+                    android:layout_height="@dimen/space_x4"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_menu_family"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMenuFamily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/family"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMenuFamily" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvMenuLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x4"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cvMenuFamily"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/space_x8"
+                android:layout_height="@dimen/space_x8"
+                android:padding="@dimen/space_half">
+
+                <ImageView
+                    android:id="@+id/ivMenuLog"
+                    android:layout_width="@dimen/space_x4"
+                    android:layout_height="@dimen/space_x4"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_menu_log"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMenuLog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/log"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMenuLog" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvMenuAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x4"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cvMenuLog"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="@dimen/space_x8"
+                android:layout_height="@dimen/space_x8"
+                android:padding="@dimen/space_half">
+
+                <ImageView
+                    android:id="@+id/ivMenuAccount"
+                    android:layout_width="@dimen/space_x4"
+                    android:layout_height="@dimen/space_x4"
+                    android:contentDescription="@string/image_description"
+                    android:src="@drawable/ic_menu_profile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvMenuAccount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_half"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:text="@string/account"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivMenuAccount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_x2"
+        android:layout_marginTop="@dimen/space_x2"
+        android:contentDescription="@string/image_description"
+        android:elevation="@dimen/space_half"
+        android:src="@drawable/ic_onboarding_swipe_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivTaskAcc"
+        app:layout_constraintBottom_toBottomOf="@id/ivTaskDecline"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clOnBoardingText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_x25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/ivTaskDecline">
+
+        <ImageView
+            android:id="@+id/ivOnBoardingBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/ic_onboarding_11"
+            android:contentDescription="@string/image_description"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOnBoardingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x13"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:maxWidth="@dimen/space_x34"
+            android:text="@string/onboarding_task_action_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/ivOnBoardingBackground"
+            app:layout_constraintStart_toStartOf="@id/ivOnBoardingBackground"
+            app:layout_constraintTop_toTopOf="@id/ivOnBoardingBackground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.family.FamilyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_btm_sheet_white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:letterSpacing="0"
+                    android:text="@string/register_child_age_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vpChildAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvSubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:letterSpacing="0"
+                    android:text="@string/years_old"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vpChildAge" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x17"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:letterSpacing="0"
+                    android:paddingStart="@dimen/space_x8"
+                    android:paddingEnd="@dimen/space_x8"
+                    android:text="@string/family_privacy"
+                    android:textAlignment="center"
+                    android:textColor="@color/light_black"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvSubTitle" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x8"
+                    android:layout_marginEnd="@dimen/space_x8"
+                    android:layout_marginBottom="@dimen/space_x7"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="0dp"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:padding="@dimen/space_x1_quarter"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/space_x2"
+                    app:elevation="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDesc" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSkip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x8"
+                    android:layout_marginEnd="@dimen/space_x8"
+                    android:layout_marginBottom="@dimen/space_x3"
+                    android:backgroundTint="@color/grey"
+                    android:elevation="0dp"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:padding="@dimen/space_x1_quarter"
+                    android:text="@string/skip"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/space_x2"
+                    app:elevation="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnNext" />
+
+                <View
+                    android:layout_width="135dp"
+                    android:layout_height="5dp"
+                    android:layout_marginBottom="@dimen/space_x1"
+                    android:background="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

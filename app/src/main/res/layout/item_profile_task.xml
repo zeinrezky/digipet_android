@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_x3"
+    android:layout_marginTop="@dimen/space_x1"
+    android:layout_marginEnd="@dimen/space_x3"
+    android:layout_marginBottom="@dimen/space_x1">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvKidChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/space_x15"
+        app:cardCornerRadius="@dimen/space_x3_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_purple_1"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_x2">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChallengeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivTodayChallenge"
+                    android:layout_width="@dimen/space_x10"
+                    android:layout_height="@dimen/space_x10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/primary_disabled" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvChallengeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:ellipsize="end"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                app:layout_constraintTop_toTopOf="@id/clChallengeIcon"
+                tools:text="Put dishes in the sink" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAssignmentStar"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/space_x3"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginBottom="@dimen/space_x1"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/clChallengeIcon"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_assignment_star" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

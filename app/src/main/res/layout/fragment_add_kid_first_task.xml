@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.family.FamilyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_btm_sheet_white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:letterSpacing="0"
+                    tools:text="@string/register_child_challenge_title"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="25sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x2"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:letterSpacing="0"
+                    android:text="@string/register_child_challenge_desc"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvKidChallenge"
+                    android:layout_width="0dp"
+                    android:nestedScrollingEnabled="true"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="@dimen/space_x1_half"
+                    android:layout_marginBottom="@dimen/space_x3"
+                    android:layout_marginStart="@dimen/space_x3"
+                    android:layout_marginEnd="@dimen/space_x3"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDesc"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_kid_challenge" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnNext"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x40"
+                    android:layout_marginStart="@dimen/space_x8"
+                    android:layout_marginEnd="@dimen/space_x8"
+                    android:layout_marginBottom="@dimen/space_x6"
+                    android:backgroundTint="@color/primary_disabled"
+                    android:elevation="0dp"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:padding="@dimen/space_x1_quarter"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="@dimen/space_x2"
+                    app:elevation="0dp"
+                    app:layout_constraintTop_toTopOf="@id/rvKidChallenge"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x1_half"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:letterSpacing="0"
+                    android:text="@string/cancel"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnNext" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="@dimen/space_x8"
+                    android:layout_marginEnd="@dimen/space_x8"
+                    android:layout_marginBottom="@dimen/space_x4"
+                    android:background="@drawable/bg_white_gradient"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btnNext" />
+
+                <View
+                    android:layout_width="135dp"
+                    android:layout_height="5dp"
+                    android:layout_marginBottom="@dimen/space_x1"
+                    android:background="@android:color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

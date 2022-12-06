@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.family.FamilyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_btm_sheet_white"
+        android:clickable="true"
+        android:focusable="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3"
+                android:src="@drawable/ic_back"
+                app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x3"
+                android:fontFamily="@font/sofia_pro_bold"
+                android:letterSpacing="0"
+                android:text="@string/add_a_member"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvAddCarer"
+                android:layout_width="@dimen/space_x17"
+                android:layout_height="@dimen/space_x17"
+                android:layout_marginStart="@dimen/space_x5"
+                android:layout_marginTop="@dimen/space_x16"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/white_2"
+                app:cardCornerRadius="@dimen/space_x2_half"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_x17"
+                        android:layout_height="@dimen/space_x17"
+                        android:src="@drawable/img_add_carer"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAddCarer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x1_half"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:text="@string/carer"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/cvAddCarer"
+                app:layout_constraintStart_toStartOf="@id/cvAddCarer"
+                app:layout_constraintTop_toBottomOf="@id/cvAddCarer" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvAddKid"
+                android:layout_width="@dimen/space_x17"
+                android:layout_height="@dimen/space_x17"
+                android:layout_marginTop="@dimen/space_x16"
+                android:layout_marginEnd="@dimen/space_x5"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="@color/white_2"
+                app:cardCornerRadius="@dimen/space_x2_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="@dimen/space_x17"
+                        android:layout_height="@dimen/space_x17"
+                        android:src="@drawable/img_add_kid"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvAddKid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x1_half"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:text="@string/kid"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@id/cvAddKid"
+                app:layout_constraintStart_toStartOf="@id/cvAddKid"
+                app:layout_constraintTop_toBottomOf="@id/cvAddKid" />
+
+            <View
+                android:layout_width="135dp"
+                android:layout_height="5dp"
+                android:layout_marginBottom="@dimen/space_x1"
+                android:background="@android:color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_half"
+    android:layout_marginEnd="@dimen/space_half">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvKidReward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:minWidth="@dimen/space_x16"
+        android:minHeight="@dimen/space_x24"
+        android:maxHeight="@dimen/space_x24"
+        app:cardCornerRadius="@dimen/space_x3_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_purple_1"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_x2">
+
+            <ImageView
+                android:id="@+id/ivReward"
+                android:layout_width="@dimen/space_x12"
+                android:layout_height="@dimen/space_x12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/primary_disabled" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvRewardName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x1"
+                android:ellipsize="end"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:maxLines="2"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivReward"
+                tools:text="Read a comic for 20 minutes" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clStarInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvRewardName">
+
+                <ImageView
+                    android:id="@+id/ivStar"
+                    android:layout_width="@dimen/space_x2_half"
+                    android:layout_height="@dimen/space_x2_half"
+                    android:src="@drawable/ic_star_filled_purple"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvStarAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_half"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:letterSpacing="0"
+                    android:maxLines="1"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@id/ivStar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

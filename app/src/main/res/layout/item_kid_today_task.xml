@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_half"
+    android:layout_marginEnd="@dimen/space_half"
+    android:maxWidth="@dimen/space_x14">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clKidTodayTask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/space_x1"
+        android:layout_marginEnd="@dimen/space_x1"
+        android:background="@drawable/bg_half_rounded_white_outline_2"
+        android:paddingTop="@dimen/space_x2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/ivTodayTask"
+            android:layout_width="@dimen/space_x8"
+            android:layout_height="@dimen/space_x8"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:contentDescription="@string/image_description"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/primary_disabled" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTodayTaskName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x2"
+            android:layout_marginTop="@dimen/space_x1_quarter"
+            android:layout_marginEnd="@dimen/space_x2"
+            android:layout_marginBottom="@dimen/space_x1_half"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_bold"
+            android:letterSpacing="0"
+            android:maxLines="3"
+            android:minLines="3"
+            android:textAlignment="center"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivTodayTask"
+            tools:text="Brush my teeth in the morning" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ivDoneBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_x18"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image_description"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_child_done" />
+
+    <View
+        android:id="@+id/viewWhiteOverlay"
+        android:layout_width="@dimen/space_x14"
+        android:layout_height="0dp"
+        android:background="@drawable/bg_white_95"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivWaitingConfirmation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x1"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/ic_task_wait_confirmation"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

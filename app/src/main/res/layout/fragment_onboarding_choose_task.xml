@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".view.onboarding.OnBoardingChooseTaskFragment">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x4"
+        android:contentDescription="@string/image_description"
+        android:src="@drawable/ic_back_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:text="@string/add_a_task"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvRecommendedTask"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:text="@string/recommended_tasks"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <HorizontalScrollView
+        android:id="@+id/hsvRecommendedTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x2_half"
+        android:layout_marginTop="@dimen/space_x2"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvRecommendedTask">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRecommendedTaskFirst"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_half"
+                android:layout_marginEnd="@dimen/space_half"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvKidChallenge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="@dimen/space_x24"
+                    android:minWidth="@dimen/space_x16"
+                    android:minHeight="@dimen/space_x24"
+                    app:cardCornerRadius="@dimen/space_x3_half"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/light_purple_1"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/space_x2">
+
+                        <ImageView
+                            android:id="@+id/ivChallenge"
+                            android:layout_width="@dimen/space_x12"
+                            android:layout_height="@dimen/space_x12"
+                            android:contentDescription="@string/image_description"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@color/primary_disabled" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvChallengeName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:maxLines="3"
+                            android:text="@string/onboarding_first_recommended_task"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivChallenge" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRecommendedTaskSecond"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_half"
+                android:layout_marginEnd="@dimen/space_half"
+                app:layout_constraintStart_toEndOf="@id/clRecommendedTaskFirst"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvKidChallengeSecond"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="@dimen/space_x24"
+                    android:minWidth="@dimen/space_x16"
+                    android:minHeight="@dimen/space_x24"
+                    app:cardCornerRadius="@dimen/space_x3_half"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/light_purple_1"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/space_x2">
+
+                        <ImageView
+                            android:id="@+id/ivChallengeSecond"
+                            android:layout_width="@dimen/space_x12"
+                            android:layout_height="@dimen/space_x12"
+                            android:contentDescription="@string/image_description"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@color/primary_disabled" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvChallengeNameSecond"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:maxLines="3"
+                            android:text="@string/onboarding_second_recommended_task"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivChallengeSecond" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clRecommendedTaskThird"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_half"
+                android:layout_marginEnd="@dimen/space_half"
+                app:layout_constraintStart_toEndOf="@id/clRecommendedTaskSecond"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cvKidChallengeThird"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="@dimen/space_x24"
+                    android:minWidth="@dimen/space_x16"
+                    android:minHeight="@dimen/space_x24"
+                    app:cardCornerRadius="@dimen/space_x3_half"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:strokeColor="@color/light_purple_1"
+                    app:strokeWidth="1dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/space_x2">
+
+                        <ImageView
+                            android:id="@+id/ivChallengeThird"
+                            android:layout_width="@dimen/space_x12"
+                            android:layout_height="@dimen/space_x12"
+                            android:contentDescription="@string/image_description"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:background="@color/primary_disabled" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvChallengeNameThird"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/space_x1"
+                            android:ellipsize="end"
+                            android:fontFamily="@font/sofia_pro_semibold"
+                            android:letterSpacing="0"
+                            android:maxLines="3"
+                            android:text="@string/onboarding_third_recommended_task"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/ivChallengeThird" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvCategories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:text="@string/categories"
+        android:textAlignment="viewStart"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hsvRecommendedTasks" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/space_x1"
+        android:nestedScrollingEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCategories">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clTaskCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2_half"
+                android:layout_marginEnd="@dimen/space_x2_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_half"
+                    android:layout_marginBottom="@dimen/space_half"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cvChallengeCategory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/space_x9"
+                        app:cardCornerRadius="@dimen/space_x3_half"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:strokeColor="@color/light_purple_1"
+                        app:strokeWidth="1dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:paddingTop="@dimen/space_x1_half"
+                            android:paddingBottom="@dimen/space_x1_half">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvCategoryName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_x3"
+                                android:ellipsize="end"
+                                android:fontFamily="@font/sofia_pro_semibold"
+                                android:letterSpacing="0"
+                                android:maxLines="1"
+                                android:text="@string/onboarding_grouped_task_categories_title"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/black"
+                                android:textSize="18sp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivExpand"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/space_x1"
+                                android:layout_marginEnd="@dimen/space_x3"
+                                android:contentDescription="@string/image_description"
+                                android:src="@drawable/ic_arrow_up"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/clCustomTask"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_half"
+                                android:layout_marginEnd="@dimen/space_half"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:minWidth="@dimen/space_x13"
+                                android:minHeight="@dimen/space_x20"
+                                android:padding="@dimen/space_x2"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/tvCategoryName">
+
+                                <ImageView
+                                    android:id="@+id/ivCustomChallenge"
+                                    android:layout_width="@dimen/space_x12"
+                                    android:layout_height="@dimen/space_x12"
+                                    android:background="@drawable/bg_white_primary_outline"
+                                    android:contentDescription="@string/image_description"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/ivAddCustomTask"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/image_description"
+                                    android:src="@drawable/ic_plus"
+                                    app:layout_constraintBottom_toBottomOf="@id/ivCustomChallenge"
+                                    app:layout_constraintEnd_toEndOf="@id/ivCustomChallenge"
+                                    app:layout_constraintStart_toStartOf="@id/ivCustomChallenge"
+                                    app:layout_constraintTop_toTopOf="@id/ivCustomChallenge" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tvCustomChallengeName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_x1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sofia_pro_semibold"
+                                    android:letterSpacing="0"
+                                    android:maxLines="3"
+                                    android:text="@string/custom_task"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/ivCustomChallenge" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/clGroupedTask"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_half"
+                                android:layout_marginEnd="@dimen/space_half"
+                                android:background="@drawable/bg_onboarding_green"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:minWidth="@dimen/space_x13"
+                                android:minHeight="@dimen/space_x20"
+                                android:padding="@dimen/space_x2"
+                                app:layout_constraintStart_toEndOf="@id/clCustomTask"
+                                app:layout_constraintTop_toTopOf="@id/clCustomTask">
+
+                                <ImageView
+                                    android:id="@+id/ivGroupedChallenge"
+                                    android:layout_width="@dimen/space_x12"
+                                    android:layout_height="@dimen/space_x12"
+                                    android:contentDescription="@string/image_description"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:background="@color/primary_disabled" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tvGroupedChallengeName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_x1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sofia_pro_semibold"
+                                    android:letterSpacing="0"
+                                    android:maxLines="3"
+                                    android:text="@string/onboarding_second_recommended_task"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/ivGroupedChallenge" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <ImageView
+                                android:layout_width="@dimen/space_x5"
+                                android:layout_height="@dimen/space_x5"
+                                android:layout_marginStart="@dimen/space_x14"
+                                android:contentDescription="@string/image_description"
+                                android:elevation="@dimen/space_half"
+                                android:src="@drawable/ic_onboarding_check"
+                                app:layout_constraintStart_toStartOf="@id/clGroupedTask"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/clGroupedTaskSecond"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_half"
+                                android:layout_marginEnd="@dimen/space_half"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:minWidth="@dimen/space_x13"
+                                android:minHeight="@dimen/space_x20"
+                                android:padding="@dimen/space_x2"
+                                app:layout_constraintStart_toEndOf="@id/clGroupedTask"
+                                app:layout_constraintTop_toTopOf="@id/clCustomTask">
+
+                                <ImageView
+                                    android:id="@+id/ivGroupedChallengeSecond"
+                                    android:layout_width="@dimen/space_x12"
+                                    android:layout_height="@dimen/space_x12"
+                                    android:contentDescription="@string/image_description"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    tools:background="@color/primary_disabled" />
+
+                                <com.google.android.material.textview.MaterialTextView
+                                    android:id="@+id/tvGroupedChallengeNameSecond"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/space_x1"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/sofia_pro_semibold"
+                                    android:letterSpacing="0"
+                                    android:maxLines="3"
+                                    android:text="@string/onboarding_grouped_task_title"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/colorPrimary"
+                                    android:textSize="14sp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@id/ivGroupedChallengeSecond" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvSecondChallengeCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2_half"
+                android:layout_marginTop="@dimen/space_half"
+                android:layout_marginEnd="@dimen/space_x2_half"
+                android:layout_marginBottom="@dimen/space_half"
+                android:minHeight="@dimen/space_x9"
+                app:cardCornerRadius="@dimen/space_x3_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/clTaskCategories"
+                app:strokeColor="@color/light_purple_1"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x3"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x3">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvSecondCategoryName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:maxLines="1"
+                        android:text="@string/onboarding_grouped_task_second_categories_title"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/image_description"
+                        android:src="@drawable/ic_arrow_down"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cvThirdChallengeCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2_half"
+                android:layout_marginTop="@dimen/space_half"
+                android:layout_marginEnd="@dimen/space_x2_half"
+                android:layout_marginBottom="@dimen/space_half"
+                android:minHeight="@dimen/space_x9"
+                app:cardCornerRadius="@dimen/space_x3_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cvSecondChallengeCategory"
+                app:strokeColor="@color/light_purple_1"
+                app:strokeWidth="1dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="@dimen/space_x3"
+                    android:paddingTop="@dimen/space_x3"
+                    android:paddingEnd="@dimen/space_x3"
+                    android:paddingBottom="@dimen/space_x3">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvThirdCategoryName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sofia_pro_semibold"
+                        android:letterSpacing="0"
+                        android:maxLines="1"
+                        android:text="@string/onboarding_grouped_task_third_categories_title"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/image_description"
+                        android:src="@drawable/ic_arrow_down"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_x30"
+        android:layout_marginTop="@dimen/space_x2"
+        app:blurOverlayColor="@color/blurWhite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+    </eightbitlab.com.blurview.BlurView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clOnBoardingText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/space_x25"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x18"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:elevation="@dimen/space_half"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/blurView">
+
+        <ImageView
+            android:id="@+id/ivOnBoardingBackground"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@drawable/ic_onboarding_5"
+            android:contentDescription="@string/image_description"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvOnBoardingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_x14"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:maxWidth="@dimen/space_x34"
+            android:text="@string/onboarding_choose_task_title"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/ivOnBoardingBackground"
+            app:layout_constraintStart_toStartOf="@id/ivOnBoardingBackground" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

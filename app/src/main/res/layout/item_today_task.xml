@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/space_x3"
+    android:layout_marginTop="@dimen/space_x1_half"
+    android:layout_marginEnd="@dimen/space_x3"
+    android:layout_marginBottom="@dimen/space_x1_half">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvKidChallenge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/space_x15"
+        app:cardCornerRadius="@dimen/space_x3_half"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/light_purple_1"
+        app:strokeWidth="1dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/space_x1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clChallengeIcon"
+                android:layout_width="@dimen/space_x13"
+                android:layout_height="@dimen/space_x13"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivTodayChallenge"
+                    android:layout_width="@dimen/space_x10"
+                    android:layout_height="@dimen/space_x10"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:background="@color/primary_disabled" />
+
+                <ImageView
+                    android:id="@+id/ivNotificationCount"
+                    android:layout_width="@dimen/space_x3"
+                    android:layout_height="@dimen/space_x3"
+                    android:src="@drawable/ic_oval_notification"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNotificationCount"
+                    app:layout_constraintEnd_toEndOf="@id/tvNotificationCount"
+                    app:layout_constraintStart_toStartOf="@id/tvNotificationCount"
+                    app:layout_constraintTop_toTopOf="@id/tvNotificationCount" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tvNotificationCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/space_x1"
+                    android:fontFamily="@font/sofia_pro_semibold"
+                    android:letterSpacing="0"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:visibility="invisible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="1" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvChallengeName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:ellipsize="end"
+                android:fontFamily="@font/sofia_pro_semibold"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@id/ivExpand"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                app:layout_constraintTop_toTopOf="@id/clChallengeIcon"
+                tools:text="Put dishes in the sink" />
+
+            <ImageView
+                android:id="@+id/ivExpand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:src="@drawable/ic_arrow_down"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAssignmentStar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/space_x3"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginBottom="@dimen/space_x1"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/clChallengeIcon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/clChallengeIcon"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_assignment_star" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clTodayTaskChild"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_x1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvKidChallenge">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvLabelSwipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:maxLines="3"
+            android:text="@string/swipe_right_or_left"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvTodayTaskChild"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x1"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvLabelSwipe"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_today_task_child" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

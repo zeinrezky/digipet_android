@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_x1"
+    android:layout_marginBottom="@dimen/space_x1"
+    android:background="@android:color/transparent">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTaskName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:ellipsize="end"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:maxLines="1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Make bed in the morning" />
+
+    <ImageView
+        android:id="@+id/ivTask"
+        android:layout_width="@dimen/space_x7_half"
+        android:layout_height="@dimen/space_x7_half"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x4"
+        android:layout_marginBottom="@dimen/space_x1_half"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTaskName"
+        tools:src="@color/primary_disabled" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProgressStarPart1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x5"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivTask"
+        app:layout_constraintTop_toBottomOf="@id/tvTaskName"
+        tools:itemCount="4"
+        tools:listitem="@layout/item_kid_progress_star" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProgressStarPart2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x5"
+        android:layout_marginTop="@dimen/space_x1"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivTask"
+        app:layout_constraintTop_toBottomOf="@id/rvProgressStarPart1"
+        tools:itemCount="3"
+        tools:listitem="@layout/item_kid_progress_star" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

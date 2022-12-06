@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_x1"
+    android:layout_marginBottom="@dimen/space_x1">
+
+    <ImageView
+        android:id="@+id/ivAvatar"
+        android:layout_width="@dimen/space_x9"
+        android:layout_height="@dimen/space_x9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_ava_placeholder" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvFamilyName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:ellipsize="end"
+        android:fontFamily="@font/sofia_pro_semibold"
+        android:letterSpacing="0"
+        android:maxLines="3"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintTop_toTopOf="@id/ivAvatar"
+        tools:text="Mommy" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvEditProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_semibold"
+        android:letterSpacing="0"
+        android:text="@string/edit_profile"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@id/tvFamilyName" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvEditPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x3"
+        android:layout_marginTop="@dimen/space_x2"
+        android:layout_marginEnd="@dimen/space_x3"
+        android:fontFamily="@font/sofia_pro_semibold"
+        android:letterSpacing="0"
+        android:text="@string/edit_password"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@id/ivAvatar"
+        app:layout_constraintTop_toBottomOf="@id/tvEditProfile" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">l\'App StellKey</string>
+    <string name="app_version">App version</string>
+
+    <!-- Generic -->
+    <string name="sign_up">Je m\'inscris</string>
+    <string name="login">J\'ai un compte</string>
+    <string name="hello">Bonjour</string>
+    <string name="email">Adresse Mail</string>
+    <string name="verification">Vérification</string>
+    <string name="name">Nom</string>
+    <string name="password">Mot de passe</string>
+    <string name="save">Sauver</string>
+    <string name="next">Suivant</string>
+    <string name="create">Create</string>
+    <string name="skip">Je passe</string>
+    <string name="got_it">OK</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="log_in">Je me connecte</string>
+    <string name="contact_admin"><u>Contact admin</u></string>
+    <string name="logout">Me déconnecter</string>
+    <string name="all">Tous</string>
+    <string name="kid">Enfant</string>
+    <string name="carer">Adulte</string>
+    <string name="kids">Enfants</string>
+    <string name="carers">Adultes</string>
+    <string name="admin">Admin</string>
+    <string name="cancel">Annuler</string>
+    <string name="continue_label">Continuer</string>
+    <string name="pin">PIN</string>
+    <string name="edit_profile">Modifier son profile</string>
+    <string name="edit_password">Changer de mot de passe</string>
+    <string name="edit_pin">Changer de pin</string>
+    <string name="remove_profile">Supprimer le profile</string>
+    <string name="task">Mission</string>
+    <string name="tasks">Missions</string>
+    <string name="rewards">Récompenses</string>
+    <string name="clear">Effacer</string>
+    <string name="manage">Liste</string>
+    <string name="change">Change</string>
+    <string name="upgrade">Upgrade</string>
+    <string name="infinity">&#8734;</string>
+    <string name="sound">Sound</string>
+    <string name="notification">Notification</string>
+    <string name="language">Language</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password_placeholder">New Password</string>
+    <string name="confirm_new_password">Confirm New Password</string>
+    <string name="categories">Categories</string>
+    <string name="remove_task">Remove Task</string>
+    <string name="add">Add</string>
+    <string name="collect">Collect</string>
+    <string name="image_description">Default Image Desc</string>
+
+    <!-- Menu -->
+    <string name="home">Mes Enfants</string>
+    <string name="family">Family</string>
+    <string name="log">Historique des missions</string>
+    <string name="account">Mon compte</string>
+
+    <!-- Error Message -->
+    <string name="pin_mismatch">Il semblerait qu\'il y ait une erreur</string>
+    <string name="current_pin_mismatch">PIN doesn\'t match our records.\nTry again.</string>
+    <string name="confirm_pin_mismatch">PIN doesn\'t match. Try again.</string>
+    <string name="password_mismatch">Password does not match. Try again.</string>
+
+    <!-- Success Message -->
+    <string name="success_exclamation">Success!</string>
+    <string name="success_create_profile">You have created a profile for %s!</string>
+
+    <!-- Intro -->
+    <string name="intro_image_desc">Onboarding Image(s)</string>
+    <string name="intro_title_temp">Join StellKey to help your kids develop good habits</string>
+
+    <!-- Register -->
+    <string name="register_desc">Créons d\'abord votre profile - vous pourrez ensuite créer celui de votre enfant</string>
+    <string name="register_tc">J\'ai lu et j\'accepte les conditions d\'utilisation ainsi que la politique de confidentialité de StellKey.</string>
+    <string name="register_now">S\'enregistrer</string>
+    <string name="or_sign_up_with">ou je me connecte avec</string>
+    <string name="register_verif_desc">Veuillez renseigner le code à 4 chiffres envoyé sur votre mail. Pensez à vérifier vos spams.</string>
+    <string name="register_verif_resend_pin">Resend PIN</string>
+    <string name="register_setup_profile_title">Mon profile</string>
+    <string name="register_setup_profile_desc">Choisissez un mot de passe.</string>
+    <string name="register_pin_title">Enter Your PIN</string>
+    <string name="register_confirm_pin_title">Confirm Your PIN</string>
+    <string name="enter_pin">Enter Your PIN</string>
+    <string name="confirm_your_pin">Confirm Your PIN</string>
+    <string name="profile_pin">Profile PIN</string>
+    <string name="confirm_pin">Confirm PIN</string>
+    <string name="register_child_title">Let’s add a kid</string>
+    <string name="child_name_placeholder">Mon enfant s\'appelle</string>
+    <string name="choose_icon">Choisissez d\'abord un icône</string>
+    <string name="register_child_age_title">Mon enfant a</string>
+    <string name="years_old">ans</string>
+    <string name="register_child_age_desc"><u>Toutes vos informations restent strictement confidentielles. En savoir plus.</u></string>
+    <string name="register_child_age_dialog_title">Pourquoi demandons-nous cette information?</string>
+    <string name="register_child_age_dialog_desc">L\'âge de votre enfant nous permet de vous proposer des missions adaptées à sa maturité. Pour rappel ,toutes vos informations restent confientielles et ne sont PAS vendues à des fins marketing. Pour plus d\'informations, veuillez consulter notre <font color='#FF6222EE'>Politique de Confidentialité</font>.</string>
+    <string name="register_child_challenge_title">La première mission de %s est de</string>
+    <string name="register_child_challenge_desc">Vous pourrez ajouter ou remplacer les missions de votre enfant par la suite.</string>
+    <string name="register_challenge_start_date_title">Set first task\nstart date</string>
+    <string name="register_challenge_start_date_desc">Your kid will be assigned to this task for\n7-days in a row to build up good habits</string>
+    <string name="register_finish_setup_kid_profile_title">Bravo - %s peut commencer son aventure StellKey.</string>
+    <string name="register_finish_setup_kid_profile_desc">Souhaitez-vous créer le profil d\'un autre enfant?</string>
+    <string name="register_profile_settings_title">Paramètres</string>
+    <string name="enable_notifications">Notifications</string>
+    <string name="enable_notifications_desc">Suivez l\'évolution de votre enfant</string>
+    <string name="language_desc">Please select your preferred language.</string>
+    <string name="start_stellkey_now">Commencer l\'aventure StellKey</string>
+
+    <!-- Login -->
+    <string name="hi_exclamation">Bonjour!</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="or_sign_in_with">Ou je m\'identifie avec</string>
+    <string name="or_via_qr_code">Ou avec un QR code</string>
+    <string name="login_choose_profile_title">Choisir un profil</string>
+    <string name="cant_find_profile">Vous ne trouvez pas votre profil?</string>
+    <string name="login_pin_title">Enter PIN</string>
+    <string name="forget_pin_question">Forget PIN?</string>
+
+    <!-- Home -->
+    <string name="today_task">Les missions</string>
+    <string name="yesterday_task">Les missions d\'hier</string>
+    <string name="swipe_right_or_left">Glisser vers la gauche ou la droite pour accepter ou décliner</string>
+    <string name="switch_user">Autre profil</string>
+    <string name="no_task_reward_approval">There\'s no task or reward approval</string>
+
+    <!-- Family -->
+    <string name="my_family">My Family</string>
+    <string name="swipe_left_to_delete_profile">Glisser vers la gauche pour supprimer une mission</string>
+    <string name="add_a_member">Ajoutez quelqu\'un</string>
+    <string name="add_kid_enter_pin">Enter a PIN for your\nkid\'s profile</string>
+    <string name="family_privacy"><u>Family privacy</u></string>
+    <string name="add_a_carer">Add a carer</string>
+    <string name="enter_carer_pin">Enter carer\'s PIN</string>
+    <string name="carer_name_placeholder">Nom</string>
+
+    <!-- Profile -->
+    <string name="total_stars_earned">Etoiles gagnées\nTotal</string>
+    <string name="available_for_rewards">disponibles pour les récompenses</string>
+    <string name="profile_edit_profile">Modifier son profile</string>
+    <string name="kid_age">%d ans</string>
+    <string name="kid_level">Level %d</string>
+    <string name="swipe_left">Glisser vers la gauche pour supprimer une mission</string>
+    <string name="add_a_task">Ajoutez une mission</string>
+    <string name="recommended_tasks">Missions recommandées</string>
+    <string name="start_from">Start from</string>
+    <string name="add_a_reward">Add a reward</string>
+    <string name="two_stars_reward">2-star reward</string>
+    <string name="eight_stars_reward">8-star reward</string>
+    <string name="recommended_rewards">Recommended rewards</string>
+    <string name="reward">Reward</string>
+    <string name="custom_reward">Custom reward</string>
+
+    <!-- Account -->
+    <string name="upgrade_to_premium">Upgrade to Premium</string>
+    <string name="setting">Paramètres</string>
+    <string name="log_activity">Historique des missions</string>
+    <string name="custom_task">Missions personnalisées</string>
+    <string name="profile_parental_control">Profiles &amp; contrôle parental</string>
+    <string name="membership">Abonnement</string>
+    <string name="billing_information">Billing information</string>
+    <string name="faq_contact_us">FFAQ/ Nous contacter</string>
+    <string name="privacy_policy">Politique de confidentialité</string>
+    <string name="tnc">CGU</string>
+    <string name="last_24_hours">Last 24 hours</string>
+    <string name="last_7_days">Last 7 days</string>
+    <string name="last_4_weeks">Last 4 weeks</string>
+    <string name="time_range">Time Range</string>
+    <string name="edit_carer_pin_title">Enter current\ncarer\'s PIN</string>
+    <string name="edit_kid_pin_title">Enter current\nkid\'s PIN</string>
+    <string name="edit_carer_new_pin_title">Enter new\ncarer\'s PIN</string>
+    <string name="edit_kid_new_pin_title">Enter new\nkid\'s PIN</string>
+    <string name="edit_carer_confirm_pin_title">Confirm new\ncarer\'s PIN</string>
+    <string name="edit_kid_confirm_pin_title">Confirm new\nkid\'s PIN</string>
+    <string name="new_password">New password</string>
+    <string name="customised_tasks">Customised tasks</string>
+    <string name="membership_type_trial">Trial membership</string>
+    <string name="membership_type_monthly">1 month membership</string>
+    <string name="membership_type_yearly">12 months membership</string>
+    <string name="membership_type_lifetime">Lifetime membership</string>
+    <string name="next_renews">Next renews on %s</string>
+    <string name="your_membership_type_monthly">Your a Monthly Member</string>
+    <string name="your_membership_type_yearly">Your a Yearly Member</string>
+    <string name="your_membership_type_lifetime">Your a Lifetime Member</string>
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">FCM Message</string>
+
+    <!-- Dialog -->
+    <string name="dialog_add_member_cancel_title">You’re only a few steps from\ncreating a profile!</string>
+    <string name="dialog_add_member_cancel_desc_kid">Are you sure, you don\'t want to finish\ncreating your kid profile?</string>
+    <string name="dialog_add_member_cancel_desc_carer">Are you sure, you don\'t want to finish\ncreating your carer profile?</string>
+    <string name="dialog_delete_all_log_title">Vous effacez l\'historique des missions.</string>
+    <string name="dialog_delete_all_log_desc">Je veux effacer l\'historique des missions.</string>
+    <string name="dialog_delete_profile_title">You’re removing a profile</string>
+    <string name="dialog_delete_profile_desc">I want to remove %s profile.</string>
+
+    <!-- Kid -->
+    <string name="my_progress">My Progress</string>
+    <string name="collect_star_reward">Collect star for reward you want!</string>
+
+    <!-- OnBoarding -->
+    <string name="onboarding_kid_name">Sammi</string>
+    <string name="onboarding_cycle">19 - 20 Juillet</string>
+    <string name="onboarding_today_task_name">Mettre sa vaiselle dans le lave-vaiselle</string>
+    <string name="onboarding_home_title">Bienvenue dans votre interface!</string>
+    <string name="onboarding_home_desc">C’est ici que vous pourrez suivre les progrès de votre enfant.</string>
+    <string name="onboarding_family_title">Dans <font color='#FF6222EE'><b>l’onglet Famille</b></font>, vous pourrez <font color='#FF6222EE'><b>ajouter des profiles enfants</b></font> et <font color='#FF6222EE'><b>créer des missions &amp; des récompenses</b></font>.</string>
+    <string name="onboarding_family_task_title"><font color='#FF6222EE'><b>Appuyer sur (+)</b></font> pour ajouter une <font color='#FF6222EE'><b>nouvelle mission</b></font> à Sammi (avec un <font color='#FF6222EE'>maximum de 3 missions par jour<b></b></font> pour développer de bonnes habitudes plus rapidement).</string>
+    <string name="onboarding_add_task_title">Vous pouvez ajouter une <font color='#FF6222EE'><b>mission recommendée</b></font> ou <font color='#FF6222EE'><b>en créer une spécifique</b></font> pour votre enfant.</string>
+    <string name="onboarding_first_recommended_task">Faire son lit le matin</string>
+    <string name="onboarding_second_recommended_task">Mettre son linge sale dans le panier</string>
+    <string name="onboarding_third_recommended_task">Manger 1 légume par jour</string>
+    <string name="onboarding_grouped_task_categories_title">Hygiène</string>
+    <string name="onboarding_grouped_task_title">Brosser ses dents le matin</string>
+    <string name="onboarding_grouped_task_second_categories_title">Ecole</string>
+    <string name="onboarding_grouped_task_third_categories_title">Comportement</string>
+    <string name="onboarding_choose_task_title"><font color='#FF6222EE'><b>Press</b></font> the <font color='#FF6222EE'><b>task icon</b></font> to <font color='#FF6222EE'><b>add task</b></font></string>
+    <string name="onboarding_switch_interface_title">Bravo! Voyons maintenant à quoi ressemble l’interface de Sammi. <font color='#FF6222EE'><b>Glisser la flèche vers la droite.</b></font></string>
+    <string name="onboarding_kid_task_title">Jouer son instrument 10 min</string>
+    <string name="onboarding_kid_home_title">C’est <font color='#FF6222EE'><b>l’interface enfant</b></font>. En <font color='#FF6222EE'><b>caccomplissant leurs missions</b></font>, les enfants cumulent des <font color='#FF6222EE'><b>étoiles</b></font> et des <font color='#FF6222EE'><b>diamants</b></font> qu’ils peuvent <font color='#FF6222EE'><b>échanger pour des récompenses</b></font>.</string>
+    <string name="onboarding_kid_home_task_title">En <font color='#FF6222EE'><b>validant leurs missions</b></font>, ils vous feront savoir qu’ils les ont <font color='#FF6222EE'><b>accomplies</b></font>.</string>
+    <string name="onboarding_kid_pet_title">Ils peuvent convertir leurs <font color='#FF6222EE'><b>étoiles</b></font> en <font color='#FF6222EE'><b>récompenses</b></font> et dépenser leurs <font color='#FF6222EE'><b>diamants</b></font> pour leur étoile Stell.</string>
+    <string name="onboarding_reward_popsicle">Popsicle</string>
+    <string name="onboarding_reward_screentime">90 mins au parc</string>
+    <string name="onboarding_completed_task_title">Super! Sammi a <font color='#FF6222EE'><b>effectué sa mission</b></font> 2 jours de suite. <font color='#FF6222EE'><b>Appuyer sur</b></font> la mission pour en savoir plus.</string>
+    <string name="onboarding_task_action_title">Vous pouvez <font color='#FF6222EE'><b>accepter</b></font> les missions en <font color='#FF6222EE'><b>glissant</b></font> “la date” vers <font color='#FF6222EE'><b>la droite</b></font> ou les <font color='#FF6222EE'><b>refuser</b></font> en la <font color='#FF6222EE'><b>glissant</b></font> vers <font color='#FF6222EE'><b>la gauche</b></font>.</string>
+    <string name="onboarding_finish_title">Bravo!\nVous êtes prêt.e pour\nl’aventure StellKey!</string>
+    <string name="onboarding_finish_desc"><font color='#FF6222EE'><b>Commencer StellKey!</b></font>\nOu revoir le tutoriel.</string>
+    <string name="onboarding_start_stellkey">C’est Parti!</string>
+    <string name="onboarding_try_again">Ou Revoir Le Tutoriel </string>
+
+</resources>

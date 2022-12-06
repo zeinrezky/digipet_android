@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.carer.account.AccountViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_bg"
+        tools:context=".view.carer.account.CustomisedTaskDetailFragment">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x3"
+            android:src="@drawable/ic_back_black"
+            app:layout_constraintBottom_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvTitle" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="@dimen/space_x28_half"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x3"
+            android:ellipsize="end"
+            android:fontFamily="@font/sofia_pro_bold"
+            android:letterSpacing="0"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Brush teeth in the morning" />
+
+        <ImageView
+            android:id="@+id/ivChallenge"
+            android:layout_width="@dimen/space_x17"
+            android:layout_height="@dimen/space_x17"
+            android:layout_marginTop="@dimen/space_x4_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            tools:background="@color/primary_disabled" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x2_half"
+            android:fontFamily="@font/sofia_pro_semibold"
+            android:letterSpacing="0"
+            android:text="@string/categories"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toBottomOf="@id/ivChallenge" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x6"
+            android:layout_marginTop="@dimen/space_x1_quarter"
+            android:layout_marginEnd="@dimen/space_x6"
+            android:minHeight="@dimen/space_x5_half"
+            app:cardCornerRadius="@dimen/space_x7"
+            app:cardElevation="@dimen/space_half"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvCategories">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/space_x3"
+                android:paddingTop="@dimen/space_x1"
+                android:paddingEnd="@dimen/space_x3"
+                android:paddingBottom="@dimen/space_x1">
+
+                <Spinner
+                    android:id="@+id/spinnerTaskCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x3_half"
+            android:fontFamily="@font/sofia_pro_semibold"
+            android:letterSpacing="0"
+            android:text="@string/task"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toBottomOf="@id/cvCategories" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/boxTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x6"
+            android:layout_marginTop="@dimen/space_x1_quarter"
+            android:layout_marginEnd="@dimen/space_x6"
+            android:hint="@string/task"
+            app:boxBackgroundColor="@color/white"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:errorIconDrawable="@null"
+            app:expandedHintEnabled="false"
+            app:hintEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTask">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_white_grey_outline"
+                android:fontFamily="@font/sofia_pro_regular"
+                android:hint="@string/task"
+                android:imeOptions="actionDone"
+                android:inputType="textCapWords"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:paddingStart="@dimen/space_x4"
+                android:paddingTop="@dimen/space_x2"
+                android:paddingEnd="@dimen/space_x4"
+                android:paddingBottom="@dimen/space_x2"
+                android:textColor="@color/black"
+                android:textColorHint="@color/light_grey"
+                android:textSize="18sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRemoveTask"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x6"
+            android:layout_marginTop="@dimen/space_x8"
+            android:layout_marginEnd="@dimen/space_x6"
+            android:layout_marginBottom="@dimen/space_x1_half"
+            android:backgroundTint="@color/white_2"
+            android:elevation="@dimen/space_quarter"
+            android:fontFamily="@font/sofia_pro_semibold"
+            android:letterSpacing="0"
+            android:padding="@dimen/space_x1_quarter"
+            android:text="@string/remove_task"
+            android:textAllCaps="false"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/space_x2"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/boxTask"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x6"
+            android:layout_marginEnd="@dimen/space_x6"
+            android:layout_marginTop="@dimen/space_x3"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="0dp"
+            android:fontFamily="@font/sofia_pro_semibold"
+            android:letterSpacing="0"
+            android:padding="@dimen/space_x1_quarter"
+            android:text="@string/save_changes"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:cornerRadius="@dimen/space_x2"
+            app:elevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnRemoveTask" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x1_half"
+            android:fontFamily="@font/sofia_pro_regular"
+            android:letterSpacing="0"
+            android:text="@string/cancel"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSave" />
+
+        <View
+            android:layout_width="135dp"
+            android:layout_height="5dp"
+            android:layout_marginBottom="@dimen/space_x1"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

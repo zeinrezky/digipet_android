@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "836143089584",
+    "firebase_url": "https://stellkey-49e4e-default-rtdb.firebaseio.com",
+    "project_id": "stellkey-49e4e",
+    "storage_bucket": "stellkey-49e4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836143089584:android:e1cb781ea78aba8738f875",
+        "android_client_info": {
+          "package_name": "com.stellkey.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836143089584-dfhp7am112j5bvj54umi3fl1575fsv5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.stellkey.android",
+            "certificate_hash": "3d36dd2ff3d7fdf632eb129421a52c0fb2f5725e"
+          }
+        },
+        {
+          "client_id": "836143089584-fci4b62mlsvje3kulggdt1cffnjej05k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqj7TequYBpx2XFui6CF4MjpScD9e0Bqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836143089584-da0l3pupted9qjik17ig5otb737qtooq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836143089584-jcm3slkgucqdkkb28jo8c0bmq189ifpa.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ios-apps.StellKey"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
