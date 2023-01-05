@@ -80,13 +80,12 @@
                     android:layout_marginEnd="@dimen/space_x3"
                     android:layout_marginBottom="@dimen/space_x3"
                     android:nestedScrollingEnabled="true"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDesc"
-                    tools:itemCount="2"
+                    tools:itemCount="4"
                     tools:listitem="@layout/item_kid_challenge" />
 
                 <com.google.android.material.button.MaterialButton
