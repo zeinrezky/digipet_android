@@ -1,8 +1,6 @@
 package com.stellkey.android.util
 
 object Constant {
-    const val BASE_URL = "https://stellkey-api.mediatropy.com/"
-
     object Header {
         const val AUTH = "Authorization"
         const val CACHE = "Cache-Control"
