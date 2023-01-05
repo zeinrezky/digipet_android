@@ -6,6 +6,7 @@ import android.content.res.Configuration
 import android.os.StrictMode
 import com.orhanobut.hawk.Hawk
 import com.stellkey.android.di.*
+import com.stellkey.android.util.DevScreenTracker
 import com.zeugmasolutions.localehelper.LocaleHelper
 import com.zeugmasolutions.localehelper.LocaleHelperApplicationDelegate
 import org.koin.android.ext.koin.androidContext
@@ -13,7 +14,8 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.logger.EmptyLogger
 import org.koin.core.logger.Level
 
-class Application: Application() {
+class Application : Application() {
+
     private val localeAppDelegate = LocaleHelperApplicationDelegate()
 
     override fun attachBaseContext(base: Context) {
@@ -34,6 +36,14 @@ class Application: Application() {
         StrictMode.setVmPolicy(builder.build())
         Hawk.init(this).build()
         startKoin()
+        if (BuildConfig.DEBUG) {
+            DevScreenTracker.initialize(
+                this,
+                isTrackFragment = true,
+                isFilteringLibraryFragments = true,
+                isTrackerActivated = false
+            )
+        }
     }
 
     private fun startKoin() {
