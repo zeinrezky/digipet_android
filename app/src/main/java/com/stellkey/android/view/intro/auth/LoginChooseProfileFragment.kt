@@ -88,6 +88,6 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
     }
 
     private fun setView() {
-        viewModel.getAllProfileSelection(AppPreference.getLoginToken())
+        viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
     }
 }
