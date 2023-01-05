@@ -21,6 +21,7 @@ import com.stellkey.android.view.intro.auth.adapter.ChildAgeAdapter
 import com.stellkey.android.view.base.BaseFragment
 import org.koin.android.ext.android.inject
 import java.util.*
+import timber.log.Timber
 
 class RegisterChildAgeFragment : BaseFragment() {
 
@@ -84,9 +85,10 @@ class RegisterChildAgeFragment : BaseFragment() {
 
     private fun setView() {
         ageList = mutableListOf()
-        for (i in 1..12) {
+        for (i in 4..14) {
             ageList.add(ChildAgeModel(index = i, isSelected = false))
         }
+        Timber.d(ageList.toString())
 
         dataBinding.apply {
             childAgeAdapter = ChildAgeAdapter(ageList)
@@ -122,7 +124,7 @@ class RegisterChildAgeFragment : BaseFragment() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    tempChildAge = position + 1
+                    tempChildAge = position + 4
                     childAgeAdapter.updateSelectedItem(position)
                 }
             })

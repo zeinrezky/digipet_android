@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentLoginPINBinding
 import com.stellkey.android.helper.extension.emptyString
+import com.stellkey.android.helper.extension.viewBinding
 import com.stellkey.android.model.request.CarerLoginRequest
 import com.stellkey.android.model.request.KidLoginRequest
 import com.stellkey.android.util.AppPreference
@@ -24,7 +25,7 @@ class LoginPINFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentLoginPINBinding
 
-    //private val binding by viewBinding<FragmentLoginPINBinding>()
+    private val binding by viewBinding<FragmentLoginPINBinding>()
     private val viewModel by inject<LoginViewModel>()
 
     private var tempPIN = emptyString
