@@ -29,11 +29,13 @@ android {
             minifyEnabled false
             debuggable true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_API', '"https://stellkey-api.mediatropy.com/"'
         }
 
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", 'BASE_API', '"https://stellkey-live-api.mediatropy.com/api/"'
         }
     }
     compileOptions {
