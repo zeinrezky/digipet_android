@@ -142,7 +142,7 @@ class RegisterProfileSettingsFragment : BaseFragment() {
                 cvFrench.setCardBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.light_blue
+                        R.color.white
                     )
                 )
                 tvFrench.setTextColor(
@@ -154,7 +154,7 @@ class RegisterProfileSettingsFragment : BaseFragment() {
                 cvEnglish.setCardBackgroundColor(
                     ContextCompat.getColor(
                         requireContext(),
-                        R.color.white
+                        R.color.light_blue
                     )
                 )
                 tvEnglish.setTextColor(
