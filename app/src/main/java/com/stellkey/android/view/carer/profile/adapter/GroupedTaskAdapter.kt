@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
@@ -18,17 +19,19 @@ class GroupedTaskAdapter(
     taskCategoryList: ArrayList<CategorizedTaskModel>,
     private val listener: Listener
 ) : RecyclerView.Adapter<GroupedTaskAdapter.GroupedTaskViewHolder>(),
-    GroupedTaskChildAdapter.Listener {
+    GroupedTaskChildAdapter.Listener, AddCustomTaskAdapter.Listener {
 
     private val contexts = context
     private val itemList = taskCategoryList
     private var isExpandChildList = emptyBoolean
 
     private lateinit var groupedTaskChildAdapter: GroupedTaskChildAdapter
+    private lateinit var groupedAddCustomTaskAdapter: AddCustomTaskAdapter
 
     interface Listener {
 
         fun onGroupedTaskItemClicked(data: TaskModel)
+        fun onAddCustomTaskClicked(data: CategorizedTaskModel)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupedTaskViewHolder =
@@ -74,6 +77,12 @@ class GroupedTaskAdapter(
                                 addedCatTaskList,
                                 this@GroupedTaskAdapter
                             )
+
+                            groupedAddCustomTaskAdapter = AddCustomTaskAdapter(
+                                item,
+                                this@GroupedTaskAdapter
+                            )
+
                             rvGroupedTaskChild.apply {
                                 isVisible = true
                                 layoutManager = LinearLayoutManager(
@@ -81,7 +90,10 @@ class GroupedTaskAdapter(
                                     LinearLayoutManager.HORIZONTAL,
                                     false
                                 )
-                                adapter = groupedTaskChildAdapter
+                                adapter = ConcatAdapter(
+                                    groupedAddCustomTaskAdapter,
+                                    groupedTaskChildAdapter
+                                )
                             }
                         }
                     }
@@ -92,5 +104,9 @@ class GroupedTaskAdapter(
 
     override fun onTaskItemClicked(data: TaskModel) {
         listener.onGroupedTaskItemClicked(data)
+    }
+
+    override fun onAddCustomTaskClicked(categoryTaskModel: CategorizedTaskModel) {
+        listener.onAddCustomTaskClicked(categoryTaskModel)
     }
 }

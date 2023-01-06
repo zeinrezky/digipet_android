@@ -145,6 +145,10 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener, Grouped
         addFragment(AddTaskDetailFragment.newInstance())
     }
 
+    override fun onAddCustomTaskClicked(data: CategorizedTaskModel) {
+        Toast.makeText(requireContext(), "Go To Custom Task ${data.id}", Toast.LENGTH_LONG).show()
+    }
+
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
             requireActivity().supportFragmentManager.popBackStack()
