@@ -2,7 +2,7 @@ package com.stellkey.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class AssignmentsModel (
+data class AssignmentsModel(
     @SerializedName("id")
     var id: Int,
     @SerializedName("isActive")
@@ -12,9 +12,9 @@ data class AssignmentsModel (
     @SerializedName("accountId")
     var accountId: Int,
     @SerializedName("challengeId")
-    var challengeId: Int,
+    var challengeId: Int? = null,
     @SerializedName("globalChallengeId")
-    var globalChallengeId: Int,
+    var globalChallengeId: Int? = null,
     @SerializedName("kidId")
     var kidId: Int,
     @SerializedName("createdById")

@@ -210,8 +210,8 @@ class KidProfileFragment : BaseFragment() {
                             DeleteChildTaskRequest(
                                 cycle = selectedTask.cycle,
                                 kidId = AppPreference.getTempChildId(),
-                                challengeId = null,
-                                globalChallengeId = selectedTask.id
+                                challengeId = selectedTask.challengeId,
+                                globalChallengeId = selectedTask.globalChallengeId
                             )
                         )
                     }
