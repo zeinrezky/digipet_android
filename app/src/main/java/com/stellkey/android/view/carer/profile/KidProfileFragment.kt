@@ -1,11 +1,9 @@
 package com.stellkey.android.view.carer.profile
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -13,11 +11,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
-import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentKidProfileBinding
-import com.stellkey.android.helper.extension.*
+import com.stellkey.android.helper.extension.ImageCornerOptions
+import com.stellkey.android.helper.extension.emptyBoolean
+import com.stellkey.android.helper.extension.emptyInt
+import com.stellkey.android.helper.extension.loadImage
+import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.request.DeleteChildTaskRequest
@@ -29,7 +29,6 @@ import com.stellkey.android.view.carer.account.EditProfileFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.adapter.ActiveTaskAdapter
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class KidProfileFragment : BaseFragment() {
 
@@ -118,7 +117,7 @@ class KidProfileFragment : BaseFragment() {
 
         AppPreference.getTempChildId().let {
             if (it == emptyInt) {
-                requireActivity().supportFragmentManager.popBackStack()
+                onBackPressed()
             } else {
                 viewModel.getDetailKid(profileId = it)
             }
@@ -154,6 +153,7 @@ class KidProfileFragment : BaseFragment() {
                 AppPreference.putTempChildId(selectedKidId)
                 AppPreference.putTempChildProfilePIN(kidData.pin)
                 AppPreference.putTempChildAge(selectedKidAge)
+                AppPreference.putProfileIconId(kidData.iconId)
             }
         }
     }

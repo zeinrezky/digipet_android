@@ -339,6 +339,7 @@ class EditProfileFragment : BaseFragment() {
                     100
                 )
                 etProfileName.setText(kidData.name)
+                AppPreference.putProfileIconId(kidData.iconId)
             }
 
             ivEdit.setOnClickListener {
