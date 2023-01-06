@@ -1,9 +1,11 @@
 package com.stellkey.android.view.carer.profile
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -11,7 +13,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentKidProfileBinding
 import com.stellkey.android.helper.extension.*
 import com.stellkey.android.model.AllKidsModel
@@ -218,6 +222,34 @@ class KidProfileFragment : BaseFragment() {
             }
         }
     }
+
+    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }*/
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {

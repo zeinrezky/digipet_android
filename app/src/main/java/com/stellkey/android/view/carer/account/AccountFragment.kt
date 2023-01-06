@@ -2,20 +2,25 @@ package com.stellkey.android.view.carer.account
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogDeleteAllLogBinding
 import com.stellkey.android.databinding.DialogDeleteProfileBinding
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentAccountBinding
 import com.stellkey.android.helper.extension.alertDialog
+import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllCarersModel
@@ -32,6 +37,7 @@ import com.stellkey.android.view.carer.account.adapter.PPCKidListAdapter
 import com.stellkey.android.view.carer.account.adapter.SubscriptionAdapter
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.intro.intro.IntroAct
+import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -372,6 +378,34 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
         AppPreference.putProfileType(Constant.FamilyType.KIDS)
         initDeleteProfileDialog(profileId = data.id, profileName = data.name)
     }
+
+    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }*/
 
     private fun initDeleteAllLogDialog() {
         dialogDeleteAllLogBinding = DialogDeleteAllLogBinding.inflate(

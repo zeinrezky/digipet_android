@@ -29,53 +29,50 @@ class HomeAct : BaseAct() {
     }
 
     private fun setView() {
-        if(AppPreference.isUpdateLocale()) {
+        if (AppPreference.isUpdateLocale()) {
             AppPreference.putUpdateLocale(false)
             addFragment(SettingFragment.newInstance())
-        }
-        else{
-            binding.apply {
-                window.apply {
-                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                    statusBarColor = ContextCompat.getColor(this@HomeAct, R.color.white)
-                }
+        } else
+            addFragment(HomeFragment.newInstance())
 
-                val radius = resources.getDimension(R.dimen.space_x6_half)
-                val bottomNavigationViewBackground =
-                    bottomNav.background as MaterialShapeDrawable
-                bottomNavigationViewBackground.shapeAppearanceModel =
-                    bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
-                        .setTopRightCorner(CornerFamily.ROUNDED, radius)
-                        .setTopLeftCorner(CornerFamily.ROUNDED, radius)
-                        .build()
+        binding.apply {
+            window.apply {
+                decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                statusBarColor = ContextCompat.getColor(this@HomeAct, R.color.white)
+            }
 
-                addFragment(HomeFragment.newInstance())
+            val radius = resources.getDimension(R.dimen.space_x6_half)
+            val bottomNavigationViewBackground =
+                bottomNav.background as MaterialShapeDrawable
+            bottomNavigationViewBackground.shapeAppearanceModel =
+                bottomNavigationViewBackground.shapeAppearanceModel.toBuilder()
+                    .setTopRightCorner(CornerFamily.ROUNDED, radius)
+                    .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+                    .build()
 
-                bottomNav.setOnItemSelectedListener { item ->
-                    when (item.itemId) {
-                        R.id.home -> {
-                            addFragment(HomeFragment.newInstance())
-                            true
-                        }
-                        R.id.family -> {
-                            addFragment(FamilyFragment.newInstance())
-                            true
-                        }
-                        R.id.log -> {
-                            addFragment(LogFragment.newInstance())
-                            true
-                        }
-                        R.id.account -> {
-                            addFragment(AccountFragment.newInstance())
-                            true
-                        }
-                        else -> {
-                            addFragment(HomeFragment.newInstance())
-                            true
-                        }
+            bottomNav.setOnItemSelectedListener { item ->
+                when (item.itemId) {
+                    R.id.home -> {
+                        addFragment(HomeFragment.newInstance())
+                        true
+                    }
+                    R.id.family -> {
+                        addFragment(FamilyFragment.newInstance())
+                        true
+                    }
+                    R.id.log -> {
+                        addFragment(LogFragment.newInstance())
+                        true
+                    }
+                    R.id.account -> {
+                        addFragment(AccountFragment.newInstance())
+                        true
+                    }
+                    else -> {
+                        addFragment(HomeFragment.newInstance())
+                        true
                     }
                 }
-
             }
         }
     }

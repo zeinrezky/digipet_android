@@ -1,4 +1,4 @@
-package com.stellkey.android.view.child.home
+package com.stellkey.android.view.child.profile
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,34 +7,29 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
-import com.stellkey.android.databinding.FragmentChildHomeBinding
+import com.stellkey.android.databinding.FragmentChildProfileBinding
+import com.stellkey.android.helper.extension.ImageCornerOptions
+import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
-import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
-import com.stellkey.android.model.request.KidCompleteTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
-import com.stellkey.android.view.child.profile.ChildProfileFragment
-import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
 
-class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
+class ChildProfileFragment : BaseFragment() {
 
-    private lateinit var dataBinding: FragmentChildHomeBinding
+    private lateinit var dataBinding: FragmentChildProfileBinding
 
-    private lateinit var kidTodayTaskAdapter: KidTodayTaskAdapter
-
-    //private val binding by viewBinding<FragmentChildHomeBinding>()
+    //private val binding by viewBinding<FragmentChildProfileBinding>()
     private val viewModel by inject<ChildViewModel>()
 
     companion object {
         @JvmStatic
-        fun newInstance() = ChildHomeFragment()
+        fun newInstance() = ChildProfileFragment()
     }
 
     override fun onCreateView(
@@ -43,7 +38,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         savedInstanceState: Bundle?
     ): View {
         dataBinding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_child_home, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.fragment_child_profile, container, false)
         return dataBinding.root
     }
 
@@ -75,69 +70,67 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                 it?.let { it1 -> setKidView(it1) }
             }
 
-            completeKidTaskResponse.observe(viewLifecycleOwner) {
-                viewModel.getKidInfo()
-            }
-
         }
 
+        (activity as ChildMainAct).showMenu(isShow = false)
         setView()
         setOnClick()
     }
 
     private fun setView() {
-        viewModel.getKidInfo()
+        if (AppPreference.isUpdateLocale()) {
+            AppPreference.putUpdateLocale(false)
+            addFragment(ChildSettingsFragment.newInstance())
+        }
+
         onBackPressed()
+        viewModel.getKidInfo()
     }
 
     private fun setKidView(data: KidInfoModel) {
         dataBinding.apply {
-            tvChildLevel.textOrNull = data.level.level.toString()
-            piChildLevel.progress = 100 - data.level.percentageToNextLevel
-            tvTodayTaskStar.text = data.level.starsTotal.toString()
-
-            kidTodayTaskAdapter = KidTodayTaskAdapter(
-                requireContext(),
-                data.tasksToday.assignments,
-                this@ChildHomeFragment
+            ivAvatar.loadImage(
+                data.profileIcon.icon,
+                ImageCornerOptions.ROUNDED,
+                100
             )
-
-            rvTodayTask.apply {
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                adapter = kidTodayTaskAdapter
-            }
-        }
-    }
-
-    override fun onTodayTaskItemClicked(data: AssignmentsModel) {
-        viewModel.postCompleteKidTask(KidCompleteTaskRequest(data.id))
-    }
-
-    private fun onBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            requireActivity().finish()
+            tvChildName.textOrNull = data.name
+            tvChildLevel.textOrNull = requireContext().resources.getString(
+                R.string.kid_profile_level,
+                data.level.level
+            )
+            tvChildLevelName.textOrNull = data.level.levelName
+            tvChildLevelProgress.textOrNull = requireContext().resources.getString(
+                R.string.kid_profile_level_progress,
+                100 - data.level.percentageToNextLevel,
+                100
+            )
+            piProfileProgress.progress = 100 - data.level.percentageToNextLevel
         }
     }
 
     private fun setOnClick() {
         dataBinding.apply {
-            cvSwitchUser.setOnClickListener(onClickCallback)
-            clPet.setOnClickListener(onClickCallback)
+            ivBack.setOnClickListener(onClickCallback)
+            ivSetting.setOnClickListener(onClickCallback)
+        }
+    }
+
+    private fun onBackPressed() {
+        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
+            (activity as ChildMainAct).showMenu(isShow = true)
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
-            dataBinding.cvSwitchUser -> {
-                (activity as ChildMainAct).showMenu(isShow = false)
-                addFragment(LoginChooseProfileFragment.newInstance())
+            dataBinding.ivBack -> {
+                (activity as ChildMainAct).showMenu(isShow = true)
+                requireActivity().supportFragmentManager.popBackStack()
             }
-            dataBinding.clPet -> {
-                addFragment(ChildProfileFragment.newInstance())
+            dataBinding.ivSetting -> {
+                addFragment(ChildSettingsFragment.newInstance())
             }
         }
     }

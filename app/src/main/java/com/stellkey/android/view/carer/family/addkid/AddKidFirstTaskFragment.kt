@@ -1,19 +1,24 @@
 package com.stellkey.android.view.carer.family.addkid
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogCancelAddMemberBinding
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentAddKidFirstTaskBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.alertDialog
+import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.emptyInt
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidGlobalChallengeModel
@@ -23,7 +28,9 @@ import com.stellkey.android.view.intro.auth.adapter.GlobalChallengeAdapter
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.family.FamilyViewModel
+import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import kotlinx.android.synthetic.main.fragment_register_kids_challenge.*
+import kotlinx.android.synthetic.main.fragment_register_kids_challenge.tvTitle
 import org.koin.android.ext.android.inject
 
 class AddKidFirstTaskFragment : BaseFragment(), GlobalChallengeAdapter.Listener {
@@ -113,6 +120,34 @@ class AddKidFirstTaskFragment : BaseFragment(), GlobalChallengeAdapter.Listener 
 
         viewModel.getGlobalChallenges(age = AppPreference.getTempChildAge())
     }
+
+    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }*/
 
     private fun validateForm() {
         dataBinding.apply {

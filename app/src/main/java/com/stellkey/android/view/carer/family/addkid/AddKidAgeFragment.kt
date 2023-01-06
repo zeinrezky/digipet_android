@@ -1,24 +1,31 @@
 package com.stellkey.android.view.carer.family.addkid
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.DialogKidAgeBinding
 import com.stellkey.android.databinding.FragmentAddKidAgeBinding
 import com.stellkey.android.helper.extension.alertDialog
+import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.makeLinks
+import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.ChildAgeModel
 import com.stellkey.android.model.request.CreateChildRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.intro.auth.adapter.ChildAgeAdapter
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.family.FamilyViewModel
+import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -151,6 +158,34 @@ class AddKidAgeFragment : BaseFragment() {
 
         ageInformationPopupDialog.show()
     }
+
+    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }*/
 
     private fun setOnClick() {
         dataBinding.apply {

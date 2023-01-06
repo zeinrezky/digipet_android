@@ -14,7 +14,6 @@ import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.auth.LoginFragment
 import com.stellkey.android.view.intro.auth.RegisterEmailFragment
 import com.stellkey.android.view.intro.auth.RegisterProfileSettingsFragment
-import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroAct : BaseAct() {
 
@@ -37,39 +36,37 @@ class IntroAct : BaseAct() {
         } else {
             val bundle: Bundle? = intent.extras
             val isLoginDirected = bundle?.getBoolean("isLoginDirected").orEmpty
-
-            if (isLoginDirected) {
+            if (isLoginDirected)
                 addFragment(LoginChooseProfileFragment.newInstance())
-            }
-            introList = mutableListOf()
-            val intro1 = IntroModel(
-                getString(R.string.intro_message_1),
+        }
+        introList = mutableListOf()
+        val intro1 = IntroModel(
+            getString(R.string.intro_message_1),
+            R.drawable.img_intro_1,
+            0
+        )
+        val intro2 =
+            IntroModel(
+                getString(R.string.intro_message_2),
                 R.drawable.img_intro_1,
-                0
+                1
             )
-            val intro2 =
-                IntroModel(
-                    getString(R.string.intro_message_2),
-                    R.drawable.img_intro_1,
-                    1
-                )
-            val intro3 =
-                IntroModel(getString(R.string.intro_message_3), R.drawable.img_intro_2, 2)
-            introList.add(intro1)
-            introList.add(intro2)
-            introList.add(intro3)
+        val intro3 =
+            IntroModel(getString(R.string.intro_message_3), R.drawable.img_intro_2, 2)
+        introList.add(intro1)
+        introList.add(intro2)
+        introList.add(intro3)
 
-            binding.apply {
-                introSliderAdapter = IntroAdapter(this@IntroAct, introList)
-                viewPager.apply {
-                    adapter = introSliderAdapter
-                    autoScroll(
-                        lifecycleScope = lifecycleScope,
-                        interval = 4000L
-                    )
-                }
-                indicator.attachTo(viewPager)
+        binding.apply {
+            introSliderAdapter = IntroAdapter(this@IntroAct, introList)
+            viewPager.apply {
+                adapter = introSliderAdapter
+                autoScroll(
+                    lifecycleScope = lifecycleScope,
+                    interval = 4000L
+                )
             }
+            indicator.attachTo(viewPager)
 
             //setViewPager()
 

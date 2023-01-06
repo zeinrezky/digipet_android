@@ -21,6 +21,8 @@
     <string name="off">Off</string>
     <string name="french">French</string>
     <string name="english">English</string>
+    <string name="fr">Fr</string>
+    <string name="en">En</string>
     <string name="log_in">Log In</string>
     <string name="contact_admin"><u>Contact admin</u></string>
     <string name="logout">Logout</string>
@@ -57,6 +59,10 @@
     <string name="add">Add</string>
     <string name="collect">Collect</string>
     <string name="image_description">Default Image Desc</string>
+    <string name="profile">Profile</string>
+    <string name="alerts">Alerts</string>
+    <string name="sound_fx">Sound FX</string>
+    <string name="music">Music</string>
 
     <!-- Intro -->
     <string name="intro_message_1">Join StellKey to help your kids develop good habits</string>
@@ -209,6 +215,9 @@
     <!-- Kid -->
     <string name="my_progress">My Progress</string>
     <string name="collect_star_reward">Collect star for reward you want!</string>
+    <string name="kid_profile_level">Level %d:</string>
+    <string name="kid_my_achievement">My Achievement</string>
+    <string name="kid_profile_level_progress">%d/%d</string>
 
     <!-- OnBoarding -->
     <string name="onboarding_kid_name">Sammi</string>

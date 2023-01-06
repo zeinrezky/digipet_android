@@ -22,6 +22,8 @@
     <string name="off">Off</string>
     <string name="french">French</string>
     <string name="english">English</string>
+    <string name="fr">Fr</string>
+    <string name="en">En</string>
     <string name="log_in">Je me connecte</string>
     <string name="contact_admin"><u>Contact admin</u></string>
     <string name="logout">Me déconnecter</string>
@@ -58,6 +60,10 @@
     <string name="add">Ajouter</string>
     <string name="collect">Récupérer</string>
     <string name="image_description">Default Image Desc</string>
+    <string name="profile">Profile</string>
+    <string name="alerts">Alertes</string>
+    <string name="sound_fx">Son</string>
+    <string name="music">Musique</string>
 
     <!-- Intro -->
     <string name="intro_message_1">Rejoigner StellKey pour aider votre enfant à développer de bonnes habitudes</string>
@@ -210,6 +216,9 @@
     <!-- Kid -->
     <string name="my_progress">Mes progrès</string>
     <string name="collect_star_reward">Collect star for reward you want!</string>
+    <string name="kid_profile_level">Niveau %d:</string>
+    <string name="kid_my_achievement">Mes Médailles</string>
+    <string name="kid_profile_level_progress">%d/%d</string>
 
     <!-- OnBoarding -->
     <string name="onboarding_kid_name">Sammi</string>

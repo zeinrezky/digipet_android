@@ -2,14 +2,20 @@ package com.stellkey.android.view.intro.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentLoginPINBinding
+import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.emptyString
 import com.stellkey.android.helper.extension.viewBinding
+import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.request.CarerLoginRequest
 import com.stellkey.android.model.request.KidLoginRequest
 import com.stellkey.android.util.AppPreference
@@ -28,6 +34,7 @@ class LoginPINFragment : BaseFragment() {
     private val binding by viewBinding<FragmentLoginPINBinding>()
     private val viewModel by inject<LoginViewModel>()
 
+    private lateinit var dialogInfoBinding: DialogInfoBinding
     private var tempPIN = emptyString
 
     companion object {
@@ -96,6 +103,34 @@ class LoginPINFragment : BaseFragment() {
 
     private fun setView() {}
 
+    private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clLoginPin, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }
+
     private fun validateForm() {
         clErrorMessage.visibility = View.INVISIBLE
         val tz: TimeZone = TimeZone.getDefault()
@@ -149,6 +184,7 @@ class LoginPINFragment : BaseFragment() {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
             dataBinding.ivBack -> {
+                AppPreference.deleteLoggedInCarerName()
                 requireActivity().supportFragmentManager.popBackStack()
             }
             dataBinding.tvInputDigit1 -> {

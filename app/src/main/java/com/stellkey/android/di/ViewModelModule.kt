@@ -3,6 +3,7 @@ package com.stellkey.android.di
 import com.stellkey.android.view.carer.account.AccountViewModel
 import com.stellkey.android.view.carer.family.FamilyViewModel
 import com.stellkey.android.view.carer.home.HomeViewModel
+import com.stellkey.android.view.carer.log.LogViewModel
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.intro.auth.LoginViewModel
@@ -16,6 +17,7 @@ val ViewModelModule = module {
     viewModel { HomeViewModel(get()) }
     viewModel { FamilyViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { LogViewModel(get()) }
     viewModel { AccountViewModel(get()) }
     viewModel { ChildViewModel(get()) }
 }

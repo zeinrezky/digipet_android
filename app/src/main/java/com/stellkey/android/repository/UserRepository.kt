@@ -193,6 +193,11 @@ interface UserService {
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
     /* End of Carers Routes */
 
+    /* Log Routes */
+    @GET("/carer/logs")
+    suspend fun carerLog(@Query("type") type: String?): NetworkResponse<ResponseSuccess<ArrayList<CarerLogModel>>, ResponseError>
+    /* End of Log Routes */
+
     /* Account Routes */
     @GET("/subscription")
     suspend fun subscription(): NetworkResponse<ResponseSuccess<ArrayList<SubscriptionModel>>, ResponseError>
@@ -452,7 +457,14 @@ open class UserRepository(private val userService: UserService) {
     suspend fun deleteLog(deleteLogRequest: DeleteLogRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
         return userService.deleteLog(deleteLogRequest)
     }
+
     /* End of Account Routes Functions */
+    suspend fun getCarerLog(type: String?): NetworkResponse<ResponseSuccess<ArrayList<CarerLogModel>>, ResponseError> {
+        return userService.carerLog(type = type)
+    }
+    /* Log Routes Functions */
+
+    /* End of Log Routes Functions */
 
     /* Locale Routes Functions */
     suspend fun putCarerLocale(

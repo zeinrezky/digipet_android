@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.request.KidCompleteTaskRequest
+import com.stellkey.android.model.request.LocaleModel
+import com.stellkey.android.model.request.UpdateLocaleRequest
 import com.stellkey.android.repository.UserRepository
 import com.stellkey.android.util.SingleLiveEvent
 import com.stellkey.android.view.base.BaseViewModel
@@ -14,8 +16,10 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
 
     val responseError = SingleLiveEvent<Unit>()
 
-    val kidInfoResponse = MutableLiveData<KidInfoModel>()
-    val completeKidTaskResponse = MutableLiveData<Any>()
+    val kidInfoResponse = MutableLiveData<KidInfoModel?>()
+    val completeKidTaskResponse = MutableLiveData<Any?>()
+
+    val kidLocaleResponse = MutableLiveData<LocaleModel>()
 
     fun getKidInfo() {
         isLoading.value = true
@@ -59,6 +63,28 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
+                }
+                else -> {}
+            }
+        }
+    }
+
+    fun putKidLocale(localeRequest: UpdateLocaleRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.putKidLocale(localeRequest)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    kidLocaleResponse.value = response.body.data.let { response.body.data }
+                }
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
                 }
                 else -> {}
             }

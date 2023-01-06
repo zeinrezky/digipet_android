@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.stellkey.android.view.child.ChildViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_child_purple"
+        tools:context=".view.child.profile.ChildProfileFragment">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x4"
+            android:layout_marginTop="@dimen/space_x4"
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/ic_back_white_big"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nove"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toBottomOf="@id/ivBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/ivBack" />
+
+        <ScrollView
+            android:id="@+id/svChildProfile"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:contentDescription="@string/image_description"
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="@dimen/space_x14"
+                    android:layout_height="@dimen/space_x14"
+                    android:layout_marginTop="@dimen/space_x2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_ava_placeholder" />
+
+                <ImageView
+                    android:id="@+id/ivSetting"
+                    android:contentDescription="@string/image_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x11"
+                    android:layout_marginTop="@dimen/space_x9"
+                    android:src="@drawable/ic_child_settings"
+                    app:layout_constraintBottom_toBottomOf="@id/ivAvatar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/ivAvatar" />
+
+                <TextView
+                    android:id="@+id/tvChildName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:fontFamily="@font/nove"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    tools:text="Sammi" />
+
+                <TextView
+                    android:id="@+id/tvChildLevel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x4"
+                    android:layout_marginTop="@dimen/space_x4"
+                    android:layout_marginEnd="@dimen/space_x4"
+                    android:fontFamily="@font/nove"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvChildName"
+                    tools:text="@string/kid_profile_level" />
+
+                <TextView
+                    android:id="@+id/tvChildLevelName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x4"
+                    android:layout_marginTop="@dimen/space_x1_half"
+                    android:layout_marginEnd="@dimen/space_x4"
+                    android:fontFamily="@font/nove"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvChildLevel"
+                    tools:text="Little Explorer" />
+
+                <TextView
+                    android:id="@+id/tvChildLevelProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x1_half"
+                    android:layout_marginEnd="@dimen/space_x4"
+                    android:fontFamily="@font/sofia_pro_bold"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@id/tvChildLevelName"
+                    app:layout_constraintTop_toBottomOf="@id/tvChildLevelName"
+                    tools:text="8/50" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/piProfileProgress"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_x1"
+                    android:layout_marginEnd="@dimen/space_x6"
+                    android:background="@drawable/bg_child_progressbar"
+                    app:indicatorColor="@color/yellow_2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tvChildLevelName"
+                    app:layout_constraintTop_toBottomOf="@id/tvChildLevelProgress"
+                    app:trackCornerRadius="@dimen/space_x2"
+                    app:trackThickness="@dimen/space_x4" />
+
+                <TextView
+                    android:id="@+id/tvChildAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x4"
+                    android:layout_marginTop="@dimen/space_x6"
+                    android:layout_marginEnd="@dimen/space_x4"
+                    android:fontFamily="@font/nove"
+                    android:text="@string/kid_my_achievement"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/piProfileProgress" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvChildAchievement"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x4"
+                    android:layout_marginTop="@dimen/space_x2"
+                    android:layout_marginEnd="@dimen/space_x4"
+                    android:nestedScrollingEnabled="true"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvChildAchievement"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_kid_achievement" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

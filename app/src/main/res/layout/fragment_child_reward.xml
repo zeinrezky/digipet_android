@@ -137,8 +137,8 @@
 
                 <View
                     android:id="@+id/bgViewPet"
-                    android:layout_width="@dimen/space_x7"
-                    android:layout_height="@dimen/space_x7"
+                    android:layout_width="@dimen/space_x5"
+                    android:layout_height="@dimen/space_x5"
                     android:background="@drawable/shape_oval_white"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

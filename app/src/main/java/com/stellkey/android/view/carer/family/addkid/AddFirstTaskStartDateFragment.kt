@@ -1,13 +1,17 @@
 package com.stellkey.android.view.carer.family.addkid
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
+import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentAddFirstTaskStartDateBinding
 import com.stellkey.android.helper.extension.*
 import com.stellkey.android.model.request.CreateAssignmentRequest
@@ -16,6 +20,7 @@ import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.family.FamilyViewModel
+import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -162,6 +167,34 @@ class AddFirstTaskStartDateFragment : BaseFragment() {
             dataBinding.etStartDate.textOrNull(formattedDate)
         }
     }
+
+    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
+        dialogInfoBinding = DialogInfoBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        val customSnackBar =
+            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
+        val layout = customSnackBar.view as Snackbar.SnackbarLayout
+
+        dialogInfoBinding.apply {
+            tvTitle.textOrNull(textTitle)
+            tvDesc.textOrNull(textDesc)
+            clInfo.setOnClickListener {
+                customSnackBar.dismiss()
+            }
+        }
+
+        val view: View = customSnackBar.view
+        val params = view.layoutParams as FrameLayout.LayoutParams
+        params.gravity = Gravity.TOP
+        view.layoutParams = params
+
+        layout.setPadding(0, 0, 0, 0)
+        layout.setBackgroundColor(context.color(R.color.transparent))
+        layout.elevation = 0F
+        layout.addView(dialogInfoBinding.root, 0)
+        customSnackBar.show()
+    }*/
 
     private fun setOnClick() {
         dataBinding.apply {

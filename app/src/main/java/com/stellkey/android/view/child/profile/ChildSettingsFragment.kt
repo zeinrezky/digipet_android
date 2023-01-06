@@ -1,4 +1,4 @@
-package com.stellkey.android.view.carer.account
+package com.stellkey.android.view.child.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,29 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
-import com.stellkey.android.databinding.FragmentSettingBinding
+import com.stellkey.android.databinding.FragmentChildSettingsBinding
 import com.stellkey.android.model.request.UpdateLocaleRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
-import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.child.ChildMainAct
+import com.stellkey.android.view.child.ChildViewModel
 import com.zeugmasolutions.localehelper.Locales
 import org.koin.android.ext.android.inject
 
+class ChildSettingsFragment : BaseFragment() {
 
-class SettingFragment : BaseFragment() {
+    private lateinit var dataBinding: FragmentChildSettingsBinding
 
-    private lateinit var dataBinding: FragmentSettingBinding
+    //private val binding by viewBinding<FragmentChildSettingsBinding>()
+    private val viewModel by inject<ChildViewModel>()
 
-    //private val binding by viewBinding<FragmentSettingBinding>()
-    private val viewModel by inject<AccountViewModel>()
-
-    private var selectedLocale = AppPreference.getCarerLocale()
+    private var selectedLocale = AppPreference.getKidLocale()
 
     companion object {
         @JvmStatic
-        fun newInstance() = SettingFragment()
+        fun newInstance() = ChildSettingsFragment()
     }
 
     override fun onCreateView(
@@ -39,7 +40,7 @@ class SettingFragment : BaseFragment() {
         dataBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.fragment_setting,
+                R.layout.fragment_child_settings,
                 container,
                 false
             )
@@ -63,18 +64,17 @@ class SettingFragment : BaseFragment() {
                 }
             }
 
-            carerLocaleResponse.observe(viewLifecycleOwner) { it ->
-                AppPreference.putCarerLocale(it.locale)
+            kidLocaleResponse.observe(viewLifecycleOwner) { it ->
+                AppPreference.putKidLocale(it.locale)
                 AppPreference.putUpdateLocale(true)
 
-                selectedLocale = AppPreference.getCarerLocale()
-                (activity as HomeAct).updateLocale(if (selectedLocale == "fr") Locales.French else Locales.English)
-                requireActivity().supportFragmentManager.popBackStack()
+                selectedLocale = AppPreference.getKidLocale()
+                (activity as ChildMainAct).updateLocale(if (selectedLocale == "fr") Locales.French else Locales.English)
             }
 
         }
 
-        (activity as HomeAct).showMenu(isShow = false)
+        (activity as ChildMainAct).showMenu(isShow = false)
         setView()
         setOnClick()
     }
@@ -87,65 +87,33 @@ class SettingFragment : BaseFragment() {
     private fun setLanguageButton(language: String) {
         dataBinding.apply {
             if (language == "en") {
-                cvLanguageSwitch.setCardBackgroundColor(
+                ivFr.isVisible = false
+                tvFr.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.light_blue
                     )
                 )
-                cvFrench.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.light_blue
-                    )
-                )
-                tvFrench.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.primary_50
-                    )
-                )
-                cvEnglish.setCardBackgroundColor(
+                ivEn.isVisible = true
+                tvEn.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.white
-                    )
-                )
-                tvEnglish.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorPrimary
                     )
                 )
             } else if (language == "fr") {
-                cvLanguageSwitch.setCardBackgroundColor(
+                ivFr.isVisible = true
+                tvFr.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.white
                     )
                 )
-                cvFrench.setCardBackgroundColor(
+                ivEn.isVisible = false
+                tvEn.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
                         R.color.light_blue
-                    )
-                )
-                tvFrench.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.colorPrimary
-                    )
-                )
-                cvEnglish.setCardBackgroundColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.white
-                    )
-                )
-                tvEnglish.setTextColor(
-                    ContextCompat.getColor(
-                        requireContext(),
-                        R.color.primary_50
                     )
                 )
             }
@@ -155,18 +123,20 @@ class SettingFragment : BaseFragment() {
     private fun setOnClick() {
         dataBinding.apply {
             ivBack.setOnClickListener(onClickCallback)
-            cvSoundOff.setOnClickListener(onClickCallback)
-            cvSoundOn.setOnClickListener(onClickCallback)
-            cvNotificationOff.setOnClickListener(onClickCallback)
-            cvNotificationOn.setOnClickListener(onClickCallback)
-            cvFrench.setOnClickListener(onClickCallback)
-            cvEnglish.setOnClickListener(onClickCallback)
+            tvAlertsOff.setOnClickListener(onClickCallback)
+            tvAlertsOn.setOnClickListener(onClickCallback)
+            tvSoundOff.setOnClickListener(onClickCallback)
+            tvSoundOn.setOnClickListener(onClickCallback)
+            tvMusicOff.setOnClickListener(onClickCallback)
+            tvMusicOn.setOnClickListener(onClickCallback)
+            tvEn.setOnClickListener(onClickCallback)
+            tvFr.setOnClickListener(onClickCallback)
         }
     }
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            (activity as HomeAct).showMenu(isShow = true)
+            (activity as ChildMainAct).showMenu(isShow = false)
             requireActivity().supportFragmentManager.popBackStack()
         }
     }
@@ -174,29 +144,73 @@ class SettingFragment : BaseFragment() {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
             dataBinding.ivBack -> {
-                (activity as HomeAct).showMenu(isShow = true)
+                (activity as ChildMainAct).showMenu(isShow = false)
                 requireActivity().supportFragmentManager.popBackStack()
             }
-            dataBinding.cvSoundOff -> {
+            dataBinding.tvAlertsOff -> {
                 dataBinding.apply {
-                    cvSoundSwitch.setCardBackgroundColor(
+                    ivAlertsOff.isVisible = true
+                    tvAlertsOff.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.white
                         )
                     )
+                    ivAlertsOn.isVisible = false
+                    tvAlertsOn.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.light_blue
+                        )
+                    )
+                }
+            }
+            dataBinding.tvAlertsOn -> {
+                dataBinding.apply {
+                    ivAlertsOff.isVisible = false
+                    tvAlertsOff.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.light_blue
+                        )
+                    )
+                    ivAlertsOn.isVisible = true
+                    tvAlertsOn.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                }
+            }
+            dataBinding.tvSoundOff -> {
+                dataBinding.apply {
+                    ivSoundOff.isVisible = true
                     tvSoundOff.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.colorPrimary
-                        )
-                    )
-                    cvSoundOn.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
                             R.color.white
                         )
                     )
+                    ivSoundOn.isVisible = false
+                    tvSoundOn.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.light_blue
+                        )
+                    )
+                }
+            }
+            dataBinding.tvSoundOn -> {
+                dataBinding.apply {
+                    ivSoundOff.isVisible = false
+                    tvSoundOff.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.light_blue
+                        )
+                    )
+                    ivSoundOn.isVisible = true
                     tvSoundOn.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
@@ -205,55 +219,35 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
-            dataBinding.cvSoundOn -> {
+            dataBinding.tvMusicOff -> {
                 dataBinding.apply {
-                    cvSoundSwitch.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    tvSoundOff.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    cvSoundOn.setCardBackgroundColor(
+                    ivMusicOff.isVisible = true
+                    tvMusicOff.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.white
                         )
                     )
-                    tvSoundOn.setTextColor(
+                    ivMusicOn.isVisible = false
+                    tvMusicOn.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.colorPrimary
+                            R.color.light_blue
                         )
                     )
                 }
             }
-            dataBinding.cvNotificationOff -> {
+            dataBinding.tvMusicOn -> {
                 dataBinding.apply {
-                    cvNotificationSwitch.setCardBackgroundColor(
+                    ivMusicOff.isVisible = false
+                    tvMusicOff.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
-                            R.color.white
+                            R.color.light_blue
                         )
                     )
-                    tvNotificationOff.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
-                        )
-                    )
-                    cvNotificationOn.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
-                    tvNotificationOn.setTextColor(
+                    ivMusicOn.isVisible = false
+                    tvMusicOn.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.white
@@ -261,43 +255,15 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
-            dataBinding.cvNotificationOn -> {
-                dataBinding.apply {
-                    cvNotificationSwitch.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    tvNotificationOff.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.light_blue
-                        )
-                    )
-                    cvNotificationOn.setCardBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.white
-                        )
-                    )
-                    tvNotificationOn.setTextColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
-                        )
-                    )
-                }
-            }
-            dataBinding.cvFrench -> {
-                selectedLocale = "fr"
-                setLanguageButton(selectedLocale)
-                viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
-            }
-            dataBinding.cvEnglish -> {
+            dataBinding.tvEn -> {
                 selectedLocale = "en"
                 setLanguageButton(selectedLocale)
-                viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
+                viewModel.putKidLocale(UpdateLocaleRequest(locale = selectedLocale))
+            }
+            dataBinding.tvFr -> {
+                selectedLocale = "fr"
+                setLanguageButton(selectedLocale)
+                viewModel.putKidLocale(UpdateLocaleRequest(locale = selectedLocale))
             }
         }
     }

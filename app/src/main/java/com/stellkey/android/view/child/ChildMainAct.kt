@@ -1,6 +1,5 @@
 package com.stellkey.android.view.child
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -8,9 +7,11 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.ActivityChildMainBinding
 import com.stellkey.android.helper.extension.setTransparentStatusBar
 import com.stellkey.android.helper.extension.viewBinding
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.child.home.ChildHomeFragment
+import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.ChildRewardFragment
 
 class ChildMainAct : BaseAct() {
@@ -27,8 +28,6 @@ class ChildMainAct : BaseAct() {
     }
 
     private fun setView() {
-        setTransparentStatusBar()
-
         when (selectedMenu) {
             Constant.KidMenu.REWARD -> {
                 addFragment(ChildRewardFragment.newInstance())
@@ -40,6 +39,13 @@ class ChildMainAct : BaseAct() {
                 addFragment(ChildHomeFragment.newInstance())
             }
         }
+
+        if (AppPreference.isUpdateLocale()) {
+            addFragment(ChildProfileFragment.newInstance())
+        } else
+            addFragment(ChildHomeFragment.newInstance())
+
+        setTransparentStatusBar()
     }
 
     fun showMenu(isShow: Boolean) {

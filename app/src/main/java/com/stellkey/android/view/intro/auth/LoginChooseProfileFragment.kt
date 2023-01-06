@@ -84,6 +84,7 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_KID
         }
 
+        AppPreference.putLoggedInCarerName(data.name)
         addFragment(LoginPINFragment.newInstance())
     }
 
