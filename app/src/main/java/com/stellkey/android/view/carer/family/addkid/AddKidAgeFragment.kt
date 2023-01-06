@@ -91,7 +91,7 @@ class AddKidAgeFragment : BaseFragment() {
 
     private fun setView() {
         ageList = mutableListOf()
-        for (i in 1..12) {
+        for (i in 4..14) {
             ageList.add(ChildAgeModel(index = i, isSelected = false))
         }
 
@@ -129,7 +129,7 @@ class AddKidAgeFragment : BaseFragment() {
             object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    tempChildAge = position + 1
+                    tempChildAge = position + 4
                     childAgeAdapter.updateSelectedItem(position)
                 }
             })
