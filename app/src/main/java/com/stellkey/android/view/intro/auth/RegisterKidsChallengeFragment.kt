@@ -146,7 +146,7 @@ class RegisterKidsChallengeFragment : BaseFragment(), GlobalChallengeAdapter.Lis
                 requireActivity().supportFragmentManager.popBackStack()
             }
             dataBinding.btnNext -> {
-                AppPreference.putTempSelectedGlobalId(selectedChallengeId)
+                AppPreference.putTempSelectedGlobalChallengeId(selectedChallengeId)
                 addFragment(RegisterChallengeStartDateFragment.newInstance())
             }
         }

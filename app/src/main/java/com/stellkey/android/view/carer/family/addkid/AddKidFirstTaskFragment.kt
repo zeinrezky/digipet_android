@@ -1,24 +1,19 @@
 package com.stellkey.android.view.carer.family.addkid
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.GridLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogCancelAddMemberBinding
-import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentAddKidFirstTaskBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.alertDialog
-import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.emptyInt
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidGlobalChallengeModel
@@ -28,9 +23,7 @@ import com.stellkey.android.view.intro.auth.adapter.GlobalChallengeAdapter
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.family.FamilyViewModel
-import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import kotlinx.android.synthetic.main.fragment_register_kids_challenge.*
-import kotlinx.android.synthetic.main.fragment_register_kids_challenge.tvTitle
 import org.koin.android.ext.android.inject
 
 class AddKidFirstTaskFragment : BaseFragment(), GlobalChallengeAdapter.Listener {
@@ -230,7 +223,7 @@ class AddKidFirstTaskFragment : BaseFragment(), GlobalChallengeAdapter.Listener 
                 requireActivity().supportFragmentManager.popBackStack()
             }
             dataBinding.btnNext -> {
-                AppPreference.putTempSelectedGlobalId(selectedChallengeId)
+                AppPreference.putTempSelectedGlobalChallengeId(selectedChallengeId)
                 addFragment(AddFirstTaskStartDateFragment.newInstance())
             }
             dataBinding.tvCancel -> {

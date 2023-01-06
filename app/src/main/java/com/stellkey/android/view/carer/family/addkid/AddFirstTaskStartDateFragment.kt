@@ -1,17 +1,13 @@
 package com.stellkey.android.view.carer.family.addkid
 
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
-import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentAddFirstTaskStartDateBinding
 import com.stellkey.android.helper.extension.*
 import com.stellkey.android.model.request.CreateAssignmentRequest
@@ -20,7 +16,6 @@ import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.family.FamilyViewModel
-import kotlinx.android.synthetic.main.fragment_all_profile_icons.*
 import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
@@ -217,7 +212,7 @@ class AddFirstTaskStartDateFragment : BaseFragment() {
                     viewModel.postCreateAssignment(
                         CreateAssignmentRequest(
                             challengeId = null,
-                            globalChallengeId = AppPreference.getTempSelectedGlobalId(),
+                            globalChallengeId = AppPreference.getTempSelectedGlobalChallengeId(),
                             kidId = kidIdList,
                             startDate = if (tempCurrentDate == startDate) emptyString else startDate.orEmpty()
                                 .toString()

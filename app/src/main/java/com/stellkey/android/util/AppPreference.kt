@@ -8,6 +8,7 @@ import com.stellkey.android.helper.extension.emptyString
 class AppPreference {
 
     companion object {
+
         private const val isFirstTime = "isFirstTime"
         private const val loginToken = "loginToken"
         private const val mainCarerLoginToken = "mainCarerLoginToken"
@@ -19,6 +20,7 @@ class AppPreference {
         private const val tempChildAge = "tempChildAge"
         private const val tempChildId = "tempChildId"
         private const val tempSelectedGlobalChallengeId = "tempSelectedGlobalChallengeId"
+        private const val tempSelectedChallengeId = "tempSelectedChallengeId"
         private const val profileIconId = "profileIconId"
         private const val profileIcon = "profileIcon"
         private const val profileType = "profileType"
@@ -56,6 +58,7 @@ class AppPreference {
             Hawk.delete(tempChildAge)
             Hawk.delete(tempChildId)
             Hawk.delete(tempSelectedGlobalChallengeId)
+            Hawk.delete(tempSelectedChallengeId)
             Hawk.delete(profileIconId)
             Hawk.delete(profileIcon)
             Hawk.delete(profileType)
@@ -88,6 +91,7 @@ class AppPreference {
             Hawk.delete(tempChildAge)
             Hawk.delete(tempChildId)
             Hawk.delete(tempSelectedGlobalChallengeId)
+            Hawk.delete(tempSelectedChallengeId)
             Hawk.delete(profileIconId)
             Hawk.delete(profileIcon)
         }
@@ -101,6 +105,7 @@ class AppPreference {
             Hawk.delete(tempChildAge)
             Hawk.delete(tempChildId)
             Hawk.delete(tempSelectedGlobalChallengeId)
+            Hawk.delete(tempSelectedChallengeId)
             Hawk.delete(tempCarerName)
             Hawk.delete(tempCarerPIN)
             Hawk.delete(selectedCarerId)
@@ -108,6 +113,7 @@ class AppPreference {
 
         fun deleteAddTaskData() {
             Hawk.delete(tempSelectedGlobalChallengeId)
+            Hawk.delete(tempSelectedChallengeId)
             Hawk.delete(tempSelectedChallengeCategoryId)
             Hawk.delete(tempSelectedChallengeName)
             Hawk.delete(tempSelectedChallengeIcon)
@@ -200,12 +206,20 @@ class AppPreference {
             return (Hawk.get(tempChildId, emptyInt))
         }
 
-        fun putTempSelectedGlobalId(value: Int) {
+        fun putTempSelectedGlobalChallengeId(value: Int) {
             Hawk.put(tempSelectedGlobalChallengeId, value)
         }
 
-        fun getTempSelectedGlobalId(): Int {
+        fun getTempSelectedGlobalChallengeId(): Int {
             return (Hawk.get(tempSelectedGlobalChallengeId, emptyInt))
+        }
+
+        fun putTempSelectedChallengeId(value: Int) {
+            Hawk.put(tempSelectedChallengeId, value)
+        }
+
+        fun getTempSelectedChallengeId(): Int {
+            return (Hawk.get(tempSelectedChallengeId, emptyInt))
         }
 
         fun putProfileIconId(value: Int) {

@@ -67,10 +67,52 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Hygiene" />
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/boxTitleTask"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x8"
+                android:layout_marginEnd="@dimen/space_x8"
+                android:layout_marginTop="@dimen/space_x2"
+                android:hint="@string/customised_tasks"
+                app:boxBackgroundColor="@color/white"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeWidthFocused="0dp"
+                app:errorIconDrawable="@null"
+                app:expandedHintEnabled="false"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCategoryName">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitleTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_white_grey_outline"
+                    android:fontFamily="@font/sofia_pro_regular"
+                    android:hint="@string/custom_task"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
+                    android:maxLength="50"
+                    android:maxLines="1"
+                    android:paddingStart="@dimen/space_x4"
+                    android:paddingTop="@dimen/space_x2"
+                    android:paddingEnd="@dimen/space_x4"
+                    android:paddingBottom="@dimen/space_x2"
+                    android:textColor="@color/light_black"
+                    android:textColorHint="@color/light_grey"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tvTaskName"
                 android:layout_width="@dimen/space_x22"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_half"
                 android:ellipsize="end"
                 android:fontFamily="@font/sofia_pro_semibold"
                 android:letterSpacing="0"
@@ -83,6 +125,13 @@
                 app:layout_constraintTop_toBottomOf="@id/tvCategoryName"
                 tools:text="Put dirty clothes in the laundry bag" />
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/brTextInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="tvTaskName,boxTitleTask"/>
+
             <ImageView
                 android:id="@+id/ivChallenge"
                 android:layout_width="@dimen/space_x15"
@@ -90,7 +139,7 @@
                 android:layout_marginTop="@dimen/space_x2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTaskName"
+                app:layout_constraintTop_toBottomOf="@id/brTextInput"
                 tools:background="@color/grey_1" />
 
             <ImageView

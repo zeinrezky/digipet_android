@@ -191,7 +191,7 @@ class RegisterChallengeStartDateFragment : BaseFragment() {
                     viewModel.postCreateAssignment(
                         CreateAssignmentRequest(
                             challengeId = null,
-                            globalChallengeId = AppPreference.getTempSelectedGlobalId(),
+                            globalChallengeId = AppPreference.getTempSelectedGlobalChallengeId(),
                             kidId = kidIdList,
                             startDate = if (tempCurrentDate == startDate) emptyString else startDate.orEmpty()
                                 .toString()
