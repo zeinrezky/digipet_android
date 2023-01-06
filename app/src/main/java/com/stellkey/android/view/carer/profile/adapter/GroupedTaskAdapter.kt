@@ -2,14 +2,12 @@ package com.stellkey.android.view.carer.profile.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
+import com.stellkey.android.databinding.ItemGroupedTaskBinding
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.CategorizedTaskModel
@@ -29,63 +27,67 @@ class GroupedTaskAdapter(
     private lateinit var groupedTaskChildAdapter: GroupedTaskChildAdapter
 
     interface Listener {
+
         fun onGroupedTaskItemClicked(data: TaskModel)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupedTaskViewHolder {
-        val view =
-            LayoutInflater.from(contexts).inflate(R.layout.item_grouped_task, parent, false)
-        return GroupedTaskViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GroupedTaskViewHolder =
+        GroupedTaskViewHolder(
+            ItemGroupedTaskBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
 
     override fun getItemCount(): Int {
         return itemList.size
     }
 
     override fun onBindViewHolder(holder: GroupedTaskViewHolder, position: Int) {
-        holder.apply {
-            val addedCatTaskList = itemList[position].tasks
+        holder.bind(itemList[position])
+    }
+
+    inner class GroupedTaskViewHolder(private val binding: ItemGroupedTaskBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: CategorizedTaskModel) {
+            val addedCatTaskList = item.tasks
 
             addedCatTaskList.forEach {
-                it.challengeCatId = itemList[position].id
+                it.challengeCatId = item.id
             }
 
-            tvCategoryName.textOrNull = itemList[position].title
+            binding.apply {
+                tvCategoryName.textOrNull = item.title
 
-            ivExpand.apply {
-                isVisible = true
-                setOnClickListener {
-                    if (isExpandChildList) {
-                        setImageResource(R.drawable.ic_arrow_down)
-                        isExpandChildList = false
-                        rvGroupedTaskChild.isVisible = false
-                    } else {
-                        setImageResource(R.drawable.ic_arrow_up)
-                        isExpandChildList = true
-                        groupedTaskChildAdapter = GroupedTaskChildAdapter(
-                            contexts,
-                            addedCatTaskList,
-                            this@GroupedTaskAdapter
-                        )
-                        rvGroupedTaskChild.apply {
-                            isVisible = true
-                            layoutManager = LinearLayoutManager(
+                ivExpand.apply {
+                    isVisible = true
+                    setOnClickListener {
+                        if (isExpandChildList) {
+                            setImageResource(R.drawable.ic_arrow_down)
+                            isExpandChildList = false
+                            rvGroupedTaskChild.isVisible = false
+                        } else {
+                            setImageResource(R.drawable.ic_arrow_up)
+                            isExpandChildList = true
+                            groupedTaskChildAdapter = GroupedTaskChildAdapter(
                                 contexts,
-                                LinearLayoutManager.HORIZONTAL,
-                                false
+                                addedCatTaskList,
+                                this@GroupedTaskAdapter
                             )
-                            adapter = groupedTaskChildAdapter
+                            rvGroupedTaskChild.apply {
+                                isVisible = true
+                                layoutManager = LinearLayoutManager(
+                                    contexts,
+                                    LinearLayoutManager.HORIZONTAL,
+                                    false
+                                )
+                                adapter = groupedTaskChildAdapter
+                            }
                         }
                     }
                 }
             }
         }
-    }
-
-    inner class GroupedTaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val tvCategoryName: TextView = itemView.findViewById(R.id.tvCategoryName)
-        val ivExpand: ImageView = itemView.findViewById(R.id.ivExpand)
-        val rvGroupedTaskChild: RecyclerView = itemView.findViewById(R.id.rvGroupedTaskChild)
     }
 
     override fun onTaskItemClicked(data: TaskModel) {
