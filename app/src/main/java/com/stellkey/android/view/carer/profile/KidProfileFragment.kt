@@ -29,6 +29,7 @@ import com.stellkey.android.view.carer.account.EditProfileFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.adapter.ActiveTaskAdapter
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class KidProfileFragment : BaseFragment() {
 
@@ -46,6 +47,7 @@ class KidProfileFragment : BaseFragment() {
     private var selectedKidAge = emptyInt
 
     companion object {
+
         @JvmStatic
         fun newInstance() = KidProfileFragment()
     }
@@ -100,7 +102,7 @@ class KidProfileFragment : BaseFragment() {
                 it?.let { taskResponse -> setTaskData(taskResponse.assignments) }
             }
 
-            getListRewardsSuccess.observe(viewLifecycleOwner){
+            getListRewardsSuccess.observe(viewLifecycleOwner) {
                 setRewardData()
             }
 
@@ -114,7 +116,13 @@ class KidProfileFragment : BaseFragment() {
         (activity as HomeAct).showMenu(isShow = false)
         onBackPressed()
 
-        viewModel.getDetailKid(profileId = AppPreference.getTempChildId())
+        AppPreference.getTempChildId().let {
+            if (it == emptyInt) {
+                requireActivity().supportFragmentManager.popBackStack()
+            } else {
+                viewModel.getDetailKid(profileId = it)
+            }
+        }
     }
 
     private fun setKidDetailData(kidData: AllKidsModel) {
@@ -276,6 +284,7 @@ class KidProfileFragment : BaseFragment() {
 
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
             dataBinding.cvTasks -> {
                 dataBinding.apply {
                     cvTasks.setCardBackgroundColor(
@@ -309,6 +318,7 @@ class KidProfileFragment : BaseFragment() {
                     viewModel.getCurrentCycleAssignment(profileId = AppPreference.getTempChildId())
                 }
             }
+
             dataBinding.cvRewards -> {
                 dataBinding.apply {
                     cvTasks.setCardBackgroundColor(
@@ -345,11 +355,13 @@ class KidProfileFragment : BaseFragment() {
                     )
                 }
             }
+
             dataBinding.cvAddTask -> {
                 AppPreference.putTempChildId(selectedKidId)
                 addFragment(AddTaskFragment.newInstance())
                 AddTaskFragment.kidAge = selectedKidAge
             }
+
             dataBinding.cvAddReward -> {
                 AppPreference.putTempChildId(selectedKidId)
                 addFragment(AddRewardFragment.newInstance())

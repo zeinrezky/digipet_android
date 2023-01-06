@@ -50,6 +50,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     responseError.call()
 
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -73,6 +75,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -97,6 +101,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     responseError.call()
 
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -121,6 +127,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     responseError.call()
 
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -145,6 +153,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     responseError.call()
 
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -166,6 +176,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -187,6 +199,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -209,6 +223,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -231,6 +247,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -253,6 +271,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
@@ -275,6 +295,8 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                is NetworkResponse.UnknownError -> {}
             }
         }
     }
