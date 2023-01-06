@@ -22,6 +22,7 @@ import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.helper.extension.timePicker
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.request.CreateAssignmentRequest
+import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
@@ -101,6 +102,13 @@ class AddTaskDetailFragment : BaseFragment() {
                 popToInitialFragment()
             }
 
+            createNewTaskSuccess.observe(viewLifecycleOwner) {
+                // TODO("check each kids for task start date that not yet assigned")
+                it?.let { customTask ->
+                    AppPreference.putTempSelectedChallengeId(customTask.id)
+                    createTaskForExistingTask()
+                }
+            }
         }
 
         setView()
@@ -244,8 +252,12 @@ class AddTaskDetailFragment : BaseFragment() {
     }
 
     private fun createTaskForNewTask() {
-        val kidIdList = arrayListOf<Int>()
-        kidIdList.add(AppPreference.getTempChildId())
+        viewModel.postNewTaskAssignment(
+            request = CustomTaskRequest(
+                challengeCatId = AppPreference.getTempSelectedCategoryId(),
+                title = AppPreference.getTempSelectedChallengeName()
+            )
+        )
     }
 
     private fun createTaskForExistingTask() {

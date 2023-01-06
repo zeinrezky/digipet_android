@@ -6,7 +6,6 @@ import com.stellkey.android.model.request.*
 import com.stellkey.android.util.Constant
 import retrofit2.http.*
 
-
 interface UserService {
 
     /* Register Routes */
@@ -104,6 +103,9 @@ interface UserService {
 
     @GET("carer/challenges/categories")
     suspend fun challengeCategory(): NetworkResponse<ResponseSuccess<ArrayList<ChallengeCategoryModel>>, ResponseError>
+
+    @POST("carer/challenges")
+    suspend fun postNewCustomChallenge(@Body newCustomTaskRequest: CustomTaskRequest): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError>
     /* End of Tasks Routes */
 
     /* Rewards Routes */
@@ -345,6 +347,10 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun getChallengeCategory(): NetworkResponse<ResponseSuccess<ArrayList<ChallengeCategoryModel>>, ResponseError> {
         return userService.challengeCategory()
+    }
+
+    suspend fun postNewCustomChallenge(request: CustomTaskRequest): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError> {
+        return userService.postNewCustomChallenge(request)
     }
     /* End of Tasks Routes Functions */
 
