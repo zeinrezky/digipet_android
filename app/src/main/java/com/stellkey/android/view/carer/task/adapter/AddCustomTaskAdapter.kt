@@ -1,4 +1,4 @@
-package com.stellkey.android.view.carer.profile.adapter
+package com.stellkey.android.view.carer.task.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

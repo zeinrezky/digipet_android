@@ -13,6 +13,7 @@ import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.CategorizedTaskModel
 import com.stellkey.android.model.TaskModel
+import com.stellkey.android.view.carer.task.adapter.AddCustomTaskAdapter
 
 class GroupedTaskAdapter(
     context: Context,
