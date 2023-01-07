@@ -9,8 +9,11 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.ConcatAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentAddTaskDetailBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.afterTextChanged
 import com.stellkey.android.helper.extension.defaultDateFormat
@@ -21,12 +24,15 @@ import com.stellkey.android.helper.extension.orEmpty
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.helper.extension.timePicker
 import com.stellkey.android.model.AllKidsModel
+import com.stellkey.android.model.UIAction
 import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.ProfileViewModel
+import com.stellkey.android.view.carer.task.adapter.ActionButtonAdapter
+import com.stellkey.android.view.carer.task.adapter.KidProfileAdapter
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -37,11 +43,27 @@ class AddTaskDetailFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentAddTaskDetailBinding
 
-    //private val binding by viewBinding<FragmentAddTaskDetailBinding>()
     private val viewModel by inject<ProfileViewModel>()
 
     private var tempCurrentDate: String? = null
     private var startDate: String? = null
+    private val listAllKids = ArrayList<AllKidsModel>()
+    private val tempSelectedList = ArrayList<AllKidsModel>()
+    private val tempUnselectedList = ArrayList<AllKidsModel>()
+
+    private val kidSelectedProfileAdapter by lazy {
+        KidProfileAdapter()
+    }
+    private val kidProfileAdapter by lazy {
+        KidProfileAdapter(listener = onKidClicked)
+    }
+
+    private val addDoneIconAdapter by lazy {
+        ActionButtonAdapter(
+            type = ActionButtonAdapter.ButtonActionType.ADD_ICON,
+            listener = onAddIconClicked
+        )
+    }
 
     companion object {
 
@@ -104,10 +126,19 @@ class AddTaskDetailFragment : BaseFragment() {
             }
 
             createNewTaskSuccess.observe(viewLifecycleOwner) {
-                // TODO("check each kids for task start date that not yet assigned")
                 it?.let { customTask ->
                     AppPreference.putTempSelectedChallengeId(customTask.id)
                     createTaskForExistingTask()
+                }
+            }
+
+            listKids.observe(viewLifecycleOwner) {
+                it?.let { kids ->
+                    listAllKids.addAll(kids.map { kid ->
+                        kid.apply {
+                            uiAction = UIAction(isSelected = false, isEnable = true)
+                        }
+                    }.filter { kid -> kid.id != AppPreference.getTempChildId() })
                 }
             }
         }
@@ -121,6 +152,7 @@ class AddTaskDetailFragment : BaseFragment() {
         onBackPressed()
 
         viewModel.getDetailKid(profileId = AppPreference.getTempChildId())
+        viewModel.getListAllKids()
         viewModel.getChallengeCategory()
 
         dataBinding.apply {
@@ -151,17 +183,20 @@ class AddTaskDetailFragment : BaseFragment() {
             } else {
                 boxStartDate.editText?.setOnClickListener(onClickCallback)
             }
+
+            rvKids.apply {
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                adapter =
+                    ConcatAdapter(kidSelectedProfileAdapter, kidProfileAdapter, addDoneIconAdapter)
+            }
         }
     }
 
     private fun setKidDetailData(kidData: AllKidsModel) {
         dataBinding.apply {
-            ivKidAvatar.loadImage(
-                kidData.profileIcon.icon,
-                ImageCornerOptions.ROUNDED,
-                100
-            )
-            tvKidName.textOrNull = kidData.name
+            kidSelectedProfileAdapter.setProfileListInto(arrayListOf(kidData.apply {
+                uiAction = UIAction(isSelected = true, isEnable = true)
+            }))
         }
     }
 
@@ -252,6 +287,50 @@ class AddTaskDetailFragment : BaseFragment() {
         }
     }
 
+    private val onKidClicked = object : KidProfileAdapter.Listener {
+        override fun onKidProfileSelected(data: AllKidsModel) {
+            listAllKids.find { kid -> kid.id == data.id }.apply {
+                this?.uiAction?.isSelected = this?.uiAction?.isSelected != true
+            }
+            refreshKidProfileAdapter()
+        }
+    }
+
+    private val onAddIconClicked = object : ActionButtonAdapter.Listener {
+        override fun onActionButtonClicked(type: ActionButtonAdapter.ButtonActionType) {
+            if (type == ActionButtonAdapter.ButtonActionType.ADD_ICON) {
+                showAllKid()
+            } else {
+                showSelectedKidOnly()
+            }
+        }
+    }
+
+    private fun refreshKidProfileAdapter() {
+        kidProfileAdapter.notifyDataSetChanged()
+    }
+
+    private fun showAllKid() {
+        addDoneIconAdapter.setIconType(ActionButtonAdapter.ButtonActionType.DONE_ICON)
+        tempSelectedList.clear()
+        tempUnselectedList.clear()
+
+        tempSelectedList.addAll(listAllKids.filter { kid -> kid.uiAction.isSelected })
+        tempUnselectedList.addAll(listAllKids.filter { kid -> !kid.uiAction.isSelected })
+
+        val combinedList = tempSelectedList + tempUnselectedList
+        kidProfileAdapter.setProfileListInto(combinedList.distinctBy { it.id }.toArrayList())
+    }
+
+    private fun showSelectedKidOnly() {
+        addDoneIconAdapter.setIconType(ActionButtonAdapter.ButtonActionType.ADD_ICON)
+        tempSelectedList.clear()
+        tempUnselectedList.clear()
+
+        tempSelectedList.addAll(listAllKids.filter { kid -> kid.uiAction.isSelected })
+        kidProfileAdapter.setProfileListInto(tempSelectedList.distinctBy { it.id }.toArrayList())
+    }
+
     private fun createTaskForNewTask() {
         viewModel.postNewTaskAssignment(
             request = CustomTaskRequest(
@@ -262,6 +341,7 @@ class AddTaskDetailFragment : BaseFragment() {
     }
 
     private fun createTaskForExistingTask() {
+        // TODO("check each kids for task start date that not yet assigned")
         val kidIdList = arrayListOf<Int>()
         kidIdList.add(AppPreference.getTempChildId())
         if (AppPreference.hasActiveCycle()) {

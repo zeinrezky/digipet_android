@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_marginStart="@dimen/space_x1"
+    android:layout_marginEnd="@dimen/space_x1"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvKidAvatar"
+        android:layout_width="@dimen/space_x9"
+        android:layout_height="@dimen/space_x9"
+        app:cardCornerRadius="@dimen/space_x9"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivKidAvatar"
+            android:layout_width="@dimen/space_x9"
+            android:layout_height="match_parent"
+            tools:src="@drawable/ic_ava_placeholder" />
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvKidName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/sofia_pro_semibold"
+        android:letterSpacing="0"
+        android:maxWidth="@dimen/space_x9"
+        android:maxLines="3"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@id/cvKidAvatar"
+        app:layout_constraintStart_toStartOf="@id/cvKidAvatar"
+        app:layout_constraintTop_toBottomOf="@id/cvKidAvatar"
+        tools:text="Sammi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

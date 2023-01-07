@@ -58,8 +58,10 @@ data class AllKidsModel(
     @SerializedName("activeDecor")
     var activeDecor: ArrayList<Any>,
     @SerializedName("activeAccessory")
-    var activeAccessory: ArrayList<Any>
+    var activeAccessory: ArrayList<Any>,
+    var uiAction: UIAction = UIAction(isSelected = false, isEnable = true)
 ) {
+
     data class Assignments(
         @SerializedName("notificationsTotal")
         var notificationsTotal: Int,
@@ -73,3 +75,8 @@ data class AllKidsModel(
         var suggested: Any
     )
 }
+
+data class UIAction(
+    var isSelected: Boolean = false,
+    var isEnable: Boolean = true
+)

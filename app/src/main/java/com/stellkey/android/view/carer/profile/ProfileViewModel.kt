@@ -3,7 +3,12 @@ package com.stellkey.android.view.carer.profile
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
-import com.stellkey.android.model.*
+import com.stellkey.android.model.AllCarersModel
+import com.stellkey.android.model.AllKidsModel
+import com.stellkey.android.model.ChallengeCategoryModel
+import com.stellkey.android.model.CustomTaskModel
+import com.stellkey.android.model.GroupedChallengesModel
+import com.stellkey.android.model.RewardListModel
 import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.model.request.CustomTaskRequest
@@ -31,6 +36,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     val groupedChallenges = MutableLiveData<GroupedChallengesModel?>()
     val challengeCategories = MutableLiveData<ArrayList<ChallengeCategoryModel>?>()
     val globalReward = MutableLiveData<RewardListModel?>()
+    val listKids = MutableLiveData<ArrayList<AllKidsModel>?>()
 
     fun getDetailCarer(profileId: Int) {
         isLoading.value = true
@@ -54,7 +60,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -81,7 +89,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -108,7 +118,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -136,7 +148,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -163,7 +177,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -190,7 +206,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -218,7 +236,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     snackbarMessage.value = response.error.message.toString()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -243,7 +263,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     snackbarMessage.value = response.error.message.toString()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -270,7 +292,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     responseError.call()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -295,7 +319,9 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     snackbarMessage.value = response.error.message.toString()
                 }
 
-                else -> {}
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -303,8 +329,8 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     fun postNewTaskAssignment(request: CustomTaskRequest) {
         isLoading.value = true
         viewModelScope.launch {
-            when (val response = userRepository.postNewCustomChallenge(request)){
-                is NetworkResponse.Success ->{
+            when (val response = userRepository.postNewCustomChallenge(request)) {
+                is NetworkResponse.Success -> {
                     isLoading.value = false
                     createNewTaskSuccess.value = response.body.data
                 }
@@ -313,16 +339,47 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
                 is NetworkResponse.UnknownError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.error.message.toString()
                 }
             }
+        }
+    }
+
+    fun getListAllKids() {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.getListAllKids()) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    listKids.value = response.body.data
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                is NetworkResponse.UnknownError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.error.message.toString()
+                }
+            }
+
         }
     }
 }
