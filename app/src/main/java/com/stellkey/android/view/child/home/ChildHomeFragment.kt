@@ -54,15 +54,6 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         dataBinding.lifecycleOwner = this
 
         with(viewModel) {
-            isLoading.observe(viewLifecycleOwner) { bool ->
-                bool.let { loading ->
-                    if (loading) {
-                        showWaitingDialog()
-                    } else {
-                        hideWaitingDialog()
-                    }
-                }
-            }
             responseError.observe(viewLifecycleOwner) {
                 AppPreference.deleteAll()
                 val intent = Intent(context, IntroAct::class.java)
@@ -87,7 +78,6 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
 
     private fun setView() {
         viewModel.getKidInfo()
-        onBackPressed()
     }
 
     private fun setKidView(data: KidInfoModel) {

@@ -29,18 +29,23 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                     isLoading.value = false
                     kidInfoResponse.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
-                else -> {}
+
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -53,18 +58,23 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                     isLoading.value = false
                     completeKidTaskResponse.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
-                else -> {}
+
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -77,18 +87,22 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                     isLoading.value = false
                     kidLocaleResponse.value = response.body.data.let { response.body.data }
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
-                else -> {}
+
+                else -> {
+                    isLoading.value = false
+                }
             }
         }
     }
-
 }
