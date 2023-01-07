@@ -27,6 +27,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
+import androidx.core.view.doOnAttach
+import androidx.core.view.doOnDetach
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.viewpager2.widget.ViewPager2
@@ -503,5 +505,7 @@ fun Context.changeLocale(language: String): Context {
     return createConfigurationContext(config)
 }
 
-
-
+fun View.safeLeakRun(onAttach: () -> Unit = {}, onDetach: () -> Unit = {}) {
+    doOnAttach { onAttach.invoke() }
+    doOnDetach { onDetach.invoke() }
+}

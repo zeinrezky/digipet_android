@@ -22,7 +22,7 @@ android {
     }
     buildFeatures {
         dataBinding true
-        viewBinding =  true
+        viewBinding = true
     }
     buildTypes {
         debug {
@@ -140,4 +140,6 @@ dependencies {
     // For control over item selection of both touch and mouse driven selection
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
 
+    /* Eventbus */
+    implementation("org.greenrobot:eventbus:3.3.1")
 }
