@@ -28,6 +28,8 @@ import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.account.EditProfileFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.adapter.ActiveTaskAdapter
+import com.stellkey.android.view.carer.reward.AddRewardFragment
+import com.stellkey.android.view.carer.task.AddTaskFragment
 import org.koin.android.ext.android.inject
 
 class KidProfileFragment : BaseFragment() {

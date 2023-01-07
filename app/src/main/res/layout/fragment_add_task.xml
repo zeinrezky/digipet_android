@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
-        tools:context=".view.carer.profile.AddTaskFragment">
+        tools:context=".view.carer.task.AddTaskFragment">
 
         <ScrollView
             android:layout_width="match_parent"

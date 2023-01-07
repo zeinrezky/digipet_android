@@ -1,4 +1,4 @@
-package com.stellkey.android.view.carer.profile
+package com.stellkey.android.view.carer.reward
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +21,7 @@ import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.RecommendedRewardAdapter
 import org.koin.android.ext.android.inject
 

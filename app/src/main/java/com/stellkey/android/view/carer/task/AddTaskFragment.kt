@@ -1,4 +1,4 @@
-package com.stellkey.android.view.carer.profile
+package com.stellkey.android.view.carer.task
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +16,7 @@ import com.stellkey.android.model.TaskModel
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.GroupedTaskAdapter
 import com.stellkey.android.view.carer.profile.adapter.RecommendedTaskAdapter
 import org.koin.android.ext.android.inject

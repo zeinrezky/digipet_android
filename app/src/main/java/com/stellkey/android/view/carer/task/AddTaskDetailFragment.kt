@@ -1,4 +1,4 @@
-package com.stellkey.android.view.carer.profile
+package com.stellkey.android.view.carer.task
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +26,7 @@ import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.profile.ProfileViewModel
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
