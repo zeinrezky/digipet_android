@@ -341,9 +341,11 @@ class AddTaskDetailFragment : BaseFragment() {
     }
 
     private fun createTaskForExistingTask() {
-        // TODO("check each kids for task start date that not yet assigned")
         val kidIdList = arrayListOf<Int>()
         kidIdList.add(AppPreference.getTempChildId())
+        listAllKids.forEach {
+            kidIdList.add(it.id)
+        }
         if (AppPreference.hasActiveCycle()) {
             viewModel.postCreateAssignment(
                 CreateAssignmentRequest(
