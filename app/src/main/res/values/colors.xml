@@ -31,5 +31,5 @@
 
     <color name="transparent">#00FFFFFF</color>
     <color name="blurWhite">#33FFFFFF</color>
-
+    <color name="transparent_black">#80000000</color>
 </resources>

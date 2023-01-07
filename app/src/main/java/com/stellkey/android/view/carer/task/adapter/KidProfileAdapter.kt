@@ -12,6 +12,7 @@ import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import kotlinx.android.synthetic.main.item_kid_profile.view.cvKidAvatar
+import kotlinx.android.synthetic.main.item_kid_profile.view.ivKidAvatar
 
 /**
  * @author Nicolas Manurung (nicolas.manurung@dana.id)
@@ -47,9 +48,20 @@ class KidProfileAdapter(
                 100
             )
             binding.tvKidName.textOrNull = data.name
-            itemView.setOnClickListener {
-                listener?.onKidProfileSelected(data)
+            if (data.uiAction.isEnable) {
+                itemView.setOnClickListener {
+                    listener?.onKidProfileSelected(data)
+                }
+                itemView.ivKidAvatar.clearColorFilter()
+            } else {
+                itemView.ivKidAvatar.setColorFilter(
+                    ContextCompat.getColor(
+                        itemView.context,
+                        R.color.transparent_black
+                    )
+                )
             }
+
         }
     }
 

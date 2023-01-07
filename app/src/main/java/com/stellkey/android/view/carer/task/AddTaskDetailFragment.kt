@@ -91,7 +91,7 @@ class AddTaskDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        listAllKids.clear()
         dataBinding.vm = viewModel
         dataBinding.lifecycleOwner = this
 
@@ -136,7 +136,10 @@ class AddTaskDetailFragment : BaseFragment() {
                 it?.let { kids ->
                     listAllKids.addAll(kids.map { kid ->
                         kid.apply {
-                            uiAction = UIAction(isSelected = false, isEnable = true)
+                            uiAction = UIAction(
+                                isSelected = false,
+                                isEnable = checkIsKidEligibleToAssignment(kid)
+                            )
                         }
                     }.filter { kid -> kid.id != AppPreference.getTempChildId() })
                 }
@@ -145,6 +148,25 @@ class AddTaskDetailFragment : BaseFragment() {
 
         setView()
         setOnClick()
+    }
+
+    private fun checkIsKidEligibleToAssignment(kid: AllKidsModel): Boolean {
+        if (kid.tasksToday.assignments.size < 3 && isCustomTask) {
+            return true
+        } else if (kid.tasksToday.assignments.size < 3) {
+            val assignmentId =
+                if (isGlobalTask) AppPreference.getTempSelectedGlobalChallengeId() else AppPreference.getTempSelectedChallengeId()
+            var isEligible = true
+            kid.tasksToday.assignments.forEach {
+                if (it.globalChallengeId == assignmentId || it.challengeId == assignmentId) {
+                    isEligible = false
+                    return@forEach
+                }
+            }
+            return isEligible
+        } else {
+            return false
+        }
     }
 
     private fun setView() {
@@ -344,7 +366,9 @@ class AddTaskDetailFragment : BaseFragment() {
         val kidIdList = arrayListOf<Int>()
         kidIdList.add(AppPreference.getTempChildId())
         listAllKids.forEach {
-            kidIdList.add(it.id)
+            if (it.uiAction.isSelected) {
+                kidIdList.add(it.id)
+            }
         }
         if (AppPreference.hasActiveCycle()) {
             viewModel.postCreateAssignment(
