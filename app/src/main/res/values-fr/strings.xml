@@ -212,6 +212,8 @@
     <string name="dialog_delete_all_log_desc">Je veux effacer l\'historique des missions.</string>
     <string name="dialog_delete_profile_title">You’re removing a profile</string>
     <string name="dialog_delete_profile_desc">I want to remove %s profile.</string>
+    <string name="dialog_confirmation_custom_task_title">One more step to go</string>
+    <string name="dialog_confirmation_custom_task_desc">%s task will be added to current %s cycle.</string>
 
     <!-- Kid -->
     <string name="my_progress">Mes progrès</string>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -12,10 +13,12 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
+import com.stellkey.android.databinding.DialogConfirmationCustomTaskBinding
 import com.stellkey.android.databinding.FragmentAddTaskDetailBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.afterTextChanged
+import com.stellkey.android.helper.extension.alertDialog
 import com.stellkey.android.helper.extension.defaultDateFormat
 import com.stellkey.android.helper.extension.emptyString
 import com.stellkey.android.helper.extension.formatDate
@@ -43,6 +46,9 @@ class AddTaskDetailFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentAddTaskDetailBinding
 
+    private lateinit var dialogConfirmationAssignCycle: DialogConfirmationCustomTaskBinding
+    private lateinit var confirmationDialog: AlertDialog
+
     private val viewModel by inject<ProfileViewModel>()
 
     private var tempCurrentDate: String? = null
@@ -64,6 +70,8 @@ class AddTaskDetailFragment : BaseFragment() {
             listener = onAddIconClicked
         )
     }
+
+    private val listKidThatNotHaveCycleYet = arrayListOf<String>()
 
     companion object {
 
@@ -122,7 +130,14 @@ class AddTaskDetailFragment : BaseFragment() {
             }
 
             createAssignmentSuccess.observe(viewLifecycleOwner) {
-                popToInitialFragment()
+                if (listKidThatNotHaveCycleYet.isNotEmpty()) {
+                    initDialogConfirmationAssignCycle(
+                        listKidThatNotHaveCycleYet.joinToString(separator = ", "),
+                        dataBinding.etStartDate.text.toString()
+                    )
+                } else {
+                    popToInitialFragment()
+                }
             }
 
             createNewTaskSuccess.observe(viewLifecycleOwner) {
@@ -148,6 +163,30 @@ class AddTaskDetailFragment : BaseFragment() {
 
         setView()
         setOnClick()
+    }
+
+    private fun initDialogConfirmationAssignCycle(kidsName: String, cycleDate: String) {
+        dialogConfirmationAssignCycle = DialogConfirmationCustomTaskBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+        confirmationDialog = requireActivity().alertDialog(
+            view = dialogConfirmationAssignCycle.root,
+            isCancelable = false,
+            fullScreen = false
+        )
+        confirmationDialog.window?.setBackgroundDrawableResource(R.color.blurWhite)
+
+        dialogConfirmationAssignCycle.tvDesc.textOrNull = requireContext().getString(
+            R.string.dialog_confirmation_custom_task_desc,
+            kidsName,
+            cycleDate
+        )
+        dialogConfirmationAssignCycle.btnContinue.setOnClickListener {
+            popToInitialFragment()
+            confirmationDialog.dismiss()
+        }
+
+        confirmationDialog.show()
     }
 
     private fun checkIsKidEligibleToAssignment(kid: AllKidsModel): Boolean {
@@ -368,8 +407,12 @@ class AddTaskDetailFragment : BaseFragment() {
         listAllKids.forEach {
             if (it.uiAction.isSelected) {
                 kidIdList.add(it.id)
+                if (it.activeAssignments.assignments.isEmpty()) {
+                    listKidThatNotHaveCycleYet.add("${it.name}'s")
+                }
             }
         }
+
         if (AppPreference.hasActiveCycle()) {
             viewModel.postCreateAssignment(
                 CreateAssignmentRequest(
