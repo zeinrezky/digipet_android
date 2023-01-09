@@ -38,7 +38,7 @@ data class AssignmentsModel(
     @SerializedName("remindedAt")
     var remindedAt: String,
     @SerializedName("challenge")
-    var challenge: Any,
+    var challenge: CustomChallengeModel,
     @SerializedName("globalChallenge")
     var globalChallenge: GlobalChallengeModel,
     @SerializedName("formattedDate")

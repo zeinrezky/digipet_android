@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentKidProfileBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.emptyInt
@@ -20,6 +21,7 @@ import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.DeleteChildTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
@@ -175,26 +177,59 @@ class KidProfileFragment : BaseFragment() {
                 AppPreference.putActiveCycle(true)
                 AppPreference.putTempChallengeStartDate(taskData[0].assignDate)
 
-                val groupedActiveTask = arrayListOf<AssignmentsModel>()
-                taskData.distinctBy { it.globalChallengeId }.forEach {
-                    groupedActiveTask.add(it)
+                val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
+//                val taskStarList = arrayListOf<TaskStarModel>()
+//                taskData.distinctBy { it.globalChallengeId }.forEach {
+//                    groupedActiveTask.add(it) //yang custom task yang ikutan cuman 1, karna nge distinctBy,
+//                    // kalo globalChallengeId==null maka semua custom task dijadikan 1, logic harus di ubah
+//                    taskStarList.add(TaskStarModel(isCompleted = it.completedAt != null))
+//                }
+                // for tasks
+                taskData.groupBy { it.globalChallengeId }.forEach {
+                    if (it.key != null) {
+                        val listStarTask = it.value.map { assignment ->
+                            TaskStarModel(isCompleted = assignment.completedAt != null)
+                        }
+                        groupedActiveTask.add(
+                            Pair(
+                                it.value.first(),
+                                listStarTask
+                            )
+                        )
+                        // add
+                    }
                 }
 
-                if (groupedActiveTask.size < 3)
+                // for custom tasks
+                taskData.groupBy { it.challengeId }.forEach {
+                    if (it.key != null) {
+                        val listStarTask = it.value.map { assignment ->
+                            TaskStarModel(isCompleted = assignment.completedAt != null)
+                        }
+                        groupedActiveTask.add(
+                            Pair(
+                                it.value.first(),
+                                listStarTask
+                            )
+                        )
+                    }
+                }
+
+                if (groupedActiveTask.size < 3) {
                     cvAddTask.apply {
                         isVisible = true
                         setOnClickListener(onClickCallback)
                     }
-                else
+                } else {
                     cvAddTask.apply {
                         isVisible = false
                         setOnClickListener(null)
                     }
-
+                }
 
                 activeTaskAdapter = ActiveTaskAdapter(
                     requireContext(),
-                    groupedActiveTask
+                    groupedActiveTask.toArrayList(),
                 )
                 rvProfileTask.apply {
                     layoutManager = LinearLayoutManager(
