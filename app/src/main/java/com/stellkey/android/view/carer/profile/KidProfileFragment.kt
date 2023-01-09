@@ -178,12 +178,7 @@ class KidProfileFragment : BaseFragment() {
                 AppPreference.putTempChallengeStartDate(taskData[0].assignDate)
 
                 val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
-//                val taskStarList = arrayListOf<TaskStarModel>()
-//                taskData.distinctBy { it.globalChallengeId }.forEach {
-//                    groupedActiveTask.add(it) //yang custom task yang ikutan cuman 1, karna nge distinctBy,
-//                    // kalo globalChallengeId==null maka semua custom task dijadikan 1, logic harus di ubah
-//                    taskStarList.add(TaskStarModel(isCompleted = it.completedAt != null))
-//                }
+
                 // for tasks
                 taskData.groupBy { it.globalChallengeId }.forEach {
                     if (it.key != null) {
@@ -196,7 +191,6 @@ class KidProfileFragment : BaseFragment() {
                                 listStarTask
                             )
                         )
-                        // add
                     }
                 }
 

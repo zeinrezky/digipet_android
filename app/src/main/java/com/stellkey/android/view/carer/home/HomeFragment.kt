@@ -2,24 +2,25 @@ package com.stellkey.android.view.carer.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.snackbar.Snackbar
 import com.stellkey.android.R
-import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentHomeBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
-import com.stellkey.android.helper.extension.*
+import com.stellkey.android.helper.extension.ImageCornerOptions
+import com.stellkey.android.helper.extension.emptyBoolean
+import com.stellkey.android.helper.extension.emptyInt
+import com.stellkey.android.helper.extension.loadImage
+import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.AssignmentActionRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
@@ -49,6 +50,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
     private var isTodayListEmpty = emptyBoolean
 
     companion object {
+
         @JvmStatic
         fun newInstance() = HomeFragment()
     }
@@ -101,7 +103,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
             }
 
             todayAssignment.observe(viewLifecycleOwner) {
-                it?.let { it1 -> setTodayTaskList(it1) }
+                it?.let { it1 -> setTodayTaskList(it1, null) }
             }
 
             declineKidTaskCompletionSuccess.observe(viewLifecycleOwner) {
@@ -204,7 +206,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                 tvProfileName.textOrNull = data.name
                 tvCurrentCycleRange.textOrNull = data.activeAssignments.dateRange
 
-                setTodayTaskList(data.tasksToday)
+                setTodayTaskList(data.tasksToday, data)
             }
         }
     }
@@ -239,16 +241,39 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
         }
     }
 
-    private fun setTodayTaskList(assignmentsResponse: AllKidsModel.Assignments?) {
+    private fun setTodayTaskList(
+        todayAssignments: AllKidsModel.Assignments?,
+        kidsData: AllKidsModel?
+    ) {
         dataBinding.apply {
-            if (assignmentsResponse?.assignments?.isEmpty() == true) {
+            if (todayAssignments?.assignments?.isEmpty() == true) {
                 isTodayListEmpty = true
             } else {
                 isTodayListEmpty = false
 
+                val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
+
+                todayAssignments?.assignments?.forEach { assignment ->
+                    if (assignment.globalChallengeId != null) {
+                        kidsData?.activeAssignments?.assignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
+                            ?.map {
+                                TaskStarModel(isCompleted = it.completedAt != null)
+                            }?.let { listStarTask ->
+                                groupedActiveTask.add(Pair(assignment, listStarTask))
+                            }
+                    } else {
+                        kidsData?.activeAssignments?.assignments?.filter { it.challengeId == assignment.challengeId }
+                            ?.map {
+                                TaskStarModel(isCompleted = it.completedAt != null)
+                            }?.let { listStarTask ->
+                                groupedActiveTask.add(Pair(assignment, listStarTask))
+                            }
+                    }
+                }
+
                 todayTaskAdapter = TodayTaskAdapter(
                     requireContext(),
-                    assignmentsResponse?.assignments.orEmpty().toArrayList(),
+                    groupedActiveTask.toArrayList(),
                     this@HomeFragment
                 )
 

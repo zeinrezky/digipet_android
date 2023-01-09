@@ -14,17 +14,20 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.util.SwipeToActionCallback
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.task.adapter.TaskStarAdapter
 
 class TodayTaskAdapter(
     context: Context,
-    todayTaskList: ArrayList<AssignmentsModel>,
+    todayTaskList: ArrayList<Pair<AssignmentsModel,List<TaskStarModel>>>,
     private val listener: Listener
 ) : RecyclerView.Adapter<TodayTaskAdapter.TodayTaskViewHolder>() {
 
@@ -35,6 +38,7 @@ class TodayTaskAdapter(
     private var isExpandChildList = emptyBoolean
 
     private lateinit var todayTaskChildAdapter: TodayTaskChildAdapter
+    private lateinit var taskStarAdapter : TaskStarAdapter
     var todayTaskChildList = arrayListOf<AssignmentsModel>()
 
     interface Listener {
@@ -66,8 +70,18 @@ class TodayTaskAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: TodayTaskViewHolder, position: Int) {
         holder.apply {
-            ivTodayChallenge.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 24)
-            tvChallengeName.textOrNull = itemList[position].title
+            ivTodayChallenge.loadImage(itemList[position].first.icon, ImageCornerOptions.ROUNDED, 24)
+            tvChallengeName.textOrNull = itemList[position].first.title
+            taskStarAdapter =
+                TaskStarAdapter(itemView.context, itemList[position].second.toArrayList())
+            rvAssignmentStar.apply {
+                layoutManager = LinearLayoutManager(
+                    itemView.context,
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
+                adapter = taskStarAdapter
+            }
 
             /*val sortedChildItemList = arrayListOf<AssignmentsModel>()
             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
@@ -88,10 +102,10 @@ class TodayTaskAdapter(
                 }
             }*/
 
-            if (itemList[position].completedAt != null) {
-                if (itemList[position].confirmedAt != null)
+            if (itemList[position].first.completedAt != null) {
+                if (itemList[position].first.confirmedAt != null)
                     notificationCount = 0
-                else if (itemList[position].declinedAt != null)
+                else if (itemList[position].first.declinedAt != null)
                     notificationCount = 0
                 else {
                     notificationCount += 1
@@ -122,7 +136,7 @@ class TodayTaskAdapter(
 
                             todayTaskChildList.apply {
                                 clear()
-                                add(itemList[position])
+                                add(itemList[position].first)
                             }
 
                             todayTaskChildAdapter = TodayTaskChildAdapter(
@@ -144,9 +158,9 @@ class TodayTaskAdapter(
                 val swipeHandler = object : SwipeToActionCallback(contexts) {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                         if (direction == ItemTouchHelper.RIGHT)
-                            listener.onTodayTaskItemApproved(itemList[adapterPosition])
+                            listener.onTodayTaskItemApproved(itemList[absoluteAdapterPosition].first)
                         else
-                            listener.onTodayTaskItemDeclined(itemList[adapterPosition])
+                            listener.onTodayTaskItemDeclined(itemList[absoluteAdapterPosition].first)
                     }
                 }
                 val itemTouchHelper = ItemTouchHelper(swipeHandler)
@@ -169,5 +183,6 @@ class TodayTaskAdapter(
         val ivExpand: ImageView = itemView.findViewById(R.id.ivExpand)
         val clTodayTaskChild: ConstraintLayout = itemView.findViewById(R.id.clTodayTaskChild)
         val rvTodayTaskChild: RecyclerView = itemView.findViewById(R.id.rvTodayTaskChild)
+        val rvAssignmentStar: RecyclerView = itemView.findViewById(R.id.rvAssignmentStar)
     }
 }
