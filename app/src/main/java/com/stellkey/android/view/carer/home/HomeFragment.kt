@@ -254,6 +254,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                 val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
 
                 todayAssignments?.assignments?.forEach { assignment ->
+                    //for global task
                     if (assignment.globalChallengeId != null) {
                         kidsData?.activeAssignments?.assignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
                             ?.map {
@@ -261,6 +262,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                             }?.let { listStarTask ->
                                 groupedActiveTask.add(Pair(assignment, listStarTask))
                             }
+                        //for custom task
                     } else {
                         kidsData?.activeAssignments?.assignments?.filter { it.challengeId == assignment.challengeId }
                             ?.map {
