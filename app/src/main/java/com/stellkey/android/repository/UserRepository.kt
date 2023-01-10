@@ -106,6 +106,10 @@ interface UserService {
 
     @POST("carer/challenges")
     suspend fun postNewCustomChallenge(@Body newCustomTaskRequest: CustomTaskRequest): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError>
+
+    @GET("carer/challenges")
+    suspend fun getCustomChallenge(): NetworkResponse<ResponseSuccess<List<CustomChallengeModel>>, ResponseError>
+
     /* End of Tasks Routes */
 
     /* Rewards Routes */
@@ -351,6 +355,10 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun postNewCustomChallenge(request: CustomTaskRequest): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError> {
         return userService.postNewCustomChallenge(request)
+    }
+
+    suspend fun getListCustomChallenge(): NetworkResponse<ResponseSuccess<List<CustomChallengeModel>>, ResponseError> {
+        return userService.getCustomChallenge()
     }
     /* End of Tasks Routes Functions */
 

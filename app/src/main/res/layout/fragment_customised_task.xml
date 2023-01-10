@@ -46,11 +46,12 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCustomisedTask"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="@dimen/space_x1"
             android:layout_marginTop="@dimen/space_x4_half"
             android:layout_marginEnd="@dimen/space_x1"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvTitle"

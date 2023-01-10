@@ -476,7 +476,7 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
             ivExpandSetting.setOnClickListener(onClickCallback)
             tvLogActivity.setOnClickListener(onClickCallback)
             tvClearLogActivity.setOnClickListener(onClickCallback)
-            tvManageCustomTask.setOnClickListener(onClickCallback)
+            clCustomTask.setOnClickListener(onClickCallback)
             ivExpandProfileParentalControl.setOnClickListener(onClickCallback)
             ivExpandMembership.setOnClickListener(onClickCallback)
             ivExpandBillingInformation.setOnClickListener(onClickCallback)
@@ -521,7 +521,7 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
             dataBinding.tvClearLogActivity -> {
                 initDeleteAllLogDialog()
             }
-            dataBinding.tvManageCustomTask -> {
+            dataBinding.clCustomTask -> {
                 addFragment(CustomisedTaskFragment.newInstance())
             }
             dataBinding.ivExpandProfileParentalControl -> {

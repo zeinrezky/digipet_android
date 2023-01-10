@@ -6,6 +6,8 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.model.AllCarersModel
 import com.stellkey.android.model.AllKidsModel
+import com.stellkey.android.model.CustomChallengeModel
+import com.stellkey.android.model.CustomTaskModel
 import com.stellkey.android.model.SubscriptionModel
 import com.stellkey.android.model.request.*
 import com.stellkey.android.repository.UserRepository
@@ -33,6 +35,7 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
     val detailKid = MutableLiveData<AllKidsModel?>()
 
     val carerLocaleResponse = MutableLiveData<LocaleModel>()
+    val customTasksResponse = MutableLiveData<List<CustomChallengeModel>>()
 
     fun getSubscription() {
         isLoading.value = true
@@ -42,15 +45,18 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     subscriptionResponse.value = response.body.data.toArrayList()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
                 else -> {}
             }
         }
@@ -64,15 +70,18 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     deleteLogSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
                 else -> {}
             }
         }
@@ -86,17 +95,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     listAllKids.value = response.body.data.toArrayList()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -110,17 +122,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     listAllCarers.value = response.body.data.toArrayList()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -134,17 +149,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     detailCarer.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -158,17 +176,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     updateCarerSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -182,17 +203,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     updateCarerPINSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -206,15 +230,18 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     deleteCarerSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
                 else -> {}
             }
         }
@@ -228,17 +255,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     detailKid.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -252,17 +282,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     updateKidSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -276,17 +309,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     updateKidPINSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -300,15 +336,18 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     deleteKidSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
                 else -> {}
             }
         }
@@ -322,17 +361,20 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     updateMainCarerPasswordSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                     responseError.call()
                 }
+
                 else -> {}
             }
         }
@@ -346,15 +388,43 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
                     isLoading.value = false
                     carerLocaleResponse.value = response.body.data.let { response.body.data }
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
                 }
+
+                else -> {}
+            }
+        }
+    }
+
+    fun getListCustomChallenge() {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.getListCustomChallenge()) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    customTasksResponse.value = response.body.data.let { response.body.data }
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
                 else -> {}
             }
         }

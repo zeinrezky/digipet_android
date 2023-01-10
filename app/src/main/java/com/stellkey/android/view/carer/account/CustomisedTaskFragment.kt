@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentCustomisedTaskBinding
+import com.stellkey.android.model.CustomChallengeModel
 import com.stellkey.android.view.base.BaseFragment
+import com.stellkey.android.view.carer.account.adapter.CustomizedTaskAdapter
 import com.stellkey.android.view.carer.home.HomeAct
 import org.koin.android.ext.android.inject
 
@@ -19,6 +22,7 @@ class CustomisedTaskFragment : BaseFragment() {
     //private val binding by viewBinding<FragmentCustomisedTaskBinding>()
     private val viewModel by inject<AccountViewModel>()
 
+    private lateinit var customizedTaskAdapter: CustomizedTaskAdapter
     companion object {
         @JvmStatic
         fun newInstance() = CustomisedTaskFragment()
@@ -56,6 +60,10 @@ class CustomisedTaskFragment : BaseFragment() {
                 }
             }
 
+            customTasksResponse.observe(viewLifecycleOwner){
+                setupCustomizedRecyclerview(it)
+            }
+
         }
 
         (activity as HomeAct).showMenu(isShow = false)
@@ -63,7 +71,17 @@ class CustomisedTaskFragment : BaseFragment() {
         setOnClick()
     }
 
+    private fun setupCustomizedRecyclerview(listTasks: List<CustomChallengeModel>){
+        customizedTaskAdapter = CustomizedTaskAdapter(listTasks, listener = onCustomChallengeClicked)
+        dataBinding.rvCustomisedTask.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = customizedTaskAdapter
+        }
+    }
+
     private fun setView() {
+        viewModel.getListCustomChallenge()
+
         onBackPressed()
     }
 
@@ -88,4 +106,9 @@ class CustomisedTaskFragment : BaseFragment() {
         }
     }
 
+    private val onCustomChallengeClicked = object : CustomizedTaskAdapter.Listener{
+        override fun onChallengeClicked(challenge: CustomChallengeModel) {
+            // TODO("move to detail custom task page")
+        }
+    }
 }
