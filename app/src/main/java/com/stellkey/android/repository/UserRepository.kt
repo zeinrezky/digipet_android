@@ -110,6 +110,12 @@ interface UserService {
     @GET("carer/challenges")
     suspend fun getCustomChallenge(): NetworkResponse<ResponseSuccess<List<CustomChallengeModel>>, ResponseError>
 
+    @PUT("carer/challenges")
+    suspend fun putCustomChallenge(@Body request: EditCustomChallenge): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError>
+
+    @DELETE("carer/challenges/{param}")
+    suspend fun deleteCustomChallenge(@Path("param") idChallenge: Int): NetworkResponse<ResponseSuccess<ResponseSuccess.SuccessDelete>, ResponseError>
+
     /* End of Tasks Routes */
 
     /* Rewards Routes */
@@ -359,6 +365,14 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun getListCustomChallenge(): NetworkResponse<ResponseSuccess<List<CustomChallengeModel>>, ResponseError> {
         return userService.getCustomChallenge()
+    }
+
+    suspend fun putCustomChallenge(request: EditCustomChallenge): NetworkResponse<ResponseSuccess<CustomTaskModel>, ResponseError> {
+        return userService.putCustomChallenge(request)
+    }
+
+    suspend fun deleteCustomChallenge(idChallenge: Int): NetworkResponse<ResponseSuccess<ResponseSuccess.SuccessDelete>, ResponseError> {
+        return userService.deleteCustomChallenge(idChallenge)
     }
     /* End of Tasks Routes Functions */
 

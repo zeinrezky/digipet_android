@@ -168,6 +168,7 @@
             android:layout_marginBottom="@dimen/space_x1_half"
             android:backgroundTint="@color/white_2"
             android:elevation="@dimen/space_quarter"
+            android:enabled="false"
             android:fontFamily="@font/sofia_pro_semibold"
             android:letterSpacing="0"
             android:padding="@dimen/space_x1_quarter"
@@ -181,18 +182,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/boxTask"
-            />
+            app:layout_constraintTop_toBottomOf="@id/boxTask" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_x6"
-            android:layout_marginEnd="@dimen/space_x6"
             android:layout_marginTop="@dimen/space_x3"
+            android:layout_marginEnd="@dimen/space_x6"
             android:backgroundTint="@color/colorPrimary"
             android:elevation="0dp"
+            android:enabled="false"
             android:fontFamily="@font/sofia_pro_semibold"
             android:letterSpacing="0"
             android:padding="@dimen/space_x1_quarter"

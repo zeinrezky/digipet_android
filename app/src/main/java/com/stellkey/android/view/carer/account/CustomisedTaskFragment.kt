@@ -23,7 +23,9 @@ class CustomisedTaskFragment : BaseFragment() {
     private val viewModel by inject<AccountViewModel>()
 
     private lateinit var customizedTaskAdapter: CustomizedTaskAdapter
+
     companion object {
+
         @JvmStatic
         fun newInstance() = CustomisedTaskFragment()
     }
@@ -60,10 +62,9 @@ class CustomisedTaskFragment : BaseFragment() {
                 }
             }
 
-            customTasksResponse.observe(viewLifecycleOwner){
+            customTasksResponse.observe(viewLifecycleOwner) {
                 setupCustomizedRecyclerview(it)
             }
-
         }
 
         (activity as HomeAct).showMenu(isShow = false)
@@ -71,8 +72,9 @@ class CustomisedTaskFragment : BaseFragment() {
         setOnClick()
     }
 
-    private fun setupCustomizedRecyclerview(listTasks: List<CustomChallengeModel>){
-        customizedTaskAdapter = CustomizedTaskAdapter(listTasks, listener = onCustomChallengeClicked)
+    private fun setupCustomizedRecyclerview(listTasks: List<CustomChallengeModel>) {
+        customizedTaskAdapter =
+            CustomizedTaskAdapter(listTasks, listener = onCustomChallengeClicked)
         dataBinding.rvCustomisedTask.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = customizedTaskAdapter
@@ -106,9 +108,9 @@ class CustomisedTaskFragment : BaseFragment() {
         }
     }
 
-    private val onCustomChallengeClicked = object : CustomizedTaskAdapter.Listener{
+    private val onCustomChallengeClicked = object : CustomizedTaskAdapter.Listener {
         override fun onChallengeClicked(challenge: CustomChallengeModel) {
-            // TODO("move to detail custom task page")
+            addFragment(CustomisedTaskDetailFragment.newInstance(challenge))
         }
     }
 }

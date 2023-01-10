@@ -8,11 +8,11 @@ import com.google.gson.annotations.SerializedName
  */
 data class CustomChallengeModel(
     @SerializedName("id")
-    var id: Int,
+    var id: Int = -1,
     @SerializedName("title")
-    var title: String,
+    var title: String = "",
     @SerializedName("challengeCatId")
-    var challengeCatId: Int,
+    var challengeCatId: Int = -1,
     @SerializedName("challengeCat")
-    var challengeCat: ChallengeCategoryModel
+    var challengeCat: ChallengeCategoryModel = ChallengeCategoryModel()
 )

@@ -10,12 +10,14 @@ data class ResponseSuccess<T>(
     @SerializedName("statusCode")
     val status: StatusCode
 ) {
+
     data class Pagination(
         @SerializedName("total")
         val total: Int,
         @SerializedName("nav")
         val nav: Any
     )
+
     data class StatusCode(
         @SerializedName("code")
         val code: Int,
@@ -23,5 +25,10 @@ data class ResponseSuccess<T>(
         val message: String,
         @SerializedName("debug")
         val debug: String
+    )
+
+    data class SuccessDelete(
+        @SerializedName("count")
+        val count: Int
     )
 }

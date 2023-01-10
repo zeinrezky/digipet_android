@@ -6,6 +6,7 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.model.AllCarersModel
 import com.stellkey.android.model.AllKidsModel
+import com.stellkey.android.model.ChallengeCategoryModel
 import com.stellkey.android.model.CustomChallengeModel
 import com.stellkey.android.model.CustomTaskModel
 import com.stellkey.android.model.SubscriptionModel
@@ -36,6 +37,9 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
 
     val carerLocaleResponse = MutableLiveData<LocaleModel>()
     val customTasksResponse = MutableLiveData<List<CustomChallengeModel>>()
+    val challengeCategories = MutableLiveData<ArrayList<ChallengeCategoryModel>?>()
+    val successUpdateCustomChallenge = SingleLiveEvent<Unit>()
+    val successDeleteCustomChallenge = SingleLiveEvent<Unit>()
 
     fun getSubscription() {
         isLoading.value = true
@@ -429,4 +433,92 @@ class AccountViewModel(private val userRepository: UserRepository) : BaseViewMod
             }
         }
     }
+
+    fun getChallengeCategory() {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.getChallengeCategory()) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    challengeCategories.value = response.body.data
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    responseError.call()
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    responseError.call()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun editCustomChallenge(request: EditCustomChallenge) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.putCustomChallenge(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    successUpdateCustomChallenge.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    responseError.call()
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    responseError.call()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun deleteCustomChallenge(idChallenge: Int) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.deleteCustomChallenge(idChallenge)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    successDeleteCustomChallenge.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    responseError.call()
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    responseError.call()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
 }
