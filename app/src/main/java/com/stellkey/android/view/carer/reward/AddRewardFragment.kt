@@ -23,6 +23,7 @@ import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.RecommendedRewardAdapter
+import kotlinx.android.synthetic.main.fragment_add_reward.cvTwoStars
 import org.koin.android.ext.android.inject
 
 class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
@@ -35,6 +36,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private lateinit var recommendedRewardAdapter: RecommendedRewardAdapter
 
     companion object {
+
         @JvmStatic
         fun newInstance() = AddRewardFragment()
     }
@@ -83,7 +85,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                 }
             }
 
-            createRewardSuccess.observe(viewLifecycleOwner){
+            createRewardSuccess.observe(viewLifecycleOwner) {
                 popToInitialFragment()
             }
 
@@ -159,6 +161,8 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private fun setOnClick() {
         dataBinding.apply {
             ivBack.setOnClickListener(onClickCallback)
+            cvTwoStars.setOnClickListener(onClickCallback)
+            cvEightStars.setOnClickListener(onClickCallback)
         }
     }
 
@@ -166,6 +170,59 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
         when (view) {
             dataBinding.ivBack -> {
                 requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            dataBinding.cvTwoStars -> {
+                dataBinding.apply {
+                    cvTwoStars.setCardBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorSecondary
+                        )
+                    )
+                    tvTwoStars.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+                    cvEightStars.setCardBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.transparent
+                        )
+                    )
+                    tvEightStars.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
+                }
+            }
+
+            dataBinding.cvEightStars -> {
+                dataBinding.apply {
+                    cvTwoStars.setCardBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.transparent
+                        )
+                    )
+                    tvTwoStars.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
+                    cvEightStars.setCardBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorSecondary
+                        )
+                    )
+                    tvEightStars.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.white
+                        )
+                    )
+                }
             }
         }
     }
@@ -193,8 +250,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     }
                 }
-            }
-            else {
+            } else {
                 btnAdd.apply {
                     isEnabled = false
                     isClickable = false
