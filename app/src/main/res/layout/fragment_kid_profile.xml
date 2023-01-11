@@ -295,7 +295,7 @@
                     app:layout_constraintTop_toBottomOf="@id/cvContentListTab">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tvLabelSwipe"
+                        android:id="@+id/tvLabelSwipeTask"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -319,7 +319,7 @@
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tvLabelSwipe"
+                        app:layout_constraintTop_toBottomOf="@id/tvLabelSwipeTask"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_profile_task" />
 
@@ -375,15 +375,32 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cvContentListTab">
 
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tvLabelSwipeRewards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/sofia_pro_regular"
+                        android:letterSpacing="0"
+                        android:maxLines="3"
+                        android:text="@string/swipe_left"
+                        android:textAlignment="center"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvProfileReward"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvLabelSwipeRewards"
                         tools:itemCount="2"
                         tools:listitem="@layout/item_profile_kid_reward" />
 

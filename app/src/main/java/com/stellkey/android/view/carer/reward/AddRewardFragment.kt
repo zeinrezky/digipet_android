@@ -172,7 +172,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
     override fun onItemClicked(data: RewardModel) {
         dataBinding.apply {
-            if (data.isSelected)
+            if (data.isSelected) {
                 btnAdd.apply {
                     isEnabled = true
                     isClickable = true
@@ -193,7 +193,8 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     }
                 }
-            else
+            }
+            else {
                 btnAdd.apply {
                     isEnabled = false
                     isClickable = false
@@ -205,6 +206,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                     )
                     setOnClickListener(null)
                 }
+            }
         }
 
     }

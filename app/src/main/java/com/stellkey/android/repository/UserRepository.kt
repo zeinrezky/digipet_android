@@ -123,7 +123,7 @@ interface UserService {
     suspend fun listReward(
         @Query("kid_id") kid_id: Int,
         @Query("star_cost") star_cost: Int?
-    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+    ): NetworkResponse<ResponseSuccess<List<RewardModel>>, ResponseError>
 
     @GET("carer/rewards/global")
     suspend fun listGlobalReward(): NetworkResponse<ResponseSuccess<RewardListModel>, ResponseError>
@@ -380,7 +380,7 @@ open class UserRepository(private val userService: UserService) {
     suspend fun getListReward(
         profileId: Int,
         starCost: Int?
-    ): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+    ): NetworkResponse<ResponseSuccess<List<RewardModel>>, ResponseError> {
         return userService.listReward(kid_id = profileId, star_cost = starCost)
     }
 

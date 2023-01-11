@@ -9,6 +9,7 @@ import com.stellkey.android.model.ChallengeCategoryModel
 import com.stellkey.android.model.CustomTaskModel
 import com.stellkey.android.model.GroupedChallengesModel
 import com.stellkey.android.model.RewardListModel
+import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.model.request.CustomTaskRequest
@@ -23,7 +24,6 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
 
     val responseError = SingleLiveEvent<Unit>()
 
-    val getListRewardsSuccess = SingleLiveEvent<Unit>()
     val createAssignmentSuccess = SingleLiveEvent<Unit>()
     val deleteAssignmentSuccess = SingleLiveEvent<Unit>()
     val createRewardSuccess = SingleLiveEvent<Unit>()
@@ -37,6 +37,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     val challengeCategories = MutableLiveData<ArrayList<ChallengeCategoryModel>?>()
     val globalReward = MutableLiveData<RewardListModel?>()
     val listKids = MutableLiveData<ArrayList<AllKidsModel>?>()
+    val getListRewardsSuccess = MutableLiveData<List<RewardModel>?>()
 
     fun getDetailCarer(profileId: Int) {
         isLoading.value = true
@@ -132,7 +133,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                 userRepository.getListReward(profileId = profileId, starCost = starCost)) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
-                    getListRewardsSuccess.call()
+                    getListRewardsSuccess.value = response.body.data
                 }
 
                 is NetworkResponse.ServerError -> {
@@ -382,4 +383,6 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
 
         }
     }
+
+
 }

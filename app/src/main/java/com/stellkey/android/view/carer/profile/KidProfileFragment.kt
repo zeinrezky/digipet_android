@@ -21,17 +21,21 @@ import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.DeleteChildTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
+import com.stellkey.android.util.SwipeToDeleteCallback
 import com.stellkey.android.util.SwipeToDeleteTaskCallback
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.account.EditProfileFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.profile.adapter.ActiveRewardAdapter
 import com.stellkey.android.view.carer.profile.adapter.ActiveTaskAdapter
 import com.stellkey.android.view.carer.reward.AddRewardFragment
 import com.stellkey.android.view.carer.task.AddTaskFragment
+import kotlinx.android.synthetic.main.fragment_kid_profile.rvProfileReward
 import org.koin.android.ext.android.inject
 
 class KidProfileFragment : BaseFragment() {
@@ -42,6 +46,7 @@ class KidProfileFragment : BaseFragment() {
     private val viewModel by inject<ProfileViewModel>()
 
     private lateinit var activeTaskAdapter: ActiveTaskAdapter
+    private lateinit var activeRewardAdapter: ActiveRewardAdapter
 
     private var selectedPosition = emptyInt
     private var isRewardTabActive = emptyBoolean
@@ -105,8 +110,10 @@ class KidProfileFragment : BaseFragment() {
                 it?.let { taskResponse -> setTaskData(taskResponse.assignments) }
             }
 
-            getListRewardsSuccess.observe(viewLifecycleOwner) {
-                setRewardData()
+            getListRewardsSuccess.observe(viewLifecycleOwner) { rewards ->
+                rewards?.let {
+                    setRewardData(it)
+                }
             }
 
         }
@@ -167,13 +174,15 @@ class KidProfileFragment : BaseFragment() {
             if (taskData.isEmpty()) {
                 AppPreference.putActiveCycle(false)
 
-                tvLabelSwipe.isVisible = false
+                tvLabelSwipeTask.isVisible = false
                 rvProfileTask.isVisible = false
+
                 cvAddTask.apply {
                     isVisible = true
                     setOnClickListener(onClickCallback)
                 }
             } else {
+                tvLabelSwipeTask.isVisible = true
                 AppPreference.putActiveCycle(true)
                 AppPreference.putTempChallengeStartDate(taskData[0].assignDate)
 
@@ -253,11 +262,49 @@ class KidProfileFragment : BaseFragment() {
         }
     }
 
-    private fun setRewardData() {
+    private fun setRewardData(listRewards: List<RewardModel>) {
         dataBinding.apply {
-            cvAddReward.apply {
-                isVisible = true
-                setOnClickListener(onClickCallback)
+            if (listRewards.isEmpty()) {
+                tvLabelSwipeRewards.isVisible = false
+                rvProfileReward.isVisible = false
+
+                cvAddReward.apply {
+                    isVisible = true
+                    setOnClickListener(onClickCallback)
+                }
+            } else {
+                tvLabelSwipeRewards.isVisible = true
+
+                if (listRewards.size < 2) {
+                    cvAddReward.apply {
+                        isVisible = true
+                        setOnClickListener(onClickCallback)
+                    }
+                } else {
+                    cvAddReward.apply {
+                        isVisible = false
+                        setOnClickListener(null)
+                    }
+                }
+
+                activeRewardAdapter = ActiveRewardAdapter(
+                    listRewards.toArrayList()
+                )
+                rvProfileReward.apply {
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    adapter = activeRewardAdapter
+                }
+
+                val swipeHandler = object : SwipeToDeleteTaskCallback(requireContext()) {
+                    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        val selectedReward =
+                            activeRewardAdapter.selectReward(viewHolder.absoluteAdapterPosition)
+//                        viewModel.unassignRewardForKid()
+                    }
+                }
+                val itemTouchHelper = ItemTouchHelper(swipeHandler)
+                itemTouchHelper.attachToRecyclerView(rvProfileReward)
             }
         }
     }
