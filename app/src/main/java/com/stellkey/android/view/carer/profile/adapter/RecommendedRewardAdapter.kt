@@ -22,7 +22,7 @@ class RecommendedRewardAdapter(
 ) : RecyclerView.Adapter<RecommendedRewardAdapter.RewardListViewHolder>() {
 
     private val contexts = context
-    private val itemList = list
+    private var itemList = list
 
     interface Listener {
         fun onItemClicked(data: RewardModel)
@@ -76,5 +76,11 @@ class RecommendedRewardAdapter(
         val ivReward: ImageView = itemView.findViewById(R.id.ivReward)
         val tvRewardName: TextView = itemView.findViewById(R.id.tvRewardName)
         val tvStarAmount: TextView = itemView.findViewById(R.id.tvStarAmount)
+    }
+
+    fun setItems(items: ArrayList<RewardModel>){
+        itemList = arrayListOf()
+        itemList.addAll(items)
+        notifyDataSetChanged()
     }
 }

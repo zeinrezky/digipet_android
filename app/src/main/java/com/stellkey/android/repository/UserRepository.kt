@@ -4,6 +4,7 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.*
 import com.stellkey.android.model.request.*
 import com.stellkey.android.util.Constant
+import okhttp3.internal.http.hasBody
 import retrofit2.http.*
 
 interface UserService {

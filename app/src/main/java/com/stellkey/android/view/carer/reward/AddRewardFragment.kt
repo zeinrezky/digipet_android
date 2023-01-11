@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentAddRewardBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.emptyString
 import com.stellkey.android.helper.extension.loadImage
@@ -23,7 +24,6 @@ import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.RecommendedRewardAdapter
-import kotlinx.android.synthetic.main.fragment_add_reward.cvTwoStars
 import org.koin.android.ext.android.inject
 
 class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
@@ -34,11 +34,16 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private val viewModel by inject<ProfileViewModel>()
 
     private lateinit var recommendedRewardAdapter: RecommendedRewardAdapter
+    private val listRewards = ArrayList<RewardModel>()
+    private var selectedReward = RewardModel()
 
     companion object {
 
         @JvmStatic
         fun newInstance() = AddRewardFragment()
+
+        private const val STAR_COST_2 = 2
+        private const val STAR_COST_8 = 8
     }
 
     override fun onCreateView(
@@ -75,7 +80,9 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
             globalReward.observe(viewLifecycleOwner) {
                 it?.let { rewardResponse ->
-                    setRecommendedRewardData(rewardResponse.rewards)
+                    listRewards.addAll(rewardResponse.rewards)
+                    recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_2 }
+                        .toArrayList())
                 }
             }
 
@@ -98,20 +105,18 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private fun setView() {
         (activity as HomeAct).showMenu(isShow = false)
         onBackPressed()
+        setRecommendedRewardData()
 
-        viewModel.getListGlobalReward()
+
         viewModel.getDetailKid(profileId = AppPreference.getTempChildId())
-
-        dataBinding.apply {
-
-        }
+        viewModel.getListGlobalReward()
     }
 
-    private fun setRecommendedRewardData(rewardData: ArrayList<RewardModel>) {
+    private fun setRecommendedRewardData() {
         dataBinding.apply {
             recommendedRewardAdapter = RecommendedRewardAdapter(
                 requireContext(),
-                rewardData,
+                arrayListOf(),
                 this@AddRewardFragment
             )
             rvRecommendedRewards.apply {
@@ -194,6 +199,8 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     )
                 }
+                recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_2 }
+                    .toArrayList())
             }
 
             dataBinding.cvEightStars -> {
@@ -223,11 +230,14 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     )
                 }
+                recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_8 }
+                    .toArrayList())
             }
         }
     }
 
     override fun onItemClicked(data: RewardModel) {
+        selectedReward = data
         dataBinding.apply {
             if (data.isSelected) {
                 btnAdd.apply {

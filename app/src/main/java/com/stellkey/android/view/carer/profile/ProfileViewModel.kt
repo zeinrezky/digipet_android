@@ -14,6 +14,7 @@ import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.model.request.DeleteChildTaskRequest
+import com.stellkey.android.model.request.GlobalRewardsRequest
 import com.stellkey.android.repository.UserRepository
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SingleLiveEvent
@@ -277,7 +278,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
             when (val response = userRepository.getListGlobalReward()) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
-                    globalReward.value = response.body.data
+                    globalReward.postValue(response.body.data)
                 }
 
                 is NetworkResponse.ServerError -> {
