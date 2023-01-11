@@ -133,6 +133,11 @@ interface UserService {
     suspend fun createReward(
         @Body createRewardRequest: CreateRewardRequest
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @POST("carer/rewards/addcustom")
+    suspend fun assignRewardForKids(
+        @Body request: RewardAssignKidRequest
+    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
     /* End of Rewards Routes */
 
     /* Kids Routes */
@@ -391,6 +396,10 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun postCreateReward(createRewardRequest: CreateRewardRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
         return userService.createReward(createRewardRequest)
+    }
+
+    suspend fun assignRewardForKids(request: RewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.assignRewardForKids(request)
     }
     /* End of Rewards Routes Functions */
 

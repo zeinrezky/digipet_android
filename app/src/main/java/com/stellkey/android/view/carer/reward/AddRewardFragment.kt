@@ -13,12 +13,14 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentAddRewardBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
+import com.stellkey.android.helper.extension.afterTextChanged
 import com.stellkey.android.helper.extension.emptyString
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.request.CreateRewardRequest
+import com.stellkey.android.model.request.RewardAssignKidRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
@@ -36,6 +38,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private lateinit var recommendedRewardAdapter: RecommendedRewardAdapter
     private val listRewards = ArrayList<RewardModel>()
     private var selectedReward = RewardModel()
+    private var selectedStarReward = STAR_COST_2
 
     companion object {
 
@@ -81,7 +84,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             globalReward.observe(viewLifecycleOwner) {
                 it?.let { rewardResponse ->
                     listRewards.addAll(rewardResponse.rewards)
-                    recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_2 }
+                    recommendedRewardAdapter.setItems(listRewards.filter { reward -> reward.star_cost == STAR_COST_2 }
                         .toArrayList())
                 }
             }
@@ -110,6 +113,32 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
         viewModel.getDetailKid(profileId = AppPreference.getTempChildId())
         viewModel.getListGlobalReward()
+
+        dataBinding.etCustomReward.afterTextChanged {
+            if (it.isNotEmpty()) {
+                dataBinding.btnAdd.apply {
+                    isEnabled = true
+                    isClickable = true
+                    setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.colorPrimary
+                        )
+                    )
+                }
+            } else {
+                dataBinding.btnAdd.apply {
+                    isEnabled = false
+                    isClickable = false
+                    setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.primary_disabled
+                        )
+                    )
+                }
+            }
+        }
     }
 
     private fun setRecommendedRewardData() {
@@ -199,6 +228,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     )
                 }
+                selectedStarReward = STAR_COST_2
                 recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_2 }
                     .toArrayList())
             }
@@ -230,6 +260,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                         )
                     )
                 }
+                selectedStarReward = STAR_COST_8
                 recommendedRewardAdapter.setItems(listRewards.filter { it.star_cost == STAR_COST_8 }
                     .toArrayList())
             }
@@ -239,42 +270,40 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     override fun onItemClicked(data: RewardModel) {
         selectedReward = data
         dataBinding.apply {
-            if (data.isSelected) {
-                btnAdd.apply {
-                    isEnabled = true
-                    isClickable = true
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.colorPrimary
+            btnAdd.apply {
+                isEnabled = true
+                isClickable = true
+                setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.colorPrimary
+                    )
+                )
+            }
+
+            val listIdKids = ArrayList<Int>()
+
+            btnAdd.setOnClickListener {
+                // custom rewards
+                if (!etCustomReward.text.isNullOrEmpty()) {
+                    viewModel.postCreateReward(
+                        createRewardRequest = CreateRewardRequest(
+                            title = etCustomReward.text.toString(),
+                            description = emptyString,
+                            star_cost = selectedStarReward,
+                            availability = listIdKids.joinToString(separator = ",")
                         )
                     )
-                    setOnClickListener {
-                        viewModel.postCreateReward(
-                            createRewardRequest = CreateRewardRequest(
-                                title = data.title,
-                                description = emptyString,
-                                star_cost = data.star_cost,
-                                availability = "10"
-                            )
-                        )
-                    }
-                }
-            } else {
-                btnAdd.apply {
-                    isEnabled = false
-                    isClickable = false
-                    setBackgroundColor(
-                        ContextCompat.getColor(
-                            requireContext(),
-                            R.color.primary_disabled
+                } else {
+                    // recommendation rewards
+                    viewModel.postAssignRewardForKids(
+                        request = RewardAssignKidRequest(
+                            rewardId = data.id,
+                            kidId = listIdKids
                         )
                     )
-                    setOnClickListener(null)
                 }
             }
         }
-
     }
-
 }

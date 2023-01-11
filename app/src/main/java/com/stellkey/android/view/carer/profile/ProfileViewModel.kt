@@ -15,6 +15,7 @@ import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.model.request.DeleteChildTaskRequest
 import com.stellkey.android.model.request.GlobalRewardsRequest
+import com.stellkey.android.model.request.RewardAssignKidRequest
 import com.stellkey.android.repository.UserRepository
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SingleLiveEvent
@@ -28,6 +29,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     val createAssignmentSuccess = SingleLiveEvent<Unit>()
     val deleteAssignmentSuccess = SingleLiveEvent<Unit>()
     val createRewardSuccess = SingleLiveEvent<Unit>()
+    val assignRewardForKidsSuccess = SingleLiveEvent<Unit>()
 
     val detailCarer = MutableLiveData<AllCarersModel?>()
     val detailKid = MutableLiveData<AllKidsModel?>()
@@ -308,6 +310,33 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                 is NetworkResponse.Success -> {
                     isLoading.value = false
                     createRewardSuccess.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postAssignRewardForKids(request : RewardAssignKidRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.assignRewardForKids(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    assignRewardForKidsSuccess.call()
                 }
 
                 is NetworkResponse.ServerError -> {
