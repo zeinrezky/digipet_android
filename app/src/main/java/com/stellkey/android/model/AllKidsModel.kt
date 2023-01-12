@@ -59,6 +59,8 @@ data class AllKidsModel(
     var activeDecor: ArrayList<Any>,
     @SerializedName("activeAccessory")
     var activeAccessory: ArrayList<Any>,
+    @SerializedName("RewardAvailable")
+    var RewardAvailable: ArrayList<RewardAvailable>,
     var uiAction: UIAction = UIAction(isSelected = false, isEnable = true)
 ) {
 
@@ -74,9 +76,9 @@ data class AllKidsModel(
         @SerializedName("suggested")
         var suggested: Any
     )
-}
 
-data class UIAction(
-    var isSelected: Boolean = false,
-    var isEnable: Boolean = true
-)
+    data class UIAction(
+        var isSelected: Boolean = false,
+        var isEnable: Boolean = true
+    )
+}

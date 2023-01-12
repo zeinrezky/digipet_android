@@ -27,7 +27,6 @@ import com.stellkey.android.helper.extension.orEmpty
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.helper.extension.timePicker
 import com.stellkey.android.model.AllKidsModel
-import com.stellkey.android.model.UIAction
 import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.util.AppPreference
@@ -151,7 +150,7 @@ class AddTaskDetailFragment : BaseFragment() {
                 it?.let { kids ->
                     listAllKids.addAll(kids.map { kid ->
                         kid.apply {
-                            uiAction = UIAction(
+                            uiAction = AllKidsModel.UIAction(
                                 isSelected = false,
                                 isEnable = checkIsKidEligibleToAssignment(kid)
                             )
@@ -256,7 +255,7 @@ class AddTaskDetailFragment : BaseFragment() {
     private fun setKidDetailData(kidData: AllKidsModel) {
         dataBinding.apply {
             kidSelectedProfileAdapter.setProfileListInto(arrayListOf(kidData.apply {
-                uiAction = UIAction(isSelected = true, isEnable = true)
+                uiAction = AllKidsModel.UIAction(isSelected = true, isEnable = true)
             }))
         }
     }

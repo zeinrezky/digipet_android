@@ -8,15 +8,13 @@ import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentAddRewardBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
-import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.afterTextChanged
 import com.stellkey.android.helper.extension.emptyString
-import com.stellkey.android.helper.extension.loadImage
-import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.request.CreateRewardRequest
@@ -26,6 +24,8 @@ import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.RecommendedRewardAdapter
+import com.stellkey.android.view.carer.task.adapter.ActionButtonAdapter
+import com.stellkey.android.view.carer.task.adapter.KidProfileAdapter
 import org.koin.android.ext.android.inject
 
 class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
@@ -39,6 +39,24 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
     private val listRewards = ArrayList<RewardModel>()
     private var selectedReward = RewardModel()
     private var selectedStarReward = STAR_COST_2
+
+    private val listAllKids = ArrayList<AllKidsModel>()
+    private val tempSelectedList = ArrayList<AllKidsModel>()
+    private val tempUnselectedList = ArrayList<AllKidsModel>()
+
+    private val kidSelectedProfileAdapter by lazy {
+        KidProfileAdapter()
+    }
+    private val kidProfileAdapter by lazy {
+        KidProfileAdapter(listener = onKidClicked)
+    }
+
+    private val addDoneIconAdapter by lazy {
+        ActionButtonAdapter(
+            type = ActionButtonAdapter.ButtonActionType.ADD_ICON,
+            listener = onAddIconClicked
+        )
+    }
 
     companion object {
 
@@ -99,6 +117,19 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                 popToInitialFragment()
             }
 
+            listKids.observe(viewLifecycleOwner) {
+                it?.let { kids ->
+                    listAllKids.addAll(kids.map { kid ->
+                        kid.apply {
+                            uiAction = AllKidsModel.UIAction(
+                                isSelected = false,
+                                isEnable = checkIsKidEligibleToReward(this)
+                            )
+                        }
+                    }.filter { kid -> kid.id != AppPreference.getTempChildId() })
+                }
+            }
+
         }
 
         setView()
@@ -112,10 +143,14 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
 
         viewModel.getDetailKid(profileId = AppPreference.getTempChildId())
+        viewModel.getListAllKids()
         viewModel.getListGlobalReward()
 
         dataBinding.etCustomReward.afterTextChanged {
             if (it.isNotEmpty()) {
+                if (selectedReward.id != -1) {
+                    resetGlobalRewardThatSelected()
+                }
                 dataBinding.btnAdd.apply {
                     isEnabled = true
                     isClickable = true
@@ -139,6 +174,12 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                 }
             }
         }
+
+        dataBinding.rvKids.apply {
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            adapter =
+                ConcatAdapter(kidSelectedProfileAdapter, kidProfileAdapter, addDoneIconAdapter)
+        }
     }
 
     private fun setRecommendedRewardData() {
@@ -161,12 +202,9 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
     private fun setKidDetailData(kidData: AllKidsModel) {
         dataBinding.apply {
-            ivKidAvatar.loadImage(
-                kidData.profileIcon.icon,
-                ImageCornerOptions.ROUNDED,
-                100
-            )
-            tvKidName.textOrNull = kidData.name
+            kidSelectedProfileAdapter.setProfileListInto(arrayListOf(kidData.apply {
+                uiAction = AllKidsModel.UIAction(isSelected = true, isEnable = true)
+            }))
         }
     }
 
@@ -269,6 +307,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
     override fun onItemClicked(data: RewardModel) {
         selectedReward = data
+        resetKidThatSelected()
         dataBinding.apply {
             btnAdd.apply {
                 isEnabled = true
@@ -306,4 +345,91 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             }
         }
     }
+
+    private val onKidClicked = object : KidProfileAdapter.Listener {
+        override fun onKidProfileSelected(data: AllKidsModel) {
+            listAllKids.find { kid -> kid.id == data.id }.apply {
+                this?.uiAction?.isSelected = this?.uiAction?.isSelected != true
+            }
+            refreshKidProfileAdapter()
+        }
+    }
+
+    private val onAddIconClicked = object : ActionButtonAdapter.Listener {
+        override fun onActionButtonClicked(type: ActionButtonAdapter.ButtonActionType) {
+            if (type == ActionButtonAdapter.ButtonActionType.ADD_ICON) {
+                showAllKid()
+            } else {
+                showSelectedKidOnly()
+            }
+        }
+    }
+
+    private fun refreshKidProfileAdapter() {
+        kidProfileAdapter.notifyDataSetChanged()
+    }
+
+    private fun showAllKid() {
+        addDoneIconAdapter.setIconType(ActionButtonAdapter.ButtonActionType.DONE_ICON)
+        tempSelectedList.clear()
+        tempUnselectedList.clear()
+
+        tempSelectedList.addAll(listAllKids.filter { kid -> kid.uiAction.isSelected })
+        tempUnselectedList.addAll(listAllKids.filter { kid -> !kid.uiAction.isSelected })
+
+        val combinedList = tempSelectedList + tempUnselectedList
+        kidProfileAdapter.setProfileListInto(combinedList.distinctBy { it.id }.toArrayList())
+    }
+
+    private fun showSelectedKidOnly() {
+        addDoneIconAdapter.setIconType(ActionButtonAdapter.ButtonActionType.ADD_ICON)
+        tempSelectedList.clear()
+        tempUnselectedList.clear()
+
+        tempSelectedList.addAll(listAllKids.filter { kid -> kid.uiAction.isSelected })
+        kidProfileAdapter.setProfileListInto(tempSelectedList.distinctBy { it.id }.toArrayList())
+    }
+
+    private fun resetGlobalRewardThatSelected() {
+        selectedReward = RewardModel()
+        recommendedRewardAdapter.setItems(listRewards.map {
+            it.apply {
+                isSelected = false
+            }
+        }.toArrayList())
+    }
+
+    private fun resetKidThatSelected() {
+        kidProfileAdapter.setProfileListInto(listAllKids.map {
+            it.apply {
+                it.uiAction = AllKidsModel.UIAction(
+                    isSelected = false,
+                    isEnable = checkIsKidEligibleToReward(it)
+                )
+            }
+        }.toArrayList())
+    }
+
+    private fun checkIsKidEligibleToReward(kid: AllKidsModel): Boolean {
+        if (kid.RewardAvailable.size == 2) {
+            return false
+        } else if (kid.RewardAvailable.size < 2) {
+            var isEligible = true
+            kid.RewardAvailable.forEach {
+                if (it.globalRewardId == selectedReward.id && selectedReward.id != -1) {
+                    isEligible = false
+                    return@forEach
+                }
+            }
+            kid.RewardAvailable.forEach {
+                if (it.reward?.star_cost == selectedStarReward || it.globalReward?.star_cost == selectedStarReward) {
+                    isEligible = false
+                }
+            }
+            return isEligible
+        } else {
+            return true
+        }
+    }
+
 }
