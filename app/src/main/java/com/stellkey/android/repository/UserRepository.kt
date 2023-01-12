@@ -4,7 +4,6 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.*
 import com.stellkey.android.model.request.*
 import com.stellkey.android.util.Constant
-import okhttp3.internal.http.hasBody
 import retrofit2.http.*
 
 interface UserService {
@@ -135,9 +134,15 @@ interface UserService {
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     @POST("carer/rewards/addcustom")
-    suspend fun assignRewardForKids(
-        @Body request: RewardAssignKidRequest
+    suspend fun assignCustomRewardForKids(
+        @Body request: CustomRewardAssignKidRequest
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @POST("carer/rewards/addglobal")
+    suspend fun assignGlobalRewardForKids(
+        @Body request: GlobalRewardAssignKidRequest
+    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
     /* End of Rewards Routes */
 
     /* Kids Routes */
@@ -398,8 +403,12 @@ open class UserRepository(private val userService: UserService) {
         return userService.createReward(createRewardRequest)
     }
 
-    suspend fun assignRewardForKids(request: RewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
-        return userService.assignRewardForKids(request)
+    suspend fun assignCustomRewardForKids(request: CustomRewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.assignCustomRewardForKids(request)
+    }
+
+    suspend fun assignGlobalRewardForKids(request: GlobalRewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.assignGlobalRewardForKids(request)
     }
     /* End of Rewards Routes Functions */
 

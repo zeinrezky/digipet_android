@@ -60,7 +60,7 @@ data class AllKidsModel(
     @SerializedName("activeAccessory")
     var activeAccessory: ArrayList<Any>,
     @SerializedName("RewardAvailable")
-    var RewardAvailable: ArrayList<RewardAvailable>,
+    var RewardAvailable: ArrayList<RewardAvailable> = arrayListOf(),
     var uiAction: UIAction = UIAction(isSelected = false, isEnable = true)
 ) {
 

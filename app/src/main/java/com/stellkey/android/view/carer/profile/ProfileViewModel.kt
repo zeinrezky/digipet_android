@@ -14,8 +14,8 @@ import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CreateRewardRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.model.request.DeleteChildTaskRequest
-import com.stellkey.android.model.request.GlobalRewardsRequest
-import com.stellkey.android.model.request.RewardAssignKidRequest
+import com.stellkey.android.model.request.CustomRewardAssignKidRequest
+import com.stellkey.android.model.request.GlobalRewardAssignKidRequest
 import com.stellkey.android.repository.UserRepository
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SingleLiveEvent
@@ -30,6 +30,7 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     val deleteAssignmentSuccess = SingleLiveEvent<Unit>()
     val createRewardSuccess = SingleLiveEvent<Unit>()
     val assignRewardForKidsSuccess = SingleLiveEvent<Unit>()
+    val assignRewardForKidsFailed = SingleLiveEvent<Unit>()
 
     val detailCarer = MutableLiveData<AllCarersModel?>()
     val detailKid = MutableLiveData<AllKidsModel?>()
@@ -330,10 +331,10 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
         }
     }
 
-    fun postAssignRewardForKids(request : RewardAssignKidRequest) {
+    fun postAssignCustomRewardForKids(request : CustomRewardAssignKidRequest) {
         isLoading.value = true
         viewModelScope.launch {
-            when (val response = userRepository.assignRewardForKids(request)) {
+            when (val response = userRepository.assignCustomRewardForKids(request)) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
                     assignRewardForKidsSuccess.call()
@@ -342,12 +343,43 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
+                    assignRewardForKidsFailed.call()
                 }
 
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
                     snackbarMessage.value = response.error.message.toString()
+                    assignRewardForKidsFailed.call()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postAssignGlobalRewardForKids(request : GlobalRewardAssignKidRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.assignGlobalRewardForKids(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    assignRewardForKidsSuccess.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                    assignRewardForKidsFailed.call()
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                    assignRewardForKidsFailed.call()
                 }
 
                 else -> {

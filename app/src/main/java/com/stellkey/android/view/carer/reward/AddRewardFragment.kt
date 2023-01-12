@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
@@ -18,7 +18,7 @@ import com.stellkey.android.helper.extension.emptyString
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.request.CreateRewardRequest
-import com.stellkey.android.model.request.RewardAssignKidRequest
+import com.stellkey.android.model.request.GlobalRewardAssignKidRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
@@ -32,7 +32,6 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
     private lateinit var dataBinding: FragmentAddRewardBinding
 
-    //private val binding by viewBinding<FragmentAddRewardBinding>()
     private val viewModel by inject<ProfileViewModel>()
 
     private lateinit var recommendedRewardAdapter: RecommendedRewardAdapter
@@ -84,7 +83,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        listAllKids.clear()
         dataBinding.vm = viewModel
         dataBinding.lifecycleOwner = this
 
@@ -114,7 +113,19 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             }
 
             createRewardSuccess.observe(viewLifecycleOwner) {
-                popToInitialFragment()
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            assignRewardForKidsSuccess.observe(viewLifecycleOwner) {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+
+            assignRewardForKidsFailed.observe(viewLifecycleOwner) {
+                Toast.makeText(
+                    requireContext(),
+                    "This rewards already assigned to this kid",
+                    Toast.LENGTH_LONG
+                ).show()
             }
 
             listKids.observe(viewLifecycleOwner) {
@@ -180,6 +191,38 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             adapter =
                 ConcatAdapter(kidSelectedProfileAdapter, kidProfileAdapter, addDoneIconAdapter)
         }
+
+        dataBinding.apply {
+            btnAdd.setOnClickListener {
+                val listIdKids = ArrayList<Int>()
+                listIdKids.add(AppPreference.getTempChildId())
+                listAllKids.forEach {
+                    if (it.uiAction.isSelected) {
+                        listIdKids.add(it.id)
+                    }
+                }
+
+                if (etCustomReward.text.toString() == "") {
+                    // recommendation rewards
+                    viewModel.postAssignGlobalRewardForKids(
+                        request = GlobalRewardAssignKidRequest(
+                            globalRewardId = selectedReward.id,
+                            kidId = listIdKids
+                        )
+                    )
+                } else {
+                    // custom rewards
+                    viewModel.postCreateReward(
+                        createRewardRequest = CreateRewardRequest(
+                            title = etCustomReward.text.toString(),
+                            description = emptyString,
+                            star_cost = selectedStarReward,
+                            availability = listIdKids.joinToString(separator = ",")
+                        )
+                    )
+                }
+            }
+        }
     }
 
     private fun setRecommendedRewardData() {
@@ -205,22 +248,6 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             kidSelectedProfileAdapter.setProfileListInto(arrayListOf(kidData.apply {
                 uiAction = AllKidsModel.UIAction(isSelected = true, isEnable = true)
             }))
-        }
-    }
-
-    private fun popToInitialFragment() {
-        val backStackCount: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        val backStackLimit = 3
-
-        for (i in (backStackCount - 1) downTo backStackLimit) {
-
-            // Get the back stack fragment id.
-            val backStackId: Int =
-                requireActivity().supportFragmentManager.getBackStackEntryAt(i).id
-            requireActivity().supportFragmentManager.popBackStack(
-                backStackId,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
         }
     }
 
@@ -319,30 +346,6 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
                     )
                 )
             }
-
-            val listIdKids = ArrayList<Int>()
-
-            btnAdd.setOnClickListener {
-                // custom rewards
-                if (!etCustomReward.text.isNullOrEmpty()) {
-                    viewModel.postCreateReward(
-                        createRewardRequest = CreateRewardRequest(
-                            title = etCustomReward.text.toString(),
-                            description = emptyString,
-                            star_cost = selectedStarReward,
-                            availability = listIdKids.joinToString(separator = ",")
-                        )
-                    )
-                } else {
-                    // recommendation rewards
-                    viewModel.postAssignRewardForKids(
-                        request = RewardAssignKidRequest(
-                            rewardId = data.id,
-                            kidId = listIdKids
-                        )
-                    )
-                }
-            }
         }
     }
 
@@ -396,7 +399,7 @@ class AddRewardFragment : BaseFragment(), RecommendedRewardAdapter.Listener {
             it.apply {
                 isSelected = false
             }
-        }.toArrayList())
+        }.filter { it.star_cost == selectedStarReward }.toArrayList())
     }
 
     private fun resetKidThatSelected() {
