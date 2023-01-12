@@ -54,6 +54,8 @@ data class RewardModel(
     var star_cost: Int = -1,
     @SerializedName("titleFr")
     var titleFr: String = "",
+    @SerializedName("isGlobal")
+    var isGlobal: Boolean = false,
     @SerializedName("isSelected")
     var isSelected: Boolean = false
 )

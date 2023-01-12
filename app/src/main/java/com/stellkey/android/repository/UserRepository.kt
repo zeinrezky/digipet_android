@@ -143,6 +143,16 @@ interface UserService {
         @Body request: GlobalRewardAssignKidRequest
     ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
+    @POST("carer/rewards/removeglobal")
+    suspend fun removeGlobalRewardFromKids(
+        @Body request: GlobalRewardAssignKidRequest
+    ) : NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @POST("carer/rewards/removecustom")
+    suspend fun removeCustomRewardFromKids(
+        @Body request: CustomRewardAssignKidRequest
+    ) : NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
     /* End of Rewards Routes */
 
     /* Kids Routes */
@@ -410,6 +420,15 @@ open class UserRepository(private val userService: UserService) {
     suspend fun assignGlobalRewardForKids(request: GlobalRewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
         return userService.assignGlobalRewardForKids(request)
     }
+
+    suspend fun unassignCustomRewardForKids(request: CustomRewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.removeCustomRewardFromKids(request)
+    }
+
+    suspend fun unassignGlobalRewardForKids(request: GlobalRewardAssignKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.removeGlobalRewardFromKids(request)
+    }
+
     /* End of Rewards Routes Functions */
 
     /* Kids Routes Functions */

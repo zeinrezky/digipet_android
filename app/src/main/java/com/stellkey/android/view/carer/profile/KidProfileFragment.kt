@@ -23,10 +23,11 @@ import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.RewardModel
 import com.stellkey.android.model.TaskStarModel
+import com.stellkey.android.model.request.CustomRewardAssignKidRequest
 import com.stellkey.android.model.request.DeleteChildTaskRequest
+import com.stellkey.android.model.request.GlobalRewardAssignKidRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
-import com.stellkey.android.util.SwipeToDeleteCallback
 import com.stellkey.android.util.SwipeToDeleteTaskCallback
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.account.EditProfileFragment
@@ -35,7 +36,6 @@ import com.stellkey.android.view.carer.profile.adapter.ActiveRewardAdapter
 import com.stellkey.android.view.carer.profile.adapter.ActiveTaskAdapter
 import com.stellkey.android.view.carer.reward.AddRewardFragment
 import com.stellkey.android.view.carer.task.AddTaskFragment
-import kotlinx.android.synthetic.main.fragment_kid_profile.rvProfileReward
 import org.koin.android.ext.android.inject
 
 class KidProfileFragment : BaseFragment() {
@@ -99,6 +99,20 @@ class KidProfileFragment : BaseFragment() {
                 viewModel.getCurrentCycleAssignment(profileId = AppPreference.getTempChildId())
             }
 
+            unAssignCustomRewardForKidSuccess.observe(viewLifecycleOwner) {
+                viewModel.getListReward(
+                    profileId = AppPreference.getTempChildId(),
+                    starCost = null
+                )
+            }
+
+            unAssignGlobalRewardForKidSuccess.observe(viewLifecycleOwner) {
+                viewModel.getListReward(
+                    profileId = AppPreference.getTempChildId(),
+                    starCost = null
+                )
+            }
+
             detailKid.observe(viewLifecycleOwner) {
                 it?.let { it1 ->
                     setKidDetailData(it1)
@@ -115,7 +129,6 @@ class KidProfileFragment : BaseFragment() {
                     setRewardData(it)
                 }
             }
-
         }
 
         setView()
@@ -298,9 +311,26 @@ class KidProfileFragment : BaseFragment() {
 
                 val swipeHandler = object : SwipeToDeleteTaskCallback(requireContext()) {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                        selectedPosition = viewHolder.absoluteAdapterPosition
                         val selectedReward =
                             activeRewardAdapter.selectReward(viewHolder.absoluteAdapterPosition)
-//                        viewModel.unassignRewardForKid()
+
+                        if (selectedReward.isGlobal) {
+                            viewModel.postUnAssignGlobalRewardForKids(
+                                request = GlobalRewardAssignKidRequest(
+                                    kidId = listOf(AppPreference.getTempChildId()),
+                                    globalRewardId = selectedReward.id
+                                )
+                            )
+                        } else {
+                            viewModel.postUnAssignCustomRewardForKids(
+                                request = CustomRewardAssignKidRequest(
+                                    kidId = listOf(AppPreference.getTempChildId()),
+                                    rewardId = selectedReward.id
+                                )
+                            )
+                        }
+
                     }
                 }
                 val itemTouchHelper = ItemTouchHelper(swipeHandler)

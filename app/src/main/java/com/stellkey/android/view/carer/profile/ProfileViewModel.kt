@@ -31,6 +31,8 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
     val createRewardSuccess = SingleLiveEvent<Unit>()
     val assignRewardForKidsSuccess = SingleLiveEvent<Unit>()
     val assignRewardForKidsFailed = SingleLiveEvent<Unit>()
+    val unAssignGlobalRewardForKidSuccess = SingleLiveEvent<Unit>()
+    val unAssignCustomRewardForKidSuccess = SingleLiveEvent<Unit>()
 
     val detailCarer = MutableLiveData<AllCarersModel?>()
     val detailKid = MutableLiveData<AllKidsModel?>()
@@ -389,6 +391,61 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
         }
     }
 
+
+    fun postUnAssignGlobalRewardForKids(request : GlobalRewardAssignKidRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.unassignGlobalRewardForKids(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    unAssignGlobalRewardForKidSuccess.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postUnAssignCustomRewardForKids(request : CustomRewardAssignKidRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.unassignCustomRewardForKids(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    unAssignCustomRewardForKidSuccess.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
     fun postNewTaskAssignment(request: CustomTaskRequest) {
         isLoading.value = true
         viewModelScope.launch {
@@ -445,6 +502,5 @@ class ProfileViewModel(private val userRepository: UserRepository) : BaseViewMod
 
         }
     }
-
 
 }
