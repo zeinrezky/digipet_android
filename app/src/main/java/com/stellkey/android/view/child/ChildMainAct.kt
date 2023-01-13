@@ -12,6 +12,7 @@ import com.stellkey.android.util.Constant
 import com.stellkey.android.util.EventBusBinder
 import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.child.home.ChildHomeFragment
+import com.stellkey.android.view.child.log.ChildLogFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.ChildRewardFragment
 import org.greenrobot.eventbus.EventBus
@@ -34,7 +35,7 @@ class ChildMainAct : BaseAct() {
             }
 
             Constant.KidMenu.LOG -> {
-//                addFragment(ChildHomeFragment.newInstance())
+                addFragment(ChildLogFragment.newInstance())
             }
         }
     }

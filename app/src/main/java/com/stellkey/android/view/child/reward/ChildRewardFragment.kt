@@ -9,7 +9,11 @@ import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildRewardBinding
 import com.stellkey.android.view.base.BaseFragment
+import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.pet.ChildPetFragment
+import com.stellkey.android.view.child.profile.ChildProfileFragment
+import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
 
 class ChildRewardFragment : BaseFragment() {
@@ -51,6 +55,7 @@ class ChildRewardFragment : BaseFragment() {
         }
 
         setView()
+        setOnClick()
     }
 
     private fun setView() {
@@ -60,6 +65,31 @@ class ChildRewardFragment : BaseFragment() {
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
             requireActivity().finish()
+        }
+    }
+
+    private fun setOnClick() {
+        dataBinding.apply {
+            cvSwitchUser.setOnClickListener(onClickCallback)
+            clPet.setOnClickListener(onClickCallback)
+            clKidLevel.setOnClickListener(onClickCallback)
+        }
+    }
+
+    private val onClickCallback = View.OnClickListener { view ->
+        when (view) {
+            dataBinding.cvSwitchUser -> {
+                (activity as ChildMainAct).showMenu(isShow = false)
+                addFragment(LoginChooseProfileFragment.newInstance())
+            }
+
+            dataBinding.clPet -> {
+                addFragment(ChildPetFragment.newInstance())
+            }
+
+            dataBinding.clKidLevel -> {
+                addFragment(ChildProfileFragment.newInstance())
+            }
         }
     }
 

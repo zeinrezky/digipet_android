@@ -18,6 +18,7 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
@@ -33,6 +34,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private val viewModel by inject<ChildViewModel>()
 
     companion object {
+
         @JvmStatic
         fun newInstance() = ChildHomeFragment()
     }
@@ -117,6 +119,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         dataBinding.apply {
             cvSwitchUser.setOnClickListener(onClickCallback)
             clPet.setOnClickListener(onClickCallback)
+            clKidLevel.setOnClickListener(onClickCallback)
         }
     }
 
@@ -126,7 +129,12 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                 (activity as ChildMainAct).showMenu(isShow = false)
                 addFragment(LoginChooseProfileFragment.newInstance())
             }
+
             dataBinding.clPet -> {
+                addFragment(ChildPetFragment.newInstance())
+            }
+
+            dataBinding.clKidLevel -> {
                 addFragment(ChildProfileFragment.newInstance())
             }
         }
