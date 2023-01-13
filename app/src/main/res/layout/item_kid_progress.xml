@@ -38,33 +38,18 @@
         tools:src="@color/primary_disabled" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProgressStarPart1"
+        android:id="@+id/rvProgressStarPart"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/space_x5"
         android:layout_marginTop="@dimen/space_x2"
         android:layout_marginEnd="@dimen/space_x3"
         android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivTask"
         app:layout_constraintTop_toBottomOf="@id/tvTaskName"
-        tools:itemCount="4"
-        tools:listitem="@layout/item_kid_progress_star" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvProgressStarPart2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_x5"
-        android:layout_marginTop="@dimen/space_x1"
-        android:layout_marginEnd="@dimen/space_x3"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/ivTask"
-        app:layout_constraintTop_toBottomOf="@id/rvProgressStarPart1"
-        tools:itemCount="3"
+        tools:itemCount="7"
         tools:listitem="@layout/item_kid_progress_star" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

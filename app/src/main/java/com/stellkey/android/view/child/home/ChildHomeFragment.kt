@@ -10,14 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildHomeBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
+import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.KidCompleteTaskRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
@@ -27,10 +30,8 @@ import org.koin.android.ext.android.inject
 class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentChildHomeBinding
-
     private lateinit var kidTodayTaskAdapter: KidTodayTaskAdapter
-
-    //private val binding by viewBinding<FragmentChildHomeBinding>()
+    private lateinit var myProgressTaskAdapter: MyProgressAdapter
     private val viewModel by inject<ChildViewModel>()
 
     companion object {
@@ -88,10 +89,35 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             piChildLevel.progress = 100 - data.level.percentageToNextLevel
             tvTodayTaskStar.text = data.level.starsTotal.toString()
 
+            val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
+            //for global tasks
+            data.activeTasks.assignments.groupBy { it.globalChallengeId }.forEach {
+                if (it.key != null) {
+                    val listStarTask = it.value.map { assignment ->
+                        TaskStarModel(isCompleted = assignment.completedAt != null)
+                    }
+                    groupedActiveTask.add(Pair(it.value.first(), listStarTask))
+                }
+            }
+
+            //for custom tasks
+            data.activeTasks.assignments.groupBy { it.challengeId }.forEach {
+                if (it.key != null) {
+                    val listStarTask = it.value.map { assignment ->
+                        TaskStarModel(isCompleted = assignment.completedAt != null)
+                    }
+                    groupedActiveTask.add(Pair(it.value.first(), listStarTask))
+                }
+            }
+
             kidTodayTaskAdapter = KidTodayTaskAdapter(
                 requireContext(),
                 data.tasksToday.assignments,
                 this@ChildHomeFragment
+            )
+
+            myProgressTaskAdapter = MyProgressAdapter(
+                groupedActiveTask.toArrayList()
             )
 
             rvTodayTask.apply {
@@ -101,6 +127,11 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                     false
                 )
                 adapter = kidTodayTaskAdapter
+            }
+
+            rvKidProgress.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = myProgressTaskAdapter
             }
         }
     }

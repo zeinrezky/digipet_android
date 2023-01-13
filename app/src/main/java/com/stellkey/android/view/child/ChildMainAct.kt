@@ -31,6 +31,7 @@ class ChildMainAct : BaseAct() {
             }
 
             Constant.KidMenu.HOME -> {
+                //TODO("create if cache pet page will redirect to ChildPetFragment")
                 addFragment(ChildHomeFragment.newInstance())
             }
 
