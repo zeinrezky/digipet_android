@@ -1,18 +1,22 @@
 package com.stellkey.android.view.child.reward
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildRewardBinding
+import com.stellkey.android.model.KidRewardRedemption
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
+import com.stellkey.android.view.child.reward.adapter.ChildRewardAdapter
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
 
@@ -21,6 +25,9 @@ class ChildRewardFragment : BaseFragment() {
     private lateinit var dataBinding: FragmentChildRewardBinding
 
     private val viewModel by inject<ChildViewModel>()
+    private val childRewardAdapter by lazy {
+        ChildRewardAdapter(listOf(), listener = onRewardsClickedForRedeemed)
+    }
 
     companion object {
 
@@ -52,6 +59,10 @@ class ChildRewardFragment : BaseFragment() {
                     hideWaitingDialog()
                 }
             }
+
+            kidRewardsAvailableRedemption.observe(viewLifecycleOwner) {
+                setRewardsData(it)
+            }
         }
 
         setView()
@@ -59,8 +70,24 @@ class ChildRewardFragment : BaseFragment() {
     }
 
     private fun setView() {
+        setRecyclerViewRewards()
 
+        viewModel.getKidListRewardsAvailableForRedemption()
     }
+
+    private fun setRecyclerViewRewards() {
+        dataBinding.rvReward.apply {
+            layoutManager = GridLayoutManager(requireContext(), 2)
+            adapter = childRewardAdapter
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setRewardsData(data: List<KidRewardRedemption>){
+        childRewardAdapter.listRewards = data
+        childRewardAdapter.notifyDataSetChanged()
+    }
+
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
@@ -91,6 +118,12 @@ class ChildRewardFragment : BaseFragment() {
                 addFragment(ChildProfileFragment.newInstance())
             }
         }
+    }
+
+    private val onRewardsClickedForRedeemed = object : ChildRewardAdapter.Listener {
+        override fun onRewardClickedForRedeemed(data: KidRewardRedemption) {
+        }
+
     }
 
 }

@@ -287,7 +287,7 @@
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvReward"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/space_x3"
                             android:layout_marginTop="@dimen/space_x2"

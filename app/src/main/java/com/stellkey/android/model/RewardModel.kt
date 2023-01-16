@@ -59,3 +59,22 @@ data class RewardModel(
     @SerializedName("isSelected")
     var isSelected: Boolean = false
 )
+
+data class KidRewardRedemption(
+    @SerializedName("id")
+    val id: Int = -1,
+    @SerializedName("title")
+    val title: String = "",
+    @SerializedName("icon")
+    var icon: String = "",
+    @SerializedName("star_cost")
+    var star_cost: Int = -1,
+    @SerializedName("titleFr")
+    val titleFr: String = "",
+    @SerializedName("isGlobal")
+    var isGlobal: Boolean = false,
+    @SerializedName("star_balance")
+    var star_balance: Int = -1,
+    @SerializedName("pendingRedemption")
+    val pendingRedemption: List<Any> = listOf()
+)

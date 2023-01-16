@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/space_x3_half"
-    android:layout_marginEnd="@dimen/space_x2"
+    android:layout_marginEnd="@dimen/space_x1"
+    android:layout_marginStart="@dimen/space_x1"
     android:maxWidth="@dimen/space_x18"
     android:minWidth="@dimen/space_x18">
 
@@ -50,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_x1"
+            tools:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvReward">
@@ -94,6 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_x1"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvReward">
@@ -103,7 +105,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_child_progressbar"
-                android:progress="30"
+                tools:progress="30"
                 app:indicatorColor="@color/yellow_2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

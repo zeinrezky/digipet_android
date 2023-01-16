@@ -184,6 +184,10 @@ interface UserService {
 
     @POST("/kid/assignments/complete")
     suspend fun completeKidTask(@Body kidCompleteTaskRequest: KidCompleteTaskRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @GET("/kid/reward")
+    suspend fun kidListReward() : NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError>
+
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -466,6 +470,10 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun kidCompleteTask(kidCompleteTaskRequest: KidCompleteTaskRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
         return userService.completeKidTask(kidCompleteTaskRequest)
+    }
+
+    suspend fun kidListRewardRedemption() : NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError>{
+        return userService.kidListReward()
     }
     /* End of Kids Routes Functions */
 
