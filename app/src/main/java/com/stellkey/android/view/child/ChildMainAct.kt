@@ -58,13 +58,12 @@ class ChildMainAct : BaseAct() {
         } else
             addFragment(ChildHomeFragment.newInstance())
 
-        setTransparentStatusBar()
+//        setTransparentStatusBar()
     }
 
     fun showMenu(isShow: Boolean) {
         binding.apply {
             clKidBtmMenu.isVisible = isShow
-            viewKidDividerBottom.isVisible = isShow
         }
     }
 

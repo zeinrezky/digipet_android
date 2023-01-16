@@ -38,11 +38,13 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     getCurrentCycleAssignmentSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -64,11 +66,13 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     todayAssignment.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -89,11 +93,13 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     yesterdayAssignment.value = response.body.data
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -115,11 +121,13 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     listAllKids.value = response.body.data.toArrayList()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -128,7 +136,9 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
 
                 }
 
-                is NetworkResponse.UnknownError -> {}
+                is NetworkResponse.UnknownError -> {
+                    isLoading.value = false
+                }
             }
         }
     }
@@ -141,11 +151,13 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     listAllCarers.value = response.body.data.toArrayList()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                     responseError.call()
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -167,10 +179,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     deleteKidSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -190,10 +204,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     deleteCarerSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -214,10 +230,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     confirmKidTaskCompletionSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -238,10 +256,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     confirmKidTaskWithoutCompletionSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -262,10 +282,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     declineKidTaskCompletionSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
@@ -286,10 +308,12 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
                     isLoading.value = false
                     declineKidTaskWithoutCompletionSuccess.call()
                 }
+
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
                     snackbarMessage.value = response.body?.message
                 }
+
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
