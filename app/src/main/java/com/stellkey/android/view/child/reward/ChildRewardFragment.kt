@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildRewardBinding
 import com.stellkey.android.model.KidRewardRedemption
+import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
@@ -63,6 +64,10 @@ class ChildRewardFragment : BaseFragment() {
             kidRewardsAvailableRedemption.observe(viewLifecycleOwner) {
                 setRewardsData(it)
             }
+
+            kidRedeemRewardSuccess.observe(viewLifecycleOwner) {
+                viewModel.getKidListRewardsAvailableForRedemption()
+            }
         }
 
         setView()
@@ -83,11 +88,10 @@ class ChildRewardFragment : BaseFragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setRewardsData(data: List<KidRewardRedemption>){
+    private fun setRewardsData(data: List<KidRewardRedemption>) {
         childRewardAdapter.listRewards = data
         childRewardAdapter.notifyDataSetChanged()
     }
-
 
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
@@ -122,8 +126,12 @@ class ChildRewardFragment : BaseFragment() {
 
     private val onRewardsClickedForRedeemed = object : ChildRewardAdapter.Listener {
         override fun onRewardClickedForRedeemed(data: KidRewardRedemption) {
+            viewModel.postKidRewardRedeemption(
+                request = KidRedeemRewardRequest(
+                    globalRewardId = if (data.isGlobal) data.id else null,
+                    rewardId = if (!data.isGlobal) data.id else null
+                )
+            )
         }
-
     }
-
 }

@@ -6,6 +6,7 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidRewardRedemption
 import com.stellkey.android.model.request.KidCompleteTaskRequest
+import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.model.request.LocaleModel
 import com.stellkey.android.model.request.UpdateLocaleRequest
 import com.stellkey.android.repository.UserRepository
@@ -16,6 +17,7 @@ import kotlinx.coroutines.launch
 class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
     val responseError = SingleLiveEvent<Unit>()
+    val kidRedeemRewardSuccess = SingleLiveEvent<Unit>()
 
     val kidInfoResponse = MutableLiveData<KidInfoModel?>()
     val completeKidTaskResponse = MutableLiveData<Any?>()
@@ -135,4 +137,32 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
             }
         }
     }
+
+    fun postKidRewardRedeemption(request: KidRedeemRewardRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.kidRedeemReward(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    kidRedeemRewardSuccess.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
 }

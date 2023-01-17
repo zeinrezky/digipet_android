@@ -18,7 +18,7 @@ import com.stellkey.android.model.KidRewardRedemption
  */
 class ChildRewardAdapter(
     var listRewards: List<KidRewardRedemption>,
-    private val listener: Listener
+    val listener: Listener
 ) : Adapter<ChildRewardAdapter.ChildRewardViewHolder>() {
 
     interface Listener {
@@ -33,15 +33,10 @@ class ChildRewardAdapter(
         fun bind(item: KidRewardRedemption) {
             binding.ivReward.loadImage(item.icon)
             binding.tvReward.text = item.title
-            binding.clRewardAvailable.setOnClickListener {
-                listener.onRewardClickedForRedeemed(item)
-            }
-
             if (item.star_balance >= item.star_cost) {
                 binding.ivReward.clearColorFilter()
                 binding.clRewardUnavailable.isVisible = false
                 binding.clRewardAvailable.isVisible = true
-
             } else {
                 binding.ivReward.setColorFilter(
                     ContextCompat.getColor(
@@ -51,8 +46,13 @@ class ChildRewardAdapter(
                 )
                 binding.clRewardUnavailable.isVisible = true
                 binding.clRewardAvailable.isVisible = false
-                binding.piStarProgress.progress = ((item.star_balance.toFloat() / item.star_cost.toFloat()) * 100).toInt()
+                binding.piStarProgress.progress =
+                    ((item.star_balance.toFloat() / item.star_cost.toFloat()) * 100).toInt()
                 binding.tvStar.text = "${item.star_balance}/${item.star_cost}"
+            }
+
+            binding.clRewardAvailable.setOnClickListener {
+                listener.onRewardClickedForRedeemed(item)
             }
         }
     }

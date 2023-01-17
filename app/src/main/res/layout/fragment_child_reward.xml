@@ -294,7 +294,7 @@
                             android:layout_marginEnd="@dimen/space_x3_half"
                             android:nestedScrollingEnabled="true"
                             android:orientation="horizontal"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"

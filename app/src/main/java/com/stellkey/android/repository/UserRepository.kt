@@ -146,12 +146,12 @@ interface UserService {
     @POST("carer/rewards/removeglobal")
     suspend fun removeGlobalRewardFromKids(
         @Body request: GlobalRewardAssignKidRequest
-    ) : NetworkResponse<ResponseSuccess<Any>, ResponseError>
+    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     @POST("carer/rewards/removecustom")
     suspend fun removeCustomRewardFromKids(
         @Body request: CustomRewardAssignKidRequest
-    ) : NetworkResponse<ResponseSuccess<Any>, ResponseError>
+    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     /* End of Rewards Routes */
 
@@ -186,8 +186,10 @@ interface UserService {
     suspend fun completeKidTask(@Body kidCompleteTaskRequest: KidCompleteTaskRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     @GET("/kid/reward")
-    suspend fun kidListReward() : NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError>
+    suspend fun kidListReward(): NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError>
 
+    @POST("/kid/reward/redeem")
+    suspend fun kidRedeemReward(@Body request: KidRedeemRewardRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -472,8 +474,12 @@ open class UserRepository(private val userService: UserService) {
         return userService.completeKidTask(kidCompleteTaskRequest)
     }
 
-    suspend fun kidListRewardRedemption() : NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError>{
+    suspend fun kidListRewardRedemption(): NetworkResponse<ResponseSuccess<List<KidRewardRedemption>>, ResponseError> {
         return userService.kidListReward()
+    }
+
+    suspend fun kidRedeemReward(request: KidRedeemRewardRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+        return userService.kidRedeemReward(request)
     }
     /* End of Kids Routes Functions */
 
