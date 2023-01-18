@@ -106,12 +106,14 @@ fun getTimeZoneById(id: String = "GMT+07:00"): TimeZone {
 val applicationTimeZone get() = getTimeZoneById()
 
 fun dateFormatter(format: String = "yyyy-MM-dd"): SimpleDateFormat {
-    return SimpleDateFormat(format, Locale("in_ID")).apply {
+    return SimpleDateFormat(format, Locale.getDefault()).apply {
         timeZone = applicationTimeZone
     }
 }
 
 fun getCurrentDate(): String = dateFormatter("yyyy-MM-dd HH:mm:ss").format(Date())
+fun getCurrentDayMonth(format: String = "M"): String = dateFormatter(format).format(Date())
+fun getCurrentDayYear(): String = dateFormatter("yyyy").format(Date())
 
 val defaultDateFormat get() = dateFormatter()
 

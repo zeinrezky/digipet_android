@@ -190,6 +190,13 @@ interface UserService {
 
     @POST("/kid/reward/redeem")
     suspend fun kidRedeemReward(@Body request: KidRedeemRewardRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @GET("/kid/log")
+    suspend fun kidLogs(
+        @Query("order") order: String = Constant.SortBy.DESC,
+        @Query("month") month: Int,
+        @Query("year") year: Int
+    ): NetworkResponse<ResponseSuccess<List<KidLogModel>>, ResponseError>
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -480,6 +487,10 @@ open class UserRepository(private val userService: UserService) {
 
     suspend fun kidRedeemReward(request: KidRedeemRewardRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
         return userService.kidRedeemReward(request)
+    }
+
+    suspend fun kidLogs(sortBy: String = Constant.SortBy.DESC, month: Int, year: Int) : NetworkResponse<ResponseSuccess<List<KidLogModel>>, ResponseError>{
+        return userService.kidLogs(order = sortBy, month = month, year = year)
     }
     /* End of Kids Routes Functions */
 

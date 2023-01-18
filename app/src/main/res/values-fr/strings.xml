@@ -252,5 +252,6 @@
     <string name="onboarding_finish_desc"><font color='#FF6222EE'><b>Commencer StellKey!</b></font>\nOu revoir le tutoriel.</string>
     <string name="onboarding_start_stellkey">C’est Parti!</string>
     <string name="onboarding_try_again">Ou Revoir Le Tutoriel </string>
+    <string name="log_kid_my_activity">Mon Activite</string>
 
 </resources>
