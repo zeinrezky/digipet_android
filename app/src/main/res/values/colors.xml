@@ -33,4 +33,5 @@
     <color name="blurWhite">#33FFFFFF</color>
     <color name="transparent_black">#80000000</color>
     <color name="textPrimary">#6222EE</color>
+    <color name="colorFadePrimary">#6D31E9</color>
 </resources>

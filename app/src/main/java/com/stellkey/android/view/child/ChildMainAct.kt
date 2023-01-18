@@ -2,10 +2,11 @@ package com.stellkey.android.view.child
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import com.stellkey.android.R
 import com.stellkey.android.databinding.ActivityChildMainBinding
-import com.stellkey.android.helper.extension.setTransparentStatusBar
 import com.stellkey.android.helper.extension.viewBinding
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
@@ -13,6 +14,7 @@ import com.stellkey.android.util.EventBusBinder
 import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.child.home.ChildHomeFragment
 import com.stellkey.android.view.child.log.ChildLogFragment
+import com.stellkey.android.view.child.month_picker.WheelPickerFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.ChildRewardFragment
 import org.greenrobot.eventbus.EventBus
@@ -22,21 +24,44 @@ import org.greenrobot.eventbus.ThreadMode
 class ChildMainAct : BaseAct() {
 
     private val binding by viewBinding<ActivityChildMainBinding>()
+    private var previousFragment: Fragment? = null
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onMessageEvent(gotoScreen: NavigationChildHomeEvent) {
         when (gotoScreen.goToScreen) {
             Constant.KidMenu.REWARD -> {
+                binding.clKidBtmMenu.isGone = false
                 addFragment(ChildRewardFragment.newInstance())
             }
 
             Constant.KidMenu.HOME -> {
                 //TODO("create if cache pet page will redirect to ChildPetFragment")
+                binding.clKidBtmMenu.isGone = false
                 addFragment(ChildHomeFragment.newInstance())
             }
 
             Constant.KidMenu.LOG -> {
+                binding.clKidBtmMenu.isGone = false
                 addFragment(ChildLogFragment.newInstance())
+            }
+
+            Constant.KidWidget.DIALOG_WHEEL_PICKER -> {
+                supportFragmentManager.findFragmentById(R.id.content)?.let {
+                    previousFragment = it
+                }
+                binding.clKidBtmMenu.isGone = true
+                addFragment(WheelPickerFragment.newInstance())
+            }
+
+            Constant.KidWidget.DIALOG_WHEEL_DISMISSED -> {
+                binding.clKidBtmMenu.isGone = false
+                previousFragment?.let {
+                    if (it is ChildLogFragment) {
+                        val selectedMonth = gotoScreen.extraParams[Constant.ExtraParams.MONTH_WHEEL_PICKER]?.toInt()
+                        val selectedYear = gotoScreen.extraParams[Constant.ExtraParams.YEAR_WHEEL_PICKER]?.toInt()
+                        addFragment(ChildLogFragment.newInstance(selectedMonth = selectedMonth, selectedYear = selectedYear))
+                    }
+                }
             }
         }
     }
@@ -115,5 +140,8 @@ class ChildMainAct : BaseAct() {
         }
     }
 
-    class NavigationChildHomeEvent(val goToScreen: String)
+    class NavigationChildHomeEvent(
+        val goToScreen: String,
+        val extraParams: HashMap<String, String> = hashMapOf()
+    )
 }

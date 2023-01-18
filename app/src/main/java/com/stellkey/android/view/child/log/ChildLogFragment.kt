@@ -14,9 +14,12 @@ import com.stellkey.android.helper.extension.getCurrentDate
 import com.stellkey.android.helper.extension.getCurrentDayMonth
 import com.stellkey.android.helper.extension.getCurrentDayYear
 import com.stellkey.android.model.KidLogModel
+import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseFragment
+import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.child.log.adapter.ChildLogAdapter
+import org.greenrobot.eventbus.EventBus
 import org.koin.android.ext.android.inject
 
 class ChildLogFragment : BaseFragment() {
@@ -26,7 +29,8 @@ class ChildLogFragment : BaseFragment() {
     private val childLogAdapter by lazy {
         ChildLogAdapter(arrayListOf())
     }
-
+    private var DEFAULT_MONTH = getCurrentDayMonth().toInt()
+    private var DEFAULT_YEAR = getCurrentDayYear().toInt()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -64,7 +68,10 @@ class ChildLogFragment : BaseFragment() {
         setRecyclerviewLogs()
         dataBinding.tvMonthSelected.text = getCurrentDayMonth("MMM YYYY")
 
-        viewModel.getKidLogs(month = getCurrentDayMonth().toInt(), year = getCurrentDayYear().toInt())
+        viewModel.getKidLogs(
+            month = getCurrentDayMonth().toInt(),
+            year = getCurrentDayYear().toInt()
+        )
     }
 
     private fun setOnClick() {
@@ -84,7 +91,12 @@ class ChildLogFragment : BaseFragment() {
 
     private fun setKidLogsData(data: List<KidLogModel>) {
         val listKidLogsAfterGroupByDate = arrayListOf<Pair<String, List<KidLogModel>>>()
-        data.groupBy { it.createdAt.formatDate(from = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", to= "dd MMM") }.forEach {
+        data.groupBy {
+            it.createdAt.formatDate(
+                from = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                to = "dd MMM"
+            )
+        }.forEach {
             listKidLogsAfterGroupByDate.add(
                 Pair(it.key, it.value)
             )
@@ -96,7 +108,8 @@ class ChildLogFragment : BaseFragment() {
     private val onClickCallback = View.OnClickListener { view ->
         when (view) {
             dataBinding.tvMonthSelected -> {
-
+                EventBus.getDefault()
+                    .post(ChildMainAct.NavigationChildHomeEvent(Constant.KidWidget.DIALOG_WHEEL_PICKER))
             }
 
             dataBinding.btnLeftMonth -> {
@@ -110,9 +123,18 @@ class ChildLogFragment : BaseFragment() {
     }
 
     companion object {
+        private var SELECTED_MONTH: Int? = null
+        private var SELECTED_YEAR: Int? = null
 
         @JvmStatic
-        fun newInstance() =
-            ChildLogFragment()
+        fun newInstance(selectedMonth: Int? = null, selectedYear: Int? = null) =
+            ChildLogFragment().apply {
+                selectedMonth?.let {
+                    SELECTED_MONTH = it
+                }
+                selectedYear?.let {
+                    SELECTED_YEAR = it
+                }
+            }
     }
 }

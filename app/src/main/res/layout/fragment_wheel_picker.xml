@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_child_app"
+        tools:context=".view.child.month_picker.WheelPickerFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3"
+                android:layout_marginEnd="@dimen/space_x3"
+                app:cardCornerRadius="@dimen/space_x7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.shawnlin.numberpicker.NumberPicker
+                    android:id="@+id/datePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/space_x7"
+                    app:np_selectedTextSize="@dimen/space_x6"
+                    app:np_textSize="@dimen/space_x3"
+                    android:layout_marginTop="@dimen/space_x3"
+                    android:layout_marginEnd="@dimen/space_x7"
+                    android:layout_marginBottom="@dimen/space_x3"
+                    tools:np_wheelItemCount="5" />
+
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:layout_marginBottom="@dimen/space_x20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivDoneBtn"
+            android:layout_width="224dp"
+            android:layout_height="87dp"
+            android:layout_marginTop="@dimen/space_x30"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_description"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_child_collect" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nove"
+            android:text="GO!"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:layout_marginBottom="@dimen/space_x2"
+            app:layout_constraintBottom_toBottomOf="@+id/ivDoneBtn"
+            app:layout_constraintEnd_toEndOf="@+id/ivDoneBtn"
+            app:layout_constraintStart_toStartOf="@+id/ivDoneBtn"
+            app:layout_constraintTop_toTopOf="@+id/ivDoneBtn" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

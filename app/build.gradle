@@ -144,5 +144,6 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
 
     //
+    implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 
 }

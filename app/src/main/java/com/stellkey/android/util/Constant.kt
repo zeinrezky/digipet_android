@@ -35,6 +35,16 @@ object Constant {
         const val LOG = "log"
     }
 
+    object KidWidget {
+        const val DIALOG_WHEEL_PICKER = "dialog_wheel_picker"
+        const val DIALOG_WHEEL_DISMISSED = "dialog_wheel_dismissed"
+    }
+
+    object ExtraParams {
+        const val MONTH_WHEEL_PICKER = "month_wheel_picker"
+        const val YEAR_WHEEL_PICKER = "year_wheel_picker"
+    }
+
     object OnBoarding {
         const val KID_ICON = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/ps_ico1662607860983.jpg"
         const val TASK_PUT_DISHES = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146228142.png"
