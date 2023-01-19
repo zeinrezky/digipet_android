@@ -13,25 +13,27 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogInfoBinding
 import com.stellkey.android.databinding.FragmentLoginPINBinding
 import com.stellkey.android.helper.extension.color
+import com.stellkey.android.helper.extension.emptyInt
 import com.stellkey.android.helper.extension.emptyString
-import com.stellkey.android.helper.extension.viewBinding
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.request.CarerLoginRequest
+import com.stellkey.android.model.request.ForgotPinCarerRequest
+import com.stellkey.android.model.request.ForgotPinKidRequest
 import com.stellkey.android.model.request.KidLoginRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.child.ChildMainAct
-import kotlinx.android.synthetic.main.fragment_login_p_i_n.*
+import kotlinx.android.synthetic.main.fragment_login_p_i_n.clErrorMessage
 import org.koin.android.ext.android.inject
-import java.util.*
+import java.util.Date
+import java.util.TimeZone
 
 class LoginPINFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentLoginPINBinding
 
-    private val binding by viewBinding<FragmentLoginPINBinding>()
     private val viewModel by inject<LoginViewModel>()
 
     private lateinit var dialogInfoBinding: DialogInfoBinding
@@ -41,6 +43,7 @@ class LoginPINFragment : BaseFragment() {
         @JvmStatic
         fun newInstance() = LoginPINFragment()
         var profileType = emptyString
+        var selectedId = emptyInt
     }
 
     override fun onCreateView(
@@ -93,6 +96,19 @@ class LoginPINFragment : BaseFragment() {
             }
             loginFailed.observe(viewLifecycleOwner) {
                 clErrorMessage.visibility = View.VISIBLE
+            }
+
+            successKidForgotPin.observe(viewLifecycleOwner) {
+                showSnackbar(
+                    dataBinding.root,
+                    "Forget PIN? Don't worry.\nYour admin will let you know your pin!"
+                )
+            }
+            successCarerForgotPin.observe(viewLifecycleOwner) {
+                showSnackbar(
+                    dataBinding.root,
+                    "Forget PIN? Don't worry.\nYour admin will let you know your pin!"
+                )
             }
 
         }
@@ -149,6 +165,7 @@ class LoginPINFragment : BaseFragment() {
                     )
                 )
             }
+
             Constant.ProfileIconType.PROFILE_ICON_KID -> {
                 viewModel.postKidLogin(
                     KidLoginRequest(
@@ -178,6 +195,7 @@ class LoginPINFragment : BaseFragment() {
             tvInputDigit9.setOnClickListener(onClickCallback)
             tvInputDigit0.setOnClickListener(onClickCallback)
             ivDelete.setOnClickListener(onClickCallback)
+            tvForgetPIN.setOnClickListener(onClickCallback)
         }
     }
 
@@ -187,6 +205,7 @@ class LoginPINFragment : BaseFragment() {
                 AppPreference.deleteLoggedInCarerName()
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
             dataBinding.tvInputDigit1 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -206,6 +225,7 @@ class LoginPINFragment : BaseFragment() {
                 }
 
             }
+
             dataBinding.tvInputDigit2 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -224,6 +244,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit3 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -242,6 +263,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit4 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -260,6 +282,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit5 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -278,6 +301,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit6 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -296,6 +320,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit7 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -314,6 +339,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit8 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -332,6 +358,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit9 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -350,6 +377,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.tvInputDigit0 -> {
                 dataBinding.apply {
                     if (etFirstDigit.text.toString().isEmpty()) {
@@ -368,6 +396,7 @@ class LoginPINFragment : BaseFragment() {
                     }
                 }
             }
+
             dataBinding.ivDelete -> {
                 dataBinding.apply {
                     if (etFourthDigit.text.toString().isNotEmpty()) {
@@ -382,6 +411,18 @@ class LoginPINFragment : BaseFragment() {
                     } else if (etFirstDigit.text.toString().isNotEmpty()) {
                         tempPIN = StringBuilder(tempPIN).deleteAt(0).toString()
                         etFirstDigit.text.clear()
+                    }
+                }
+            }
+
+            dataBinding.tvForgetPIN -> {
+                when (profileType) {
+                    Constant.ProfileIconType.PROFILE_ICON_CARER -> {
+                        viewModel.postCarerForgotPin(ForgotPinCarerRequest(carerId = selectedId))
+                    }
+
+                    Constant.ProfileIconType.PROFILE_ICON_KID -> {
+                        viewModel.postKidForgotPin(ForgotPinKidRequest(kidId = selectedId))
                     }
                 }
             }

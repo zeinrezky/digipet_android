@@ -20,7 +20,6 @@ class LoginFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentLoginBinding
 
-    //private val binding by viewBinding<FragmentLoginBinding>()
     private val viewModel by inject<LoginViewModel>()
 
     companion object {
@@ -53,6 +52,10 @@ class LoginFragment : BaseFragment() {
                         hideWaitingDialog()
                     }
                 }
+            }
+
+            snackbarMessage.observe(viewLifecycleOwner) {
+                showToast(it.toString())
             }
             loginResponse.observe(viewLifecycleOwner) {
                 AppPreference.putCarerToken(it.token)
@@ -132,6 +135,7 @@ class LoginFragment : BaseFragment() {
             dataBinding.ivBack -> {
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
             dataBinding.btnLogin -> {
                 dataBinding.apply {
                     val tz: TimeZone = TimeZone.getDefault()

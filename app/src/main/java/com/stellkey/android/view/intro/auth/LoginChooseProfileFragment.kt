@@ -78,10 +78,12 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
             if(!data.isMain)
                 AppPreference.putLoginToken(data.loginToken)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_CARER
+            LoginPINFragment.selectedId = data.id
         }
         else {
             AppPreference.putLoginToken(data.loginToken)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_KID
+            LoginPINFragment.selectedId = data.id
         }
 
         AppPreference.putLoggedInCarerName(data.name)

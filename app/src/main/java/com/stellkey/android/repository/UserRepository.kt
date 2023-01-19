@@ -197,6 +197,12 @@ interface UserService {
         @Query("month") month: Int,
         @Query("year") year: Int
     ): NetworkResponse<ResponseSuccess<List<KidLogModel>>, ResponseError>
+
+    @POST("/kid/forgot-pin")
+    suspend fun kidForgotPin(@Body request: ForgotPinKidRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @POST("/carer/forgot-pin")
+    suspend fun carerForgotPin(@Body request: ForgotPinCarerRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -489,9 +495,17 @@ open class UserRepository(private val userService: UserService) {
         return userService.kidRedeemReward(request)
     }
 
-    suspend fun kidLogs(sortBy: String = Constant.SortBy.DESC, month: Int, year: Int) : NetworkResponse<ResponseSuccess<List<KidLogModel>>, ResponseError>{
+    suspend fun kidLogs(
+        sortBy: String = Constant.SortBy.DESC,
+        month: Int,
+        year: Int
+    ): NetworkResponse<ResponseSuccess<List<KidLogModel>>, ResponseError> {
         return userService.kidLogs(order = sortBy, month = month, year = year)
     }
+
+    suspend fun kidForgotPin(request: ForgotPinKidRequest) = userService.kidForgotPin(request)
+
+    suspend fun carerForgotPin(request: ForgotPinCarerRequest) = userService.carerForgotPin(request)
     /* End of Kids Routes Functions */
 
     /* Carers Routes Functions */

@@ -16,10 +16,12 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -45,6 +47,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.stellkey.android.R
 import kotlinx.coroutines.delay
@@ -527,4 +530,10 @@ fun Context.changeLocale(language: String): Context {
 fun View.safeLeakRun(onAttach: () -> Unit = {}, onDetach: () -> Unit = {}) {
     doOnAttach { onAttach.invoke() }
     doOnDetach { onDetach.invoke() }
+}
+
+fun Snackbar.gravityTop() {
+    this.view.layoutParams = (this.view.layoutParams as FrameLayout.LayoutParams).apply {
+        gravity = Gravity.TOP
+    }
 }
