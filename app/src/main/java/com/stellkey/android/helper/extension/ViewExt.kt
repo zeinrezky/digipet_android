@@ -14,6 +14,7 @@ import android.os.Build
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.View
 import android.view.WindowManager
@@ -24,6 +25,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.core.text.bold
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
@@ -62,6 +64,23 @@ fun TextView.textOrNull(
 ) {
     this.text = text.orEmpty(default)
 }
+
+fun TextView.append(string: String?, @ColorRes color: Int) {
+    if (string.isNullOrEmpty()) {
+        return
+    }
+
+    val spannable: Spannable = SpannableString(string)
+    spannable.setSpan(
+        ForegroundColorSpan(ContextCompat.getColor(context, color)),
+        0,
+        spannable.length,
+        Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+    )
+
+    append(spannable)
+}
+
 
 /**
  * Setter & Getter for [TextView.textOrNull]

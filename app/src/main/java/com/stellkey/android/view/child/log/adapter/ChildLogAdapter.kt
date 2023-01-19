@@ -6,8 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.stellkey.android.R
 import com.stellkey.android.databinding.ItemKidLogBinding
 import com.stellkey.android.databinding.ItemLogDescriptionBinding
+import com.stellkey.android.helper.extension.append
 import com.stellkey.android.helper.extension.formatDate
 import com.stellkey.android.model.KidLogModel
 
@@ -51,70 +53,83 @@ class ChildLogAdapter(
                     LOG_TYPE_CONFIRM_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your " + it
+                                "$position." + item.carer.name + " approve your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalChallenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your " + it
+                                "$position." + item.carer.name + " approve your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_DECLINE_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your " + it
+                                "$position." + item.carer.name + " decline your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalChallenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your " + it
+                                "$position." + item.carer.name + " decline your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_COMPLETED_ASSIGNMENT -> {
                         item.challenge?.title?.let {
-                            binding.tvLogDescription.text = "$position.You completed $it"
+                            binding.tvLogDescription.text = "$position.You completed "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalChallenge?.title?.let {
-                            binding.tvLogDescription.text = "$position.You completed $it"
+                            binding.tvLogDescription.text = "$position.You completed "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_REDEEM_REWARD -> {
                         item.reward?.star_cost?.let {
-                            binding.tvLogDescription.text = "$position.You collected $it"
+                            binding.tvLogDescription.text = "$position.You collected "
+                            binding.tvLogDescription.append(it.toString(), R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_CREATED_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " create " + it
+                                "$position." + item.carer.name + " create "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalChallenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " create " + it
+                                "$position." + item.carer.name + " create "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_CONFIRM_REDEMPTION -> {
                         item.reward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your " + it
+                                "$position." + item.carer.name + " approve your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalReward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your " + it
+                                "$position." + item.carer.name + " approve your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
 
                     LOG_TYPE_DECLINE_REDEMPTION -> {
                         item.reward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your " + it
+                                "$position." + item.carer.name + " decline your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                         item.globalReward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your " + it
+                                "$position." + item.carer.name + " decline your "
+                            binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
                     }
                 }
