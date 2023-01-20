@@ -56,7 +56,8 @@ class QrLoginFamilyFragment : BaseFragment() {
         val imageOut = ByteArrayOutputStream()
         val loginToken = AppPreference.getLoginToken()
         val emailUser = AppPreference.getTempEmail()
-        val deeplinkUrl = "stellkey://carerlogin/login?u=$emailUser&c=$loginToken"
+        val authToken = AppPreference.getUserToken()
+        val deeplinkUrl = "stellkey://carerlogin/login?u=$emailUser&c=$loginToken&at=$authToken"
 
         QRCode(deeplinkUrl)
             .render()
@@ -79,7 +80,7 @@ class QrLoginFamilyFragment : BaseFragment() {
                         if (allPermissionGranted()) {
                             requireContext().saveBitmap(
                                 "StellKeyQRLogin",
-                                dataBinding.ivQrOutput.bitmap
+                                bitmap
                             )
                             // show success message to user
                             withContext(Dispatchers.Main) {

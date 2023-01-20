@@ -117,6 +117,8 @@
             android:textColor="@color/black"
             android:layout_marginStart="@dimen/space_x3"
             android:layout_marginEnd="@dimen/space_x3"
+            android:maxLines="3"
+            android:ellipsize="end"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@+id/btnCopyToClip"
             app:layout_constraintEnd_toStartOf="@+id/btnCopyToClip"

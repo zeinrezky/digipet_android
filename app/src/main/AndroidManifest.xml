@@ -46,6 +46,22 @@
             android:name=".view.intro.intro.IntroAct"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
+            <!-- Documentation on https://developer.android.com/training/app-links/deep-linking -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="stellkey"
+                    android:host="carerlogin"
+                    android:pathPrefix="/login"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.intro.SplashScreenAct"
             android:exported="true"

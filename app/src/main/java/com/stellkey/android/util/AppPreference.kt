@@ -38,6 +38,7 @@ class AppPreference {
         private const val kidLocale = "kidLocale"
         private const val isUpdateLocale = "isUpdateLocale"
         private const val loggedInCarerName = "loggedInCarerName"
+        private const val userToken = "token"
 
         //Add Task Temp Data
         private const val tempSelectedChallengeCategoryId = "tempSelectedChallengeCategoryId"
@@ -74,6 +75,7 @@ class AppPreference {
             Hawk.delete(kidLocale)
             Hawk.delete(isUpdateLocale)
             Hawk.delete(loggedInCarerName)
+            Hawk.delete(userToken)
         }
 
         fun deleteProfileIcon() {
@@ -140,6 +142,14 @@ class AppPreference {
 
         fun getMainCarerLoginToken(): String {
             return (Hawk.get(mainCarerLoginToken, emptyString))
+        }
+
+        fun putUserToken(value: String){
+            Hawk.put(userToken, value)
+        }
+
+        fun getUserToken(): String{
+            return (Hawk.get(userToken, emptyString))
         }
 
         fun putCarerToken(value: String) {
