@@ -191,12 +191,12 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
 
     private fun setSubscriptionData(subscriptionResponse: ArrayList<SubscriptionModel>) {
         dataBinding.apply {
-            val subscriptionExpiresAt = subscriptionResponse[0].expiresAt
+            val subscriptionExpiresAt = subscriptionResponse.firstOrNull()?.expiresAt
             val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
             val formatter = SimpleDateFormat("dd MMMM, yyyy", Locale.getDefault())
-            val subscriptionExpiresAtFormatted = parser.parse(subscriptionExpiresAt)?.let { formatter.format(it) }
+            val subscriptionExpiresAtFormatted = subscriptionExpiresAt?.let { parser.parse(it)?.let { formatter.format(it) } }
 
-            when(subscriptionResponse[0].status){
+            when(subscriptionResponse.firstOrNull()?.status){
                 0 -> {
                     tvPremiumUpgrade.textOrNull = requireContext().resources.getString(R.string.upgrade_to_premium)
                     tvMembershipType.textOrNull = requireContext().resources.getString(R.string.membership_type_trial)
