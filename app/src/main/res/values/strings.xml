@@ -253,7 +253,6 @@
     <string name="onboarding_try_again">Try Again</string>
     <string name="log_kid_my_activity">My Activity</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="scan_qr_family_login">Scan the QR code to add a family device or invite a carer to your family</string>
     <string name="copy_qr_link">Copy</string>
 

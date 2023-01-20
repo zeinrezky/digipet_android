@@ -65,6 +65,9 @@ class QrLoginFamilyFragment : BaseFragment() {
         val bitmap = BitmapFactory.decodeByteArray(imageOut.toByteArray(), 0, imageOut.size())
         dataBinding.ivQrOutput.setImageBitmap(bitmap)
         dataBinding.tvDeeplinkUrl.text = deeplinkUrl
+        dataBinding.ivBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
         dataBinding.btnCopyToClip.setOnClickListener {
             requireContext().copyToClipboard(deeplinkUrl)
             Toast.makeText(requireContext(), "Success Copy", Toast.LENGTH_LONG).show()
