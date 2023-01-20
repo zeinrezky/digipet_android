@@ -1,6 +1,7 @@
 package com.stellkey.android.helper.extension
 
 import android.app.Activity
+import android.content.ClipData
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
@@ -11,6 +12,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LevelListDrawable
 import android.os.Build
+import android.os.Environment
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -50,8 +52,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.stellkey.android.R
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
+import java.io.File
 import java.security.MessageDigest
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.round
 
@@ -136,6 +142,7 @@ fun TextView.htmlTextOrNull(html: String) {
                 htmlImageGetter, null
             ) as Spannable
         }
+
         else -> {
             @Suppress("DEPRECATION")
             Html.fromHtml(
@@ -536,4 +543,33 @@ fun Snackbar.gravityTop() {
     this.view.layoutParams = (this.view.layoutParams as FrameLayout.LayoutParams).apply {
         gravity = Gravity.TOP
     }
+}
+
+fun Context.copyToClipboard(text: CharSequence) {
+    val clipboardManager =
+        getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+    val clipData = ClipData
+        .newPlainText("STELLKEY", text)
+    clipboardManager.setPrimaryClip(clipData)
+}
+
+val ImageView.bitmap: Bitmap? get() = (drawable as? BitmapDrawable)?.bitmap
+
+suspend fun Context.saveBitmap(fileName: String, bitmap: Bitmap?) = withContext(Dispatchers.IO) {
+    val file = File(
+        getOutputDirectory(), "$fileName.png"
+    )
+    file.outputStream().use {
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, it)
+    }
+}
+
+/** Use external media if it is available, our app's file directory otherwise */
+fun Context.getOutputDirectory(): File {
+    val appContext = applicationContext
+    val mediaDir = ContextCompat.getExternalCacheDirs(appContext).firstOrNull().let {
+        File(it, "StellKey").apply { mkdirs() }
+    }
+    return if (mediaDir.exists())
+        mediaDir else appContext.filesDir
 }

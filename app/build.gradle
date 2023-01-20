@@ -146,4 +146,6 @@ dependencies {
     //
     implementation 'io.github.ShawnLin013:number-picker:2.4.13'
 
+    //QR
+    implementation 'io.github.g0dkar:qrcode-kotlin-android:3.3.0'
 }

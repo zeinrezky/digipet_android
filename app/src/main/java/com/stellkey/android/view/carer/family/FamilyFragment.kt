@@ -31,6 +31,7 @@ import com.stellkey.android.view.carer.family.adapter.AdminListAdapter
 import com.stellkey.android.view.carer.family.adapter.CarerListAdapter
 import com.stellkey.android.view.carer.family.adapter.FamilyTypeAdapter
 import com.stellkey.android.view.carer.family.adapter.KidListAdapter
+import com.stellkey.android.view.carer.family.qrlogin.QrLoginFamilyFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.carer.home.HomeViewModel
 import com.stellkey.android.view.carer.profile.CarerProfileFragment
@@ -391,6 +392,7 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
         dataBinding.apply {
             cvAllFamilyType.setOnClickListener(onClickCallback)
             cvAddFamily.setOnClickListener(onClickCallback)
+            ivQrLogin.setOnClickListener(onClickCallback)
         }
     }
 
@@ -418,6 +420,9 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
             }
             dataBinding.cvAddFamily -> {
                 addFragment(AddMemberOptionsFragment.newInstance())
+            }
+            dataBinding.ivQrLogin ->{
+                addFragment(QrLoginFamilyFragment.newInstance())
             }
         }
     }

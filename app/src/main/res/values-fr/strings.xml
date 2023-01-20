@@ -72,7 +72,7 @@
 
     <!-- Menu -->
     <string name="home">Mes Enfants</string>
-    <string name="family">Family</string>
+    <string name="family">Famille</string>
     <string name="log">Historique des missions</string>
     <string name="account">Mon compte</string>
 
@@ -253,5 +253,7 @@
     <string name="onboarding_start_stellkey">C’est Parti!</string>
     <string name="onboarding_try_again">Ou Revoir Le Tutoriel </string>
     <string name="log_kid_my_activity">Mon Activite</string>
+    <string name="scan_qr_family_login">Scannez le code QR pour ajouter un appareil familial ou inviter un soignant dans votre famille</string>
+    <string name="copy_qr_link">Copie</string>
 
 </resources>
