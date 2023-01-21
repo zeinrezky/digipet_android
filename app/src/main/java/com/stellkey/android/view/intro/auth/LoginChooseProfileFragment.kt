@@ -20,9 +20,16 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
     private lateinit var dataBinding: FragmentLoginChooseProfileBinding
     private val viewModel by inject<LoginViewModel>()
 
+    private var allProfileModel: AllProfileModel? = null
+    private var isLoginFromQR = false
+
     companion object {
         @JvmStatic
-        fun newInstance() = LoginChooseProfileFragment()
+        fun newInstance(isLoginFromQR: Boolean = false, allProfileModel: AllProfileModel? = null) =
+            LoginChooseProfileFragment().apply {
+                this.isLoginFromQR = isLoginFromQR
+                this.allProfileModel = allProfileModel
+            }
     }
 
     override fun onCreateView(
@@ -75,12 +82,11 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
 
     override fun onItemClicked(data: AllProfileModel.Family) {
         if (data.profileIcon.type == Constant.ProfileIconType.PROFILE_ICON_CARER) {
-            if(!data.isMain)
+            if (!data.isMain)
                 AppPreference.putLoginToken(data.loginToken)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_CARER
             LoginPINFragment.selectedId = data.id
-        }
-        else {
+        } else {
             AppPreference.putLoginToken(data.loginToken)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_KID
             LoginPINFragment.selectedId = data.id
@@ -91,6 +97,12 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
     }
 
     private fun setView() {
-        viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
+        if (isLoginFromQR && allProfileModel != null) {
+            allProfileModel?.let {
+                setProfileList(it.dbResult.family)
+            }
+        } else {
+            viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
+        }
     }
 }

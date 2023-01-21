@@ -8,6 +8,7 @@ import android.view.OrientationEventListener
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
@@ -15,15 +16,19 @@ import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import com.google.common.util.concurrent.ListenableFuture
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentQRLoginScannerBinding
 import com.stellkey.android.helper.ScanningResultListener
 import com.stellkey.android.helper.ZXingBarcodeAnalyzer
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
+import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.auth.LoginViewModel
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -65,6 +70,10 @@ class QRLoginScannerFragment : BaseFragment() {
                     }
                 }
             }
+
+            allProfileSelection.observe(viewLifecycleOwner) {
+                addFragment(LoginChooseProfileFragment.newInstance(isLoginFromQR = true, allProfileModel  = it))
+            }
         }
         if (allPermissionGranted()) {
             cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -78,6 +87,9 @@ class QRLoginScannerFragment : BaseFragment() {
         } else {
             callPermissionRequest()
         }
+
+        setView()
+        setOnClick()
     }
 
     private fun setView() {
@@ -85,7 +97,9 @@ class QRLoginScannerFragment : BaseFragment() {
     }
 
     private fun setOnClick() {
-
+        dataBinding.ivBack.setOnClickListener {
+            requireActivity().supportFragmentManager.popBackStack()
+        }
     }
 
     private fun allPermissionGranted() = REQUIRED_PERMISSIONS.all {
@@ -137,7 +151,7 @@ class QRLoginScannerFragment : BaseFragment() {
                 requireActivity().runOnUiThread {
                     imageAnalysis.clearAnalyzer()
                     cameraProvider?.unbindAll()
-                    //TODO("Process QR")
+                    handleUriFromScannerQr(result)
                 }
             }
         }
@@ -154,6 +168,19 @@ class QRLoginScannerFragment : BaseFragment() {
 
         if (camera?.cameraInfo?.hasFlashUnit() == true) {
             camera.cameraControl.enableTorch(false)
+        }
+    }
+
+    private fun handleUriFromScannerQr(qrResult: String){
+        val qrCodeData = qrResult.toUri()
+        val loginToken = qrCodeData.getQueryParameter("c")
+        val authToken = qrCodeData.getQueryParameter("at")
+
+        if(loginToken != null && authToken != null){
+            AppPreference.putMainCarerLoginToken(loginToken)
+            AppPreference.putUserToken(authToken)
+            AppPreference.putLoginToken(loginToken)
+            viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
         }
     }
 

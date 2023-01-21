@@ -86,6 +86,7 @@ class LoginPINFragment : BaseFragment() {
                 requireActivity().finish()
             }
             loginResponse.observe(viewLifecycleOwner) {
+                AppPreference.putUserToken(it.token)
                 AppPreference.putKidLogin(true)
                 AppPreference.putKidToken(it.token)
                 AppPreference.putCompleteLogin(true)
