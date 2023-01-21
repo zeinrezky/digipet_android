@@ -62,4 +62,6 @@
     <dimen name="image_options_round_radius">4dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="barcode_reticle_stroke_width">4dp</dimen>
+    <dimen name="barcode_reticle_corner_radius">8dp</dimen>
 </resources>

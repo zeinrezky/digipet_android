@@ -255,5 +255,7 @@
     <string name="log_kid_my_activity">Mon Activite</string>
     <string name="scan_qr_family_login">Scannez le code QR pour ajouter un appareil familial ou inviter un soignant dans votre famille</string>
     <string name="copy_qr_link">Copie</string>
+    <string name="log_qr">Connectez-vous avec le code QR</string>
+    <string name="text_import">Importer</string>
 
 </resources>
