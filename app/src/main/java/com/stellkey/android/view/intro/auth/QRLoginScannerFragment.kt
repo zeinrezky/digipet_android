@@ -1,7 +1,7 @@
 package com.stellkey.android.view.intro.auth
 
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.ImageDecoder
 import android.os.Build
 import android.os.Bundle
@@ -20,22 +20,23 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toFile
 import androidx.core.net.toUri
 import androidx.databinding.DataBindingUtil
 import com.google.common.util.concurrent.ListenableFuture
-import com.google.zxing.BinaryBitmap
-import com.google.zxing.LuminanceSource
-import com.google.zxing.MultiFormatReader
-import com.google.zxing.RGBLuminanceSource
-import com.google.zxing.common.HybridBinarizer
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentQRLoginScannerBinding
 import com.stellkey.android.helper.ScanningResultListener
 import com.stellkey.android.helper.ZXingBarcodeAnalyzer
+import com.stellkey.android.helper.extension.getBitmapFromUri
+import com.stellkey.android.helper.extension.scanQRImage
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import org.koin.android.ext.android.inject
-import timber.log.Timber
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.InputStream
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -56,28 +57,11 @@ class QRLoginScannerFragment : BaseFragment() {
     private val pickImage =
         registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { imageUri ->
             imageUri?.let {
-                val bitmap = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                    ImageDecoder.decodeBitmap(ImageDecoder.createSource(requireContext().contentResolver, it))
-                } else {
-                    MediaStore.Images.Media.getBitmap(requireContext().contentResolver, imageUri)
-                }
-
-                Timber.d("BITMAPP->${bitmap.height}")
-                val intArray = IntArray(bitmap.width * bitmap.height)
-                //copy pixel data from the Bitmap into the 'intArray' array
-                //copy pixel data from the Bitmap into the 'intArray' array
-
-                val source: LuminanceSource = RGBLuminanceSource(bitmap.width, bitmap.height, intArray)
-                val finalBitmap = BinaryBitmap(HybridBinarizer(source))
-                val reader = MultiFormatReader()
-                try {
-                    val result = reader.decode(finalBitmap)
-                    handleUriFromScannerQr(result.text)
-                } catch (e: Exception) {
-                    Timber.e(e)
+                val bitmap = getBitmapFromUri(it, requireContext())
+                bitmap?.scanQRImage()?.let { output ->
+                    handleUriFromScannerQr(output)
                 }
             }
-
         }
 
     override fun onCreateView(
