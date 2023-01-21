@@ -1,4 +1,4 @@
-package com.stellkey.android.view.intro.auth.adapter
+package com.stellkey.android.view.intro.auth
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -8,11 +8,9 @@ import android.view.OrientationEventListener
 import android.view.Surface
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
-import androidx.camera.core.TorchState
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -25,10 +23,7 @@ import com.stellkey.android.helper.ScanningResultListener
 import com.stellkey.android.helper.ZXingBarcodeAnalyzer
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
-import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
-import com.stellkey.android.view.intro.auth.LoginViewModel
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 

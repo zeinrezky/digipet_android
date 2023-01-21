@@ -18,7 +18,7 @@
         android:background="@color/navy"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".view.intro.auth.adapter.QRLoginScannerFragment">
+        tools:context=".view.intro.auth.QRLoginScannerFragment">
 
         <ImageView
             android:id="@+id/ivBack"

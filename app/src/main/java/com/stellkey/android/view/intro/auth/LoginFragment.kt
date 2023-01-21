@@ -13,7 +13,6 @@ import com.stellkey.android.helper.extension.isEmailPattern
 import com.stellkey.android.model.request.LoginRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
-import com.stellkey.android.view.intro.auth.adapter.QRLoginScannerFragment
 import org.koin.android.ext.android.inject
 import java.util.*
 
