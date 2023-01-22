@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildProfileBinding
 import com.stellkey.android.helper.extension.ImageCornerOptions
@@ -17,14 +18,15 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.profile.adapter.BadgeAdapter
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
 
 class ChildProfileFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildProfileBinding
+    private lateinit var achievementAdapter : BadgeAdapter
 
-    //private val binding by viewBinding<FragmentChildProfileBinding>()
     private val viewModel by inject<ChildViewModel>()
 
     companion object {
@@ -88,6 +90,7 @@ class ChildProfileFragment : BaseFragment() {
     }
 
     private fun setKidView(data: KidInfoModel) {
+        achievementAdapter = BadgeAdapter(data.badges)
         dataBinding.apply {
             ivAvatar.loadImage(
                 data.profileIcon.icon,
@@ -106,6 +109,11 @@ class ChildProfileFragment : BaseFragment() {
                 100
             )
             piProfileProgress.progress = 100 - data.level.percentageToNextLevel
+
+            rvChildAchievement.apply {
+                layoutManager = GridLayoutManager(context, 2)
+                adapter = achievementAdapter
+            }
         }
     }
 

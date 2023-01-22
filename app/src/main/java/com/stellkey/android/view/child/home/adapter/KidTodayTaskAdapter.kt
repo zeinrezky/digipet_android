@@ -1,4 +1,4 @@
-package com.stellkey.android.view.child.home
+package com.stellkey.android.view.child.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
