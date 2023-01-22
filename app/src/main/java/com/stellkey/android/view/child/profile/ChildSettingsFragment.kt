@@ -22,7 +22,6 @@ class ChildSettingsFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildSettingsBinding
 
-    //private val binding by viewBinding<FragmentChildSettingsBinding>()
     private val viewModel by inject<ChildViewModel>()
 
     private var selectedLocale = AppPreference.getKidLocale()
@@ -246,7 +245,7 @@ class ChildSettingsFragment : BaseFragment() {
                             R.color.light_blue
                         )
                     )
-                    ivMusicOn.isVisible = false
+                    ivMusicOn.isVisible = true
                     tvMusicOn.setTextColor(
                         ContextCompat.getColor(
                             requireContext(),
@@ -267,5 +266,4 @@ class ChildSettingsFragment : BaseFragment() {
             }
         }
     }
-
 }
