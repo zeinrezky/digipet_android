@@ -12,9 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentQrLoginFamilyBinding
-import com.stellkey.android.helper.extension.bitmap
 import com.stellkey.android.helper.extension.copyToClipboard
-import com.stellkey.android.helper.extension.saveBitmap
+import com.stellkey.android.helper.extension.saveMediaToStorage
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeViewModel
@@ -22,7 +21,6 @@ import io.github.g0dkar.qrcode.QRCode
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -36,7 +34,8 @@ class QrLoginFamilyFragment : BaseFragment() {
     private val viewModel by inject<HomeViewModel>()
 
     private val REQUIRED_PERMISSIONS = arrayOf(
-        android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        android.Manifest.permission.READ_EXTERNAL_STORAGE
     )
 
     private val REQUEST_CODE_PERMISSIONS = 20
@@ -76,25 +75,21 @@ class QrLoginFamilyFragment : BaseFragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         if (allPermissionGranted()) {
-                            requireContext().saveBitmap(
-                                "StellKeyQRLogin",
-                                bitmap
-                            )
+                            requireContext().saveMediaToStorage(bitmap)
                             // show success message to user
-                            withContext(Dispatchers.Main) {
+                            launch(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
                                     "Success To Save",
                                     Toast.LENGTH_LONG
-                                )
-                                    .show()
+                                ).show()
                             }
                         } else {
                             callPermissionRequest()
                         }
                     } catch (e: IOException) {
                         // show error message to user
-                        withContext(Dispatchers.Main) {
+                        launch(Dispatchers.Main) {
                             Toast.makeText(
                                 requireContext(),
                                 "Failed To Save",
@@ -102,7 +97,6 @@ class QrLoginFamilyFragment : BaseFragment() {
                             )
                                 .show()
                         }
-
                     }
                 }
             }

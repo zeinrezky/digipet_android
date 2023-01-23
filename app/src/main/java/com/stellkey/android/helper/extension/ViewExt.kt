@@ -2,6 +2,7 @@ package com.stellkey.android.helper.extension
 
 import android.app.Activity
 import android.content.ClipData
+import android.content.ContentValues
 import android.content.Context
 import android.content.DialogInterface
 import android.graphics.Bitmap
@@ -11,8 +12,10 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LevelListDrawable
+import android.net.Uri
 import android.os.Build
 import android.os.Environment
+import android.provider.MediaStore
 import android.text.*
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
@@ -55,9 +58,13 @@ import com.stellkey.android.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import timber.log.Timber
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
 import java.security.MessageDigest
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.math.round
 
@@ -555,21 +562,30 @@ fun Context.copyToClipboard(text: CharSequence) {
 
 val ImageView.bitmap: Bitmap? get() = (drawable as? BitmapDrawable)?.bitmap
 
-suspend fun Context.saveBitmap(fileName: String, bitmap: Bitmap?) = withContext(Dispatchers.IO) {
-    val file = File(
-        getOutputDirectory(), "$fileName.png"
-    )
-    file.outputStream().use {
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 100, it)
-    }
-}
 
 /** Use external media if it is available, our app's file directory otherwise */
-fun Context.getOutputDirectory(): File {
-    val appContext = applicationContext
-    val mediaDir = ContextCompat.getExternalCacheDirs(appContext).firstOrNull().let {
-        File(it, "StellKey").apply { mkdirs() }
+
+fun Context.saveMediaToStorage(bitmap: Bitmap) {
+    val filename = "${System.currentTimeMillis()}.jpg"
+    var fos: OutputStream? = null
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        contentResolver?.also { resolver ->
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, filename)
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpg")
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES)
+            }
+            val imageUri: Uri? =
+                resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+            fos = imageUri?.let { resolver.openOutputStream(it) }
+        }
+    } else {
+        val imagesDir =
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val image = File(imagesDir, filename)
+        fos = FileOutputStream(image)
     }
-    return if (mediaDir.exists())
-        mediaDir else appContext.filesDir
+    fos?.use {
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+    }
 }
