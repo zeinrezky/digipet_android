@@ -61,10 +61,10 @@ interface UserService {
     suspend fun registerLogin(@Body loginRequest: LoginRequest): NetworkResponse<ResponseSuccess<LoginModel>, ResponseError>
 
     @POST("carer/login")
-    suspend fun carerLogin(@Body carerLoginRequest: CarerLoginRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+    suspend fun carerLogin(@Body carerLoginRequest: CarerLoginRequest): NetworkResponse<ResponseSuccess<Carer>, ResponseError>
 
     @POST("kid/login")
-    suspend fun kidLogin(@Body kidLoginRequest: KidLoginRequest): NetworkResponse<ResponseSuccess<LoginModel>, ResponseError>
+    suspend fun kidLogin(@Body kidLoginRequest: KidLoginRequest): NetworkResponse<ResponseSuccess<Kid>, ResponseError>
 
     @GET("profiles/{param}")
     suspend fun allProfileSelection(@Path("param") loginToken: String): NetworkResponse<ResponseSuccess<AllProfileModel>, ResponseError>
@@ -341,11 +341,11 @@ open class UserRepository(private val userService: UserService) {
     /* End of Register Routes Functions */
 
     /* Login Routes Functions */
-    suspend fun postCarerLogin(carerLoginRequest: CarerLoginRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError> {
+    suspend fun postCarerLogin(carerLoginRequest: CarerLoginRequest): NetworkResponse<ResponseSuccess<Carer>, ResponseError> {
         return userService.carerLogin(carerLoginRequest)
     }
 
-    suspend fun postKidLogin(kidLoginRequest: KidLoginRequest): NetworkResponse<ResponseSuccess<LoginModel>, ResponseError> {
+    suspend fun postKidLogin(kidLoginRequest: KidLoginRequest): NetworkResponse<ResponseSuccess<Kid>, ResponseError> {
         return userService.kidLogin(kidLoginRequest)
     }
 

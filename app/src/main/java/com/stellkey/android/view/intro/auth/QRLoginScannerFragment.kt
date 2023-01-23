@@ -89,15 +89,6 @@ class QRLoginScannerFragment : BaseFragment() {
                     }
                 }
             }
-
-            allProfileSelection.observe(viewLifecycleOwner) {
-                addFragment(
-                    LoginChooseProfileFragment.newInstance(
-                        isLoginFromQR = true,
-                        allProfileModel = it
-                    )
-                )
-            }
         }
         if (allPermissionGranted()) {
             cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -204,14 +195,13 @@ class QRLoginScannerFragment : BaseFragment() {
 
     private fun handleUriFromScannerQr(qrResult: String) {
         val qrCodeData = qrResult.toUri()
-        val loginToken = qrCodeData.getQueryParameter("c")
-        val authToken = qrCodeData.getQueryParameter("at")
+        val loginToken = qrCodeData.getQueryParameter("u")
 
-        if (loginToken != null && authToken != null) {
+        if (loginToken != null) {
             AppPreference.putMainCarerLoginToken(loginToken)
-            AppPreference.putUserToken(authToken)
-            AppPreference.putLoginToken(loginToken)
-            viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
+            addFragment(
+                LoginChooseProfileFragment.newInstance()
+            )
         }
     }
 

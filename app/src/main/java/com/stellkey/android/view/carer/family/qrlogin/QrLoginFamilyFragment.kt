@@ -54,10 +54,8 @@ class QrLoginFamilyFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imageOut = ByteArrayOutputStream()
-        val loginToken = AppPreference.getLoginToken()
-        val emailUser = AppPreference.getTempEmail()
-        val authToken = AppPreference.getUserToken()
-        val deeplinkUrl = "stellkey://carerlogin/login?u=$emailUser&c=$loginToken&at=$authToken"
+        val authToken = AppPreference.getMainCarerLoginToken()
+        val deeplinkUrl = "stellkey://carerlogin/login?u=$authToken"
 
         QRCode(deeplinkUrl)
             .render()

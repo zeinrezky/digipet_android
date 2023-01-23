@@ -20,16 +20,9 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
     private lateinit var dataBinding: FragmentLoginChooseProfileBinding
     private val viewModel by inject<LoginViewModel>()
 
-    private var allProfileModel: AllProfileModel? = null
-    private var isLoginFromQR = false
-
     companion object {
         @JvmStatic
-        fun newInstance(isLoginFromQR: Boolean = false, allProfileModel: AllProfileModel? = null) =
-            LoginChooseProfileFragment().apply {
-                this.isLoginFromQR = isLoginFromQR
-                this.allProfileModel = allProfileModel
-            }
+        fun newInstance() = LoginChooseProfileFragment()
     }
 
     override fun onCreateView(
@@ -82,27 +75,21 @@ class LoginChooseProfileFragment : BaseFragment(), AllProfileAdapter.Listener {
 
     override fun onItemClicked(data: AllProfileModel.Family) {
         if (data.profileIcon.type == Constant.ProfileIconType.PROFILE_ICON_CARER) {
-            if (!data.isMain)
-                AppPreference.putLoginToken(data.loginToken)
+            AppPreference.putCarerToken(data.loginToken)
+            AppPreference.putKidLogin(false)
+            AppPreference.putLoggedInCarerName(data.name)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_CARER
             LoginPINFragment.selectedId = data.id
         } else {
-            AppPreference.putLoginToken(data.loginToken)
+            AppPreference.putKidToken(data.loginToken)
+            AppPreference.putKidLogin(true)
             LoginPINFragment.profileType = Constant.ProfileIconType.PROFILE_ICON_KID
             LoginPINFragment.selectedId = data.id
         }
-
-        AppPreference.putLoggedInCarerName(data.name)
         addFragment(LoginPINFragment.newInstance())
     }
 
     private fun setView() {
-        if (isLoginFromQR && allProfileModel != null) {
-            allProfileModel?.let {
-                setProfileList(it.dbResult.family)
-            }
-        } else {
-            viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
-        }
+        viewModel.getAllProfileSelection(AppPreference.getMainCarerLoginToken())
     }
 }

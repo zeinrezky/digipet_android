@@ -58,10 +58,8 @@ class LoginFragment : BaseFragment() {
                 showToast(it.toString())
             }
             loginResponse.observe(viewLifecycleOwner) {
-                AppPreference.putUserToken(it.token)
-                AppPreference.putCarerToken(it.token)
                 AppPreference.putMainCarerLoginToken(it.loginToken)
-                AppPreference.putLoginToken(it.loginToken)
+                AppPreference.putLoginToken(it.token)
                 addFragment(LoginChooseProfileFragment.newInstance())
             }
         }

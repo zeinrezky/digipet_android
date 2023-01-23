@@ -78,23 +78,18 @@ class LoginPINFragment : BaseFragment() {
                 }
             }
             carerLoginSuccess.observe(viewLifecycleOwner) {
-                AppPreference.putKidLogin(false)
                 AppPreference.putCompleteLogin(true)
-                AppPreference.putLoginToken(AppPreference.getMainCarerLoginToken())
-
+                AppPreference.putCarerToken(it.token?: AppPreference.getMainCarerLoginToken())
                 startActivity(Intent(requireContext(), HomeAct::class.java))
                 requireActivity().finish()
             }
-            loginResponse.observe(viewLifecycleOwner) {
-                AppPreference.putUserToken(it.token)
-                AppPreference.putKidLogin(true)
-                AppPreference.putKidToken(it.token)
+            kidLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
-                AppPreference.putLoginToken(AppPreference.getMainCarerLoginToken())
-
+                AppPreference.putKidToken(it.token?: emptyString)
                 startActivity(Intent(requireContext(), ChildMainAct::class.java))
                 requireActivity().finish()
             }
+
             loginFailed.observe(viewLifecycleOwner) {
                 clErrorMessage.visibility = View.VISIBLE
             }
@@ -111,7 +106,6 @@ class LoginPINFragment : BaseFragment() {
                     "Forget PIN? Don't worry.\nYour admin will let you know your pin!"
                 )
             }
-
         }
 
         setView()
@@ -158,7 +152,7 @@ class LoginPINFragment : BaseFragment() {
             Constant.ProfileIconType.PROFILE_ICON_CARER -> {
                 viewModel.postCarerLogin(
                     CarerLoginRequest(
-                        loginToken = AppPreference.getLoginToken(),
+                        loginToken = AppPreference.getCarerToken(),
                         pin = tempPIN,
                         deviceToken = "updatedFromLogin",
                         timezone = tempTimezone,
@@ -170,7 +164,7 @@ class LoginPINFragment : BaseFragment() {
             Constant.ProfileIconType.PROFILE_ICON_KID -> {
                 viewModel.postKidLogin(
                     KidLoginRequest(
-                        loginToken = AppPreference.getLoginToken(),
+                        loginToken = AppPreference.getKidToken(),
                         pin = tempPIN,
                         deviceToken = "updatedFromLogin",
                         settingTimezone = tempTimezone,

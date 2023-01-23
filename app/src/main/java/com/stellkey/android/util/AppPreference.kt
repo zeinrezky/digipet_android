@@ -8,7 +8,12 @@ import com.stellkey.android.helper.extension.emptyString
 class AppPreference {
 
     companion object {
-
+        /*
+        * mainCarerLoginToken = from /login "data.loginToken". Use this at /profiles/{loginTokenMainCarer} to get loginToken from each user [for case Selected Profile & Login With QR]
+        * loginToken = from /login data.token [mainToken] [still not used this in anywhere/just for default header]
+        * tempKidToken = from body "token" from /kid/login
+        * tempCarerToken = from body "token" /carer/login
+        * */
         private const val isFirstTime = "isFirstTime"
         private const val loginToken = "loginToken"
         private const val mainCarerLoginToken = "mainCarerLoginToken"
@@ -38,7 +43,6 @@ class AppPreference {
         private const val kidLocale = "kidLocale"
         private const val isUpdateLocale = "isUpdateLocale"
         private const val loggedInCarerName = "loggedInCarerName"
-        private const val userToken = "token"
 
         //Add Task Temp Data
         private const val tempSelectedChallengeCategoryId = "tempSelectedChallengeCategoryId"
@@ -75,7 +79,6 @@ class AppPreference {
             Hawk.delete(kidLocale)
             Hawk.delete(isUpdateLocale)
             Hawk.delete(loggedInCarerName)
-            Hawk.delete(userToken)
         }
 
         fun deleteProfileIcon() {
@@ -142,14 +145,6 @@ class AppPreference {
 
         fun getMainCarerLoginToken(): String {
             return (Hawk.get(mainCarerLoginToken, emptyString))
-        }
-
-        fun putUserToken(value: String){
-            Hawk.put(userToken, value)
-        }
-
-        fun getUserToken(): String{
-            return (Hawk.get(userToken, emptyString))
         }
 
         fun putCarerToken(value: String) {

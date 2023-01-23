@@ -4,6 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.AllProfileModel
+import com.stellkey.android.model.Carer
+import com.stellkey.android.model.Kid
 import com.stellkey.android.model.LoginModel
 import com.stellkey.android.model.request.CarerLoginRequest
 import com.stellkey.android.model.request.ForgotPinCarerRequest
@@ -21,13 +23,13 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
     val loginResponse = MutableLiveData<LoginModel>()
-    val carerLoginSuccess = SingleLiveEvent<Unit>()
     val loginFailed = SingleLiveEvent<Unit>()
-
-    val allProfileSelection = MutableLiveData<AllProfileModel>()
-
     val successKidForgotPin = SingleLiveEvent<Unit>()
     val successCarerForgotPin = SingleLiveEvent<Unit>()
+
+    val allProfileSelection = MutableLiveData<AllProfileModel>()
+    val carerLoginSuccess = MutableLiveData<Carer>()
+    val kidLoginSuccess = MutableLiveData<Kid>()
 
     fun postLogin(loginRequest: LoginRequest) {
         isLoading.value = true
@@ -74,7 +76,10 @@ class LoginViewModel(private val userRepository: UserRepository) : BaseViewModel
             when (val response = userRepository.postCarerLogin(carerLoginRequest)) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
-                    carerLoginSuccess.call()
+                    response.body.data.let {
+                        carerLoginSuccess.value = it
+                    }
+
                 }
 
                 is NetworkResponse.ServerError -> {
@@ -104,7 +109,7 @@ class LoginViewModel(private val userRepository: UserRepository) : BaseViewModel
                     isLoading.value = false
                     when (response.body.status.code) {
                         OK -> {
-                            loginResponse.value = response.body.data.let { response.body.data }
+                            kidLoginSuccess.value = response.body.data.let { response.body.data }
                         }
                     }
                 }

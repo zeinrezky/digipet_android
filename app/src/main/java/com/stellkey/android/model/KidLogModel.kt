@@ -81,7 +81,10 @@ data class Carer(
     @SerializedName("setupCompleteReminder")
     val setupCompleteReminder: Int,
     @SerializedName("status")
-    val status: Int
+    val status: Int,
+    @SerializedName("token")
+    val token: String? = ""
+
 )
 
 data class Challenge(
@@ -142,5 +145,7 @@ data class Kid(
     @SerializedName("settingTimezone")
     val settingTimezone: Int,
     @SerializedName("status")
-    val status: Int
+    val status: Int,
+    @SerializedName("token")
+    val token: String? = ""
 )
