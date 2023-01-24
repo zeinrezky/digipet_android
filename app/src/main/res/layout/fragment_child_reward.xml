@@ -142,8 +142,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/clPet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/space_x5"
+                        android:layout_height="@dimen/space_x5"
                         android:layout_marginTop="@dimen/space_x2_half"
                         android:layout_marginEnd="@dimen/space_x3"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -159,10 +159,10 @@
 
                         <View
                             android:id="@+id/viewPet"
-                            android:layout_width="@dimen/space_x6_quarter"
-                            android:layout_height="@dimen/space_x6_quarter"
-                            android:layout_marginTop="@dimen/space_quarter"
-                            android:background="@drawable/ic_pet"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/space_quarter"
+                            android:background="@drawable/ic_pet_utils"
                             app:layout_constraintBottom_toBottomOf="@id/bgViewPet"
                             app:layout_constraintEnd_toEndOf="@id/bgViewPet"
                             app:layout_constraintStart_toStartOf="@id/bgViewPet"
