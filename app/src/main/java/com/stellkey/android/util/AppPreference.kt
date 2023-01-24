@@ -1,6 +1,7 @@
 package com.stellkey.android.util
 
 import com.orhanobut.hawk.Hawk
+import com.stellkey.android.constant.PetConfigType
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.emptyInt
 import com.stellkey.android.helper.extension.emptyString
@@ -51,6 +52,9 @@ class AppPreference {
         private const val tempStartDate = "tempStartDate"
         private const val hasActiveCycle = "hasActiveCycle"
 
+        // config for petColor
+        private const val petColorTheme = "petColorTheme"
+
         fun deleteAll() {
             Hawk.delete(isFirstTime)
             Hawk.delete(loginToken)
@@ -79,6 +83,7 @@ class AppPreference {
             Hawk.delete(kidLocale)
             Hawk.delete(isUpdateLocale)
             Hawk.delete(loggedInCarerName)
+            Hawk.delete(petColorTheme)
         }
 
         fun deleteProfileIcon() {
@@ -393,6 +398,14 @@ class AppPreference {
 
         fun getLoggedInCarerName(): String {
             return (Hawk.get(loggedInCarerName, emptyString))
+        }
+
+        fun putKidPetColorTheme(value: String) {
+            Hawk.put(petColorTheme, value)
+        }
+
+        fun getKidPetColorTheme(): String {
+            return (Hawk.get(petColorTheme, PetConfigType.PET_YELLOW_THEME))
         }
     }
 }

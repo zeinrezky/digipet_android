@@ -162,8 +162,8 @@
                             android:id="@+id/viewPet"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/ic_pet_utils"
                             android:layout_margin="@dimen/space_quarter"
+                            android:background="@drawable/ic_pet_utils"
                             app:layout_constraintBottom_toBottomOf="@id/bgViewPet"
                             app:layout_constraintEnd_toEndOf="@id/bgViewPet"
                             app:layout_constraintStart_toStartOf="@id/bgViewPet"
@@ -188,11 +188,48 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/normal_pose_fix" />
+                        app:lottie_rawRes="@raw/orange_normal_pose" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/space_x2"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/ivPetEmotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pet_emotion_0" />
+
+            <ImageView
+                android:id="@+id/ivPetEat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pet_eat_0" />
+
+            <ImageView
+                android:id="@+id/ivPetAccessories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pet_accessories" />
+
+            <ImageView
+                android:id="@+id/ivPetDecor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_pet_decor" />
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

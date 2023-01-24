@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.stellkey.android.R
+import com.stellkey.android.constant.PetConfig
+import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildPetBinding
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
@@ -19,6 +22,7 @@ class ChildPetFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildPetBinding
     private val viewModel by inject<ChildViewModel>()
+    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,6 +53,7 @@ class ChildPetFragment : BaseFragment() {
             }
         }
 
+        setPetTheme()
         setView()
         setOnClick()
     }
@@ -69,6 +74,17 @@ class ChildPetFragment : BaseFragment() {
             (activity as ChildMainAct).showMenu(isShow = false)
             addFragment(LoginChooseProfileFragment.newInstance())
         }
+    }
+
+    /**
+     * Giggle-Pose = happiness x% - x%, hungry x% - x% - When Clicked Pet
+     * Hungry-Pose = happiness > 50, hungry < 50
+     * Normal-Pose = happiness >= 50, hungry >= 50
+     * Yummy-Pose = happiness >50, hungry >= 50
+     * Angry-Pose = happingess < 50, hungry < 50
+     * Happy-Pose = happiness >= 75, hungry >= 75
+    **/
+    private fun setPetTheme() {
     }
 
     companion object {
