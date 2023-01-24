@@ -88,7 +88,9 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         dataBinding.apply {
             tvChildLevel.textOrNull = data.level.level.toString()
             piChildLevel.progress = 100 - data.level.percentageToNextLevel
-            tvTodayTaskStar.text = data.level.starsTotal.toString()
+            tvTodayTaskStar.text = "${data.level.starsTotal - data.starsSpent}"
+            val availableForGem = (data.tasksCompleted ?: 0) - (data.rubiesSpent ?: 0)
+            tvTodayTaskDiamond.text = availableForGem.toString()
 
             val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
             //for global tasks

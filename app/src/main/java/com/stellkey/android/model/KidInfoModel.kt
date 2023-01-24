@@ -2,7 +2,7 @@ package com.stellkey.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class KidInfoModel (
+data class KidInfoModel(
     @SerializedName("id")
     var id: Int,
     @SerializedName("createdAt")
@@ -44,11 +44,11 @@ data class KidInfoModel (
     @SerializedName("tasksToday")
     var tasksToday: AllKidsModel.Assignments,
     @SerializedName("tasksCompleted")
-    var tasksCompleted: Int,
+    var tasksCompleted: Int?,
     @SerializedName("starsSpent")
-    var starsSpent: Int,
+    var starsSpent: Int = 0,
     @SerializedName("rubiesSpent")
-    var rubiesSpent: Int,
+    var rubiesSpent: Int?,
     @SerializedName("level")
     var level: KidLevelModel,
     @SerializedName("badges")

@@ -8,13 +8,21 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentChildRewardBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
+import com.stellkey.android.helper.extension.textOrNull
+import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidRewardRedemption
+import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.home.adapter.KidTodayTaskAdapter
+import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.adapter.ChildRewardAdapter
@@ -61,6 +69,10 @@ class ChildRewardFragment : BaseFragment() {
                 }
             }
 
+            kidInfoResponse.observe(viewLifecycleOwner) {
+                it?.let { it1 -> setKidView(it1) }
+            }
+
             kidRewardsAvailableRedemption.observe(viewLifecycleOwner) {
                 setRewardsData(it)
             }
@@ -77,7 +89,19 @@ class ChildRewardFragment : BaseFragment() {
     private fun setView() {
         setRecyclerViewRewards()
 
+        viewModel.getKidInfo()
         viewModel.getKidListRewardsAvailableForRedemption()
+    }
+
+
+    private fun setKidView(data: KidInfoModel) {
+        dataBinding.apply {
+            tvChildLevel.textOrNull = data.level.level.toString()
+            piChildLevel.progress = 100 - data.level.percentageToNextLevel
+            tvTodayTaskStar.text = "${data.level.starsTotal - data.starsSpent}"
+            val availableForGem = (data.tasksCompleted ?: 0) - (data.rubiesSpent ?: 0)
+            tvTodayTaskDiamond.text = availableForGem.toString()
+        }
     }
 
     private fun setRecyclerViewRewards() {

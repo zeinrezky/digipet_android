@@ -72,7 +72,6 @@
                             android:id="@+id/piChildLevel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:progress="25"
                             app:indicatorColor="@color/orange"
                             app:indicatorSize="@dimen/space_x8"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +79,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:trackColor="@color/white"
-                            app:trackThickness="7dp" />
+                            app:trackThickness="7dp"
+                            tools:progress="25" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -231,59 +231,65 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <ImageView
-                            android:id="@+id/ivStar"
-                            android:layout_width="@dimen/space_x3"
-                            android:layout_height="@dimen/space_x3"
-                            android:layout_marginStart="@dimen/space_x10"
-                            android:layout_marginTop="@dimen/space_x4_half"
-                            android:contentDescription="@string/image_description"
-                            android:src="@drawable/ic_child_star_filled"
-                            app:layout_constraintStart_toEndOf="@id/tvReward"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvStar"
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/space_x1"
-                            android:layout_marginTop="@dimen/space_x4_half"
-                            android:fontFamily="@font/nove"
-                            android:letterSpacing="0"
-                            android:maxLength="3"
-                            android:text="2"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/navy"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@id/ivStar"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            android:gravity="end"
+                            android:layout_marginEnd="@dimen/space_x3"
+                            android:orientation="horizontal"
+                            app:layout_constraintBottom_toBottomOf="@+id/tvReward"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tvReward">
 
-                        <ImageView
-                            android:id="@+id/ivDiamond"
-                            android:layout_width="@dimen/space_x3"
-                            android:layout_height="@dimen/space_x3"
-                            android:layout_marginStart="@dimen/space_x2"
-                            android:layout_marginTop="@dimen/space_x4_half"
-                            android:contentDescription="@string/image_description"
-                            android:src="@drawable/ic_child_diamond"
-                            app:layout_constraintStart_toEndOf="@id/tvStar"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <ImageView
+                                android:id="@+id/ivTodayTaskStar"
+                                android:layout_width="@dimen/space_x3"
+                                android:layout_height="@dimen/space_x3"
+                                android:contentDescription="@string/image_description"
+                                android:src="@drawable/ic_child_star_filled"
+                                app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.textview.MaterialTextView
-                            android:id="@+id/tvTodayTaskDiamond"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/space_x1"
-                            android:layout_marginTop="@dimen/space_x4_half"
-                            android:fontFamily="@font/nove"
-                            android:letterSpacing="0"
-                            android:maxLength="3"
-                            android:text="1"
-                            android:textAlignment="viewStart"
-                            android:textColor="@color/navy"
-                            android:textSize="20sp"
-                            app:layout_constraintStart_toEndOf="@id/ivDiamond"
-                            app:layout_constraintTop_toTopOf="parent" />
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvTodayTaskStar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_x1"
+                                android:fontFamily="@font/nove"
+                                android:letterSpacing="0"
+                                android:maxLength="3"
+                                android:text="-"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/navy"
+                                android:textSize="20sp"
+                                app:layout_constraintStart_toEndOf="@id/ivTodayTaskStar"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/ivTodayTaskDiamond"
+                                android:layout_width="@dimen/space_x3"
+                                android:layout_height="@dimen/space_x3"
+                                android:layout_marginStart="@dimen/space_x2"
+                                android:contentDescription="@string/image_description"
+                                android:src="@drawable/ic_child_diamond"
+                                app:layout_constraintStart_toEndOf="@id/tvTodayTaskStar"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tvTodayTaskDiamond"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="@dimen/space_x1"
+                                android:fontFamily="@font/nove"
+                                android:letterSpacing="0"
+                                android:maxLength="3"
+                                android:text="-"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/navy"
+                                android:textSize="20sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@id/ivTodayTaskDiamond"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </LinearLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rvReward"

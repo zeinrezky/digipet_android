@@ -2,7 +2,7 @@ package com.stellkey.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class KidLevelModel (
+data class KidLevelModel(
     @SerializedName("level")
     var level: Int,
     @SerializedName("percentageToNextLevel")
@@ -14,5 +14,5 @@ data class KidLevelModel (
     @SerializedName("bgColor")
     var bgColor: String,
     @SerializedName("starsTotal")
-    var starsTotal: Int
+    var starsTotal: Int = 0
 )
