@@ -38,8 +38,7 @@ import com.stellkey.android.view.carer.profile.CarerProfileFragment
 import com.stellkey.android.view.carer.profile.KidProfileFragment
 import org.koin.android.ext.android.inject
 
-class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapter.Listener,
-    AdminListAdapter.Listener {
+class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapter.Listener{
 
     private lateinit var dataBinding: FragmentFamilyBinding
 
@@ -238,8 +237,7 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
 
             adminListAdapter = AdminListAdapter(
                 requireContext(),
-                adminList,
-                this@FamilyFragment
+                adminList
             )
             rvAdmin.apply {
                 layoutManager = LinearLayoutManager(
@@ -374,11 +372,6 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
     override fun onItemClicked(data: AllKidsModel) {
         AppPreference.putTempChildId(data.id)
         addFragment(KidProfileFragment.newInstance())
-    }
-
-    //Admin List Items
-    override fun onAdminItemClicked(data: AllCarersModel) {
-        addFragment(CarerProfileFragment.newInstance())
     }
 
     private fun onBackPressed() {

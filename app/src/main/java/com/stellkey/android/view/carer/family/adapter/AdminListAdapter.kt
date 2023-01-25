@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
@@ -17,16 +18,11 @@ import com.stellkey.android.model.AllCarersModel
 
 class AdminListAdapter(
     context: Context,
-    list: ArrayList<AllCarersModel>,
-    private val listener: Listener
+    list: ArrayList<AllCarersModel>
 ) : RecyclerView.Adapter<AdminListAdapter.AdminListViewHolder>() {
 
     private val contexts = context
     private val itemList = list
-
-    interface Listener {
-        fun onAdminItemClicked(data: AllCarersModel)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdminListViewHolder {
         val view =
@@ -44,10 +40,7 @@ class AdminListAdapter(
             ivFamilyType.setImageResource(R.drawable.ic_oval_grey)
             tvFamilyName.textOrNull = itemList[position].name
             clFamilyAttr.isVisible = false
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onAdminItemClicked(itemList[position])
+            ivNext.isGone = true
         }
     }
 
@@ -56,5 +49,6 @@ class AdminListAdapter(
         val ivFamilyType: ImageView = itemView.findViewById(R.id.ivFamilyType)
         val tvFamilyName: TextView = itemView.findViewById(R.id.tvFamilyName)
         val clFamilyAttr: ConstraintLayout = itemView.findViewById(R.id.clProfileAttr)
+        val ivNext : ImageView = itemView.findViewById(R.id.ivNext)
     }
 }
