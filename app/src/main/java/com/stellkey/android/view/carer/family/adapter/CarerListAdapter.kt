@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
@@ -18,16 +19,11 @@ import com.stellkey.android.util.AppPreference
 
 class CarerListAdapter(
     context: Context,
-    list: ArrayList<AllCarersModel>,
-    private val listener: Listener
+    list: ArrayList<AllCarersModel>
 ) : RecyclerView.Adapter<CarerListAdapter.CarerListViewHolder>() {
 
     private val contexts = context
     private val itemList = list
-
-    interface Listener {
-        fun onItemClicked(data: AllCarersModel)
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CarerListViewHolder {
         val view =
@@ -56,10 +52,7 @@ class CarerListAdapter(
             ivFamilyType.setImageResource(R.drawable.ic_oval_orange)
             tvFamilyName.textOrNull = itemList[position].name
             clFamilyAttr.isVisible = false
-        }
-
-        holder.itemView.setOnClickListener {
-            listener.onItemClicked(itemList[position])
+            ivNext.isGone = true
         }
     }
 
@@ -68,5 +61,6 @@ class CarerListAdapter(
         val ivFamilyType: ImageView = itemView.findViewById(R.id.ivFamilyType)
         val tvFamilyName: TextView = itemView.findViewById(R.id.tvFamilyName)
         val clFamilyAttr: ConstraintLayout = itemView.findViewById(R.id.clProfileAttr)
+        val ivNext: ImageView = itemView.findViewById(R.id.ivNext)
     }
 }

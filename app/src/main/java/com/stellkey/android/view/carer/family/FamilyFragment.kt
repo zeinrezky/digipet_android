@@ -39,7 +39,7 @@ import com.stellkey.android.view.carer.profile.KidProfileFragment
 import org.koin.android.ext.android.inject
 
 class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapter.Listener,
-    CarerListAdapter.Listener, AdminListAdapter.Listener {
+    AdminListAdapter.Listener {
 
     private lateinit var dataBinding: FragmentFamilyBinding
 
@@ -209,8 +209,7 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
 
             carerListAdapter = CarerListAdapter(
                 requireContext(),
-                carerList,
-                this@FamilyFragment
+                carerList
             )
             rvCarer.apply {
                 layoutManager = LinearLayoutManager(
@@ -303,6 +302,7 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
                     Constant.FamilyType.CARERS -> {
                         viewModel.deleteCarer(carerId = profileId)
                     }
+
                     Constant.FamilyType.KIDS -> {
                         viewModel.deleteKid(kidId = profileId)
                     }
@@ -314,6 +314,7 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
                     Constant.FamilyType.CARERS -> {
                         carerListAdapter.notifyDataSetChanged()
                     }
+
                     Constant.FamilyType.KIDS -> {
                         kidListAdapter.notifyDataSetChanged()
                     }
@@ -334,16 +335,19 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
                     rvCarer.isVisible = false
                     rvAdmin.isVisible = false
                 }
+
                 Constant.FamilyType.CARERS -> {
                     rvKid.isVisible = false
                     rvCarer.isVisible = true
                     rvAdmin.isVisible = false
                 }
+
                 Constant.FamilyType.ADMIN -> {
                     rvKid.isVisible = false
                     rvCarer.isVisible = false
                     rvAdmin.isVisible = true
                 }
+
                 else -> {
                     rvKid.isVisible = true
                     rvCarer.isVisible = true
@@ -370,11 +374,6 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
     override fun onItemClicked(data: AllKidsModel) {
         AppPreference.putTempChildId(data.id)
         addFragment(KidProfileFragment.newInstance())
-    }
-
-    //Carer List Items
-    override fun onItemClicked(data: AllCarersModel) {
-        addFragment(CarerProfileFragment.newInstance())
     }
 
     //Admin List Items
@@ -418,10 +417,12 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
                 }
                 familyTypeAdapter.resetSelectedItem()
             }
+
             dataBinding.cvAddFamily -> {
                 addFragment(AddMemberOptionsFragment.newInstance())
             }
-            dataBinding.ivQrLogin ->{
+
+            dataBinding.ivQrLogin -> {
                 addFragment(QrLoginFamilyFragment.newInstance())
             }
         }
