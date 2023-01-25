@@ -9,7 +9,9 @@ import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
+import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildRewardBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.textOrNull
@@ -18,6 +20,7 @@ import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidRewardRedemption
 import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.KidRedeemRewardRequest
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
@@ -37,6 +40,7 @@ class ChildRewardFragment : BaseFragment() {
     private val childRewardAdapter by lazy {
         ChildRewardAdapter(listOf(), listener = onRewardsClickedForRedeemed)
     }
+    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
 
     companion object {
 
@@ -129,6 +133,14 @@ class ChildRewardFragment : BaseFragment() {
             clPet.setOnClickListener(onClickCallback)
             clKidLevel.setOnClickListener(onClickCallback)
         }
+
+        dataBinding.lottiePet.setOnClickListener {
+            dataBinding.lottiePet.apply {
+                setAnimation(petThemeColor.gigglePose)
+                repeatCount = LottieDrawable.INFINITE
+                playAnimation()
+            }
+        }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
@@ -156,6 +168,59 @@ class ChildRewardFragment : BaseFragment() {
                     rewardId = if (!data.isGlobal) data.id else null
                 )
             )
+        }
+    }
+
+    /**
+     * Giggle-Pose = happiness x% - x%, hungry x% - x% ||  When Clicked Pet
+     * Hungry-Pose = happiness > 50, hungry < 50
+     * Normal-Pose = happiness >= 50, hungry >= 50
+     * Yummy-Pose = happiness >50, hungry >= 50
+     * Angry-Pose = happingess < 50, hungry < 50
+     * Happy-Pose = happiness >= 75, hungry >= 75
+     **/
+
+    private fun updatePetTheme() {
+
+    }
+
+    private fun updateHappiness(happiness: Int) {
+        when (happiness) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
+        }
+    }
+
+    private fun updateEat(hunger: Int) {
+        when (hunger) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
         }
     }
 }

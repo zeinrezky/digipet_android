@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
-import com.stellkey.android.constant.PetConfig
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildPetBinding
 import com.stellkey.android.helper.extension.textOrNull
@@ -51,9 +51,12 @@ class ChildPetFragment : BaseFragment() {
             kidInfoResponse.observe(viewLifecycleOwner) {
                 it?.let { it1 -> setKidView(it1) }
             }
+
+            kidTapThePetResponse.observe(viewLifecycleOwner) {
+                updateHappiness(it.happiness)
+            }
         }
 
-        setPetTheme()
         setView()
         setOnClick()
     }
@@ -67,6 +70,8 @@ class ChildPetFragment : BaseFragment() {
             tvChildLevel.textOrNull = data.level.level.toString()
             piChildLevel.progress = 100 - data.level.percentageToNextLevel
         }
+        updateHappiness(data.pet.happiness)
+        updateEat(data.pet.hunger)
     }
 
     private fun setOnClick() {
@@ -74,17 +79,66 @@ class ChildPetFragment : BaseFragment() {
             (activity as ChildMainAct).showMenu(isShow = false)
             addFragment(LoginChooseProfileFragment.newInstance())
         }
+
+        dataBinding.lottiePet.setOnClickListener {
+            dataBinding.lottiePet.apply {
+                setAnimation(petThemeColor.gigglePose)
+                repeatCount = LottieDrawable.INFINITE
+                playAnimation()
+            }
+        }
     }
 
     /**
-     * Giggle-Pose = happiness x% - x%, hungry x% - x% - When Clicked Pet
+     * Giggle-Pose = happiness x% - x%, hungry x% - x% ||  When Clicked Pet
      * Hungry-Pose = happiness > 50, hungry < 50
      * Normal-Pose = happiness >= 50, hungry >= 50
      * Yummy-Pose = happiness >50, hungry >= 50
      * Angry-Pose = happingess < 50, hungry < 50
      * Happy-Pose = happiness >= 75, hungry >= 75
-    **/
-    private fun setPetTheme() {
+     **/
+    private fun updatePetTheme() {
+
+    }
+
+    private fun updateHappiness(happiness: Int) {
+        when (happiness) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
+        }
+    }
+
+    private fun updateEat(hunger: Int) {
+        when (hunger) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
+        }
     }
 
     companion object {

@@ -405,7 +405,7 @@ class AppPreference {
         }
 
         fun getKidPetColorTheme(): String {
-            return (Hawk.get(petColorTheme, PetConfigType.PET_YELLOW_THEME))
+            return (Hawk.get(petColorTheme, PetConfigType.PET_ORANGE_THEME))
         }
     }
 }

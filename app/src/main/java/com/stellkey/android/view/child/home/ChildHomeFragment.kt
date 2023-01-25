@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
+import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildHomeBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.textOrNull
@@ -34,6 +36,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private lateinit var kidTodayTaskAdapter: KidTodayTaskAdapter
     private lateinit var myProgressTaskAdapter: MyProgressAdapter
     private val viewModel by inject<ChildViewModel>()
+    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
 
     companion object {
 
@@ -155,6 +158,14 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             clPet.setOnClickListener(onClickCallback)
             clKidLevel.setOnClickListener(onClickCallback)
         }
+
+        dataBinding.lottiePet.setOnClickListener {
+            dataBinding.lottiePet.apply {
+                setAnimation(petThemeColor.gigglePose)
+                repeatCount = LottieDrawable.INFINITE
+                playAnimation()
+            }
+        }
     }
 
     private val onClickCallback = View.OnClickListener { view ->
@@ -174,4 +185,56 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         }
     }
 
+    /**
+     * Giggle-Pose = happiness x% - x%, hungry x% - x% ||  When Clicked Pet
+     * Hungry-Pose = happiness > 50, hungry < 50
+     * Normal-Pose = happiness >= 50, hungry >= 50
+     * Yummy-Pose = happiness >50, hungry >= 50
+     * Angry-Pose = happingess < 50, hungry < 50
+     * Happy-Pose = happiness >= 75, hungry >= 75
+     **/
+
+    private fun updatePetTheme() {
+
+    }
+
+    private fun updateHappiness(happiness: Int) {
+        when (happiness) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
+        }
+    }
+
+    private fun updateEat(hunger: Int) {
+        when (hunger) {
+            in 0..25 -> {
+
+            }
+
+            in 26..50 -> {
+
+            }
+
+            in 51..75 -> {
+
+            }
+
+            in 76..100 -> {
+
+            }
+        }
+    }
 }

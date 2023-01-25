@@ -36,7 +36,7 @@ data class KidInfoModel(
     @SerializedName("profileIcon")
     var profileIcon: ProfileIconModel.ProfileIconModelData,
     @SerializedName("pet")
-    var pet: Any,
+    var pet: PetModel,
     @SerializedName("activeAssignments")
     var activeAssignments: AllKidsModel.Assignments,
     @SerializedName("activeTasks")
@@ -59,4 +59,18 @@ data class KidInfoModel(
     var activeDecor: ArrayList<Any>,
     @SerializedName("activeAccessory")
     var activeAccessory: ArrayList<Any>
+)
+data class PetModel(
+    @SerializedName("happiness")
+    val happiness: Int = 0,
+    @SerializedName("hunger")
+    val hunger: Int,
+    @SerializedName("id")
+    val id: Int,
+    @SerializedName("kidId")
+    val kidId: Int,
+    @SerializedName("pnSentAt")
+    val pnSentAt: String,
+    @SerializedName("updatedAt")
+    val updatedAt: String
 )

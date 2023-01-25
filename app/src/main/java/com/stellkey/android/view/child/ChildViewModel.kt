@@ -6,6 +6,7 @@ import com.haroldadmin.cnradapter.NetworkResponse
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidLogModel
 import com.stellkey.android.model.KidRewardRedemption
+import com.stellkey.android.model.PetModel
 import com.stellkey.android.model.request.KidCompleteTaskRequest
 import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.model.request.LocaleModel
@@ -27,6 +28,7 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
     val kidLocaleResponse = MutableLiveData<LocaleModel>()
     val kidRewardsAvailableRedemption = MutableLiveData<List<KidRewardRedemption>>()
     val kidLogsResponse = MutableLiveData<List<KidLogModel>>()
+    val kidTapThePetResponse = MutableLiveData<PetModel>()
 
     fun getKidInfo() {
         isLoading.value = true
@@ -175,6 +177,33 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                 is NetworkResponse.Success -> {
                     isLoading.value = false
                     response.body.data.let { kidLogsResponse.value = it }
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postKidTapThePet() {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.kidTapThePet()) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    response.body.data.let { kidTapThePetResponse.value = it }
                 }
 
                 is NetworkResponse.ServerError -> {

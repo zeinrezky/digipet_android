@@ -187,7 +187,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
+                        app:lottie_repeatCount="-1"
                         app:lottie_rawRes="@raw/orange_normal_pose" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
