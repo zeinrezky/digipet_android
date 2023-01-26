@@ -15,6 +15,7 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.pet.dialog.AccessoriesPickerFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
 
@@ -86,6 +87,10 @@ class ChildPetFragment : BaseFragment() {
                 repeatCount = LottieDrawable.INFINITE
                 playAnimation()
             }
+        }
+
+        dataBinding.ivPetAccessories.setOnClickListener {
+            AccessoriesPickerFragment().show(childFragmentManager, AccessoriesPickerFragment.TAG)
         }
     }
 
