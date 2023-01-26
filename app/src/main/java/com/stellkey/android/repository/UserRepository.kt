@@ -205,7 +205,10 @@ interface UserService {
     suspend fun carerForgotPin(@Body request: ForgotPinCarerRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     @POST("/kid/pet/tap")
-    suspend fun kidTapThePet(@Body request: Any = Any()) : NetworkResponse<ResponseSuccess<PetModel>, ResponseError>
+    suspend fun kidTapThePet(@Body request: Any = Any()): NetworkResponse<ResponseSuccess<PetModel>, ResponseError>
+
+    @GET("/kid/petstore")
+    suspend fun kidGetPetstoreData(): NetworkResponse<ResponseSuccess<AllPetStore>, ResponseError>
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -511,6 +514,8 @@ open class UserRepository(private val userService: UserService) {
     suspend fun carerForgotPin(request: ForgotPinCarerRequest) = userService.carerForgotPin(request)
 
     suspend fun kidTapThePet() = userService.kidTapThePet()
+
+    suspend fun kidGetPetstore() = userService.kidGetPetstoreData()
     /* End of Kids Routes Functions */
 
     /* Carers Routes Functions */

@@ -11,7 +11,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".view.child.pet.dialog.ImageContainerItemFragment">
 
         <ImageView
@@ -23,6 +23,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nove"
+            android:maxLines="1"
+            android:layout_marginTop="@dimen/space_x3"
+            android:textColor="@color/navy"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/ivImageItem"
+            app:layout_constraintStart_toStartOf="@+id/ivImageItem"
+            app:layout_constraintTop_toBottomOf="@+id/ivImageItem"
+            tools:text="Yellow Skin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,6 +3,7 @@ package com.stellkey.android.view.child.pet.dialog
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.stellkey.android.R
 import com.stellkey.android.databinding.FragmentAccessoriesPickerBinding
+import com.stellkey.android.model.PetStore
 import kotlin.math.abs
 
 
@@ -23,6 +25,7 @@ class AccessoriesPickerFragment : DialogFragment() {
     private lateinit var dataBinding: FragmentAccessoriesPickerBinding
     private lateinit var imageAccessoriesAdapter: AccessoriesImageAdapter
 
+    private val listOfAccessories = arrayListOf<PetStore>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +48,17 @@ class AccessoriesPickerFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        arguments?.takeIf { it.containsKey(LIST_ACCESSORIES) }?.apply {
+            val userData = if (Build.VERSION.SDK_INT >= 33) {
+                getParcelableArrayList(LIST_ACCESSORIES, PetStore::class.java)
+            } else {
+                getParcelableArrayList(LIST_ACCESSORIES)
+            }
+            userData?.let {
+                listOfAccessories.addAll(it)
+            }
+        }
         setView()
         setOnClick()
 
@@ -55,13 +69,8 @@ class AccessoriesPickerFragment : DialogFragment() {
     private fun setView() {
         dataBinding.tvPicker.text = "Accessories"
 
-        //TODO("ambil dari intent bundle list API /kid/petstore")
         imageAccessoriesAdapter = AccessoriesImageAdapter(this).apply {
-            imageSum = listOf(
-                "https://storage.googleapis.com/stellkey-49e4e.appspot.com/petstore_1663755563051.png",
-                "https://storage.googleapis.com/stellkey-49e4e.appspot.com/petstore_1663755580474.png",
-                "https://storage.googleapis.com/stellkey-49e4e.appspot.com/petstore_1663755580474.png"
-            )
+            imageSum = listOfAccessories
         }
 
         dataBinding.vpItemImage.adapter = imageAccessoriesAdapter
@@ -103,13 +112,13 @@ class AccessoriesPickerFragment : DialogFragment() {
     }
 
     inner class AccessoriesImageAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
-        var imageSum = listOf<String>()
+        var imageSum = arrayListOf<PetStore>()
         override fun getItemCount(): Int = imageSum.size
 
         override fun createFragment(position: Int): Fragment {
             val fragment = ImageContainerItemFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ImageContainerItemFragment.IMAGE_KEY, imageSum[position])
+                    putParcelable(ImageContainerItemFragment.PETSTORE_KEY, imageSum[position])
                 }
             }
 
@@ -120,5 +129,6 @@ class AccessoriesPickerFragment : DialogFragment() {
 
     companion object {
         const val TAG = "AccessoriesPickerFragment"
+        const val LIST_ACCESSORIES = "LIST_ACCESSORIES"
     }
 }

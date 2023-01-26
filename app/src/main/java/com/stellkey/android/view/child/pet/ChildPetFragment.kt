@@ -4,27 +4,32 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildPetBinding
+import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
+import com.stellkey.android.model.PetStore
 import com.stellkey.android.util.AppPreference
+import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.child.pet.dialog.AccessoriesPickerFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class ChildPetFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildPetBinding
     private val viewModel by inject<ChildViewModel>()
     private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
-
+    private var petStoreList = arrayListOf<PetStore>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,6 +61,10 @@ class ChildPetFragment : BaseFragment() {
             kidTapThePetResponse.observe(viewLifecycleOwner) {
                 updateHappiness(it.happiness)
             }
+
+            kidPetStore.observe(viewLifecycleOwner) {
+                petStoreList.addAll(it)
+            }
         }
 
         setView()
@@ -64,6 +73,7 @@ class ChildPetFragment : BaseFragment() {
 
     private fun setView() {
         viewModel.getKidInfo()
+        viewModel.getKidPetstoreList()
     }
 
     private fun setKidView(data: KidInfoModel) {
@@ -90,7 +100,16 @@ class ChildPetFragment : BaseFragment() {
         }
 
         dataBinding.ivPetAccessories.setOnClickListener {
-            AccessoriesPickerFragment().show(childFragmentManager, AccessoriesPickerFragment.TAG)
+            if (petStoreList.isNotEmpty()) {
+                AccessoriesPickerFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelableArrayList(
+                            AccessoriesPickerFragment.LIST_ACCESSORIES,
+                            petStoreList.filter { it.category == "accessory" }.toArrayList()
+                        )
+                    }
+                }.show(childFragmentManager, AccessoriesPickerFragment.TAG)
+            }
         }
     }
 

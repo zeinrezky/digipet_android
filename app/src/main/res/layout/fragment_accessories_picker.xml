@@ -83,7 +83,7 @@
                         <androidx.viewpager2.widget.ViewPager2
                             android:id="@+id/vpItemImage"
                             android:layout_width="200dp"
-                            android:layout_height="200dp"
+                            android:layout_height="wrap_content"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/btnRightSwipe"
                             app:layout_constraintStart_toEndOf="@+id/btnLeftSwipe"
