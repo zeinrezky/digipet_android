@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -87,6 +88,7 @@ class ChildRewardFragment : BaseFragment() {
         }
 
         setView()
+        initAnimation()
         setOnClick()
     }
 
@@ -168,6 +170,14 @@ class ChildRewardFragment : BaseFragment() {
                     rewardId = if (!data.isGlobal) data.id else null
                 )
             )
+        }
+    }
+
+    private fun initAnimation() {
+        dataBinding.lottiePet.apply {
+            setAnimation(petThemeColor.normalPose)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
         }
     }
 

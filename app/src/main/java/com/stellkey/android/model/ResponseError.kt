@@ -2,9 +2,11 @@ package com.stellkey.android.model
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseError (
+data class ResponseError(
     @SerializedName("status")
     val status: Boolean,
     @SerializedName("msg")
-    val message: String
+    val message: String,
+    @SerializedName("statusCode")
+    val statusCode: ResponseSuccess.StatusCode
 )

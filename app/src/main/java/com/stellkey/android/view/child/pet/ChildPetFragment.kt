@@ -15,20 +15,19 @@ import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.PetStore
 import com.stellkey.android.util.AppPreference
-import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.child.pet.dialog.AccessoriesPickerFragment
+import com.stellkey.android.view.child.pet.dialog.PetStoreData
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class ChildPetFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildPetBinding
     private val viewModel by inject<ChildViewModel>()
-    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+    private var petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
     private var petStoreList = arrayListOf<PetStore>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,6 +67,7 @@ class ChildPetFragment : BaseFragment() {
         }
 
         setView()
+        initAnimation()
         setOnClick()
     }
 
@@ -101,7 +101,7 @@ class ChildPetFragment : BaseFragment() {
 
         dataBinding.ivPetAccessories.setOnClickListener {
             if (petStoreList.isNotEmpty()) {
-                AccessoriesPickerFragment().apply {
+                AccessoriesPickerFragment(petstoreListener = onPetStoreData).apply {
                     arguments = Bundle().apply {
                         putParcelableArrayList(
                             AccessoriesPickerFragment.LIST_ACCESSORIES,
@@ -110,6 +110,25 @@ class ChildPetFragment : BaseFragment() {
                     }
                 }.show(childFragmentManager, AccessoriesPickerFragment.TAG)
             }
+        }
+    }
+
+    private val onPetStoreData = object : PetStoreData {
+        override fun onPetstoreSelect(onSelect: PetStore) {
+            AppPreference.putKidPetColorTheme(onSelect.color)
+            updatePetTheme()
+        }
+
+        override fun onPetstoreBuy(onBuy: PetStore) {
+            viewModel.getKidPetstoreList()
+        }
+    }
+
+    private fun initAnimation() {
+        dataBinding.lottiePet.apply {
+            setAnimation(petThemeColor.normalPose)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
         }
     }
 
@@ -122,10 +141,15 @@ class ChildPetFragment : BaseFragment() {
      * Happy-Pose = happiness >= 75, hungry >= 75
      **/
     private fun updatePetTheme() {
-
+        petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+        dataBinding.lottiePet.apply {
+            setAnimation(petThemeColor.gigglePose)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
+        }
     }
 
-    private fun updateHappiness(happiness: Int) {
+    fun updateHappiness(happiness: Int) {
         when (happiness) {
             in 0..25 -> {
 

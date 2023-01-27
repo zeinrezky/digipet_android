@@ -8,6 +8,7 @@ import com.stellkey.android.model.KidLogModel
 import com.stellkey.android.model.KidRewardRedemption
 import com.stellkey.android.model.PetModel
 import com.stellkey.android.model.PetStore
+import com.stellkey.android.model.request.ActivatedItemRequest
 import com.stellkey.android.model.request.KidCompleteTaskRequest
 import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.model.request.LocaleModel
@@ -23,6 +24,7 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
 
     val responseError = SingleLiveEvent<Unit>()
     val kidRedeemRewardSuccess = SingleLiveEvent<Unit>()
+    val kidActivatedItemRequest = SingleLiveEvent<Unit>()
 
     val kidInfoResponse = MutableLiveData<KidInfoModel?>()
     val completeKidTaskResponse = MutableLiveData<Any?>()
@@ -32,6 +34,7 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
     val kidLogsResponse = MutableLiveData<List<KidLogModel>>()
     val kidTapThePetResponse = MutableLiveData<PetModel>()
     val kidPetStore = MutableLiveData<List<PetStore>>()
+    val kidPurchaseItemPetstore = MutableLiveData<PetStore>()
 
     fun getKidInfo() {
         isLoading.value = true
@@ -244,6 +247,61 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
                 is NetworkResponse.NetworkError -> {
                     isLoading.value = false
                     networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postKidActivatedItem(request: ActivatedItemRequest) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.kidActivatedItem(request)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    kidActivatedItemRequest.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.error.message.toString()
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
+    fun postKidPurchasePetstoreItem(itemId: Int) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.kidPurchasePetstoreItem(itemId)) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    response.body.data.let { kidPurchaseItemPetstore.value = it }
+
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.body?.statusCode?.debug
                     snackbarMessage.value = response.error.message.toString()
                 }
 

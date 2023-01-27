@@ -589,3 +589,8 @@ fun Context.saveMediaToStorage(bitmap: Bitmap) {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
     }
 }
+
+fun View.removeClickListener(){
+    setOnClickListener {}
+    isClickable = false
+}

@@ -209,6 +209,16 @@ interface UserService {
 
     @GET("/kid/petstore")
     suspend fun kidGetPetstoreData(): NetworkResponse<ResponseSuccess<AllPetStore>, ResponseError>
+
+    @GET("kid/pet/set-active-item")
+    suspend fun kidPetSetActivatedItem(@Body request: ActivatedItemRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
+    @POST("kid/petstore/purchase/{itemId}")
+    suspend fun kidPetstorePurchaseItem(
+        @Path("itemId") itemId: Int,
+        @Body request: Any = Any()
+    ): NetworkResponse<ResponseSuccess<PetStore>, ResponseError>
+
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -516,6 +526,11 @@ open class UserRepository(private val userService: UserService) {
     suspend fun kidTapThePet() = userService.kidTapThePet()
 
     suspend fun kidGetPetstore() = userService.kidGetPetstoreData()
+
+    suspend fun kidActivatedItem(request: ActivatedItemRequest) =
+        userService.kidPetSetActivatedItem(request)
+
+    suspend fun kidPurchasePetstoreItem(itemId: Int) = userService.kidPetstorePurchaseItem(itemId)
     /* End of Kids Routes Functions */
 
     /* Carers Routes Functions */

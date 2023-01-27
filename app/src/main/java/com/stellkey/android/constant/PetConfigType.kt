@@ -11,9 +11,9 @@ import androidx.annotation.StringDef
 )
 annotation class PetConfigType {
     companion object {
-        const val PET_GREEN_THEME = "PET_GREEN_THEME"
-        const val PET_ORANGE_THEME = "PET_ORANGE_THEME"
-        const val PET_PURPLE_THEME = "PET_PURPLE_THEME"
-        const val PET_YELLOW_THEME = "PET_YELLOW_THEME"
+        const val PET_GREEN_THEME = "green"
+        const val PET_ORANGE_THEME = "orange"
+        const val PET_PURPLE_THEME = "blue"
+        const val PET_YELLOW_THEME = "yellow"
     }
 }

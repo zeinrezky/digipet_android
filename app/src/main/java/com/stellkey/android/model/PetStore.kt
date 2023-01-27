@@ -13,23 +13,23 @@ data class AllPetStore(
 @Parcelize
 data class PetStore(
     @SerializedName("active")
-    val active: Int,
+    val active: Int = -1,
     @SerializedName("category")
-    val category: String,
+    val category: String = "",
     @SerializedName("categoryFr")
-    val categoryFr: String,
+    val categoryFr: String = "",
     @SerializedName("color")
-    val color: String,
+    val color: String = "",
     @SerializedName("icon")
-    val icon: String,
+    val icon: String = "",
     @SerializedName("id")
-    val id: Int,
+    val id: Int = -1,
     @SerializedName("owned")
-    val owned: Boolean,
+    val owned: Boolean = false,
     @SerializedName("ruby_cost")
-    val ruby_cost: Int,
+    val ruby_cost: Int = -1,
     @SerializedName("title")
-    val title: String,
+    val title: String = "",
     @SerializedName("titleFr")
-    val titleFr: String
+    val titleFr: String = ""
 ) : Parcelable

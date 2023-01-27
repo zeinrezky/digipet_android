@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -80,6 +81,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         }
 
         setView()
+        initAnimation()
         setOnClick()
     }
 
@@ -182,6 +184,14 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             dataBinding.clKidLevel -> {
                 addFragment(ChildProfileFragment.newInstance())
             }
+        }
+    }
+
+    private fun initAnimation() {
+        dataBinding.lottiePet.apply {
+            setAnimation(petThemeColor.normalPose)
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
         }
     }
 

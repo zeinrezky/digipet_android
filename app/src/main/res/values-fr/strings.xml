@@ -257,5 +257,7 @@
     <string name="copy_qr_link">Copie</string>
     <string name="log_qr">Connectez-vous avec le code QR</string>
     <string name="text_import">Importer</string>
+    <string name="select">Choisir</string>
+    <string name="not_enough_gem">Not Enough Gem</string>
 
 </resources>
