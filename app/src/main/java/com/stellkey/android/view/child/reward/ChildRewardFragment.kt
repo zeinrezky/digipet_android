@@ -5,30 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
 import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildRewardBinding
-import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
-import com.stellkey.android.helper.extension.loadImage
+import com.stellkey.android.helper.extension.loadFromUrl
 import com.stellkey.android.helper.extension.textOrNull
-import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidRewardRedemption
-import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
-import com.stellkey.android.view.child.home.adapter.KidTodayTaskAdapter
-import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.adapter.ChildRewardAdapter
@@ -170,22 +162,26 @@ class ChildRewardFragment : BaseFragment() {
     }
 
     private fun initAnimation() {
-        dataBinding.viewPetAnimation.ivFoodUsing.loadImage(AppPreference.getKidPetFoodAssignment())
-        dataBinding.viewPetAnimation.ivPetDecorUsing.loadImage(AppPreference.getKidPetDecorAssignment())
+        dataBinding.viewPetAnimation.ivFoodUsing.loadFromUrl(AppPreference.getKidPetFoodAssignment())
+        dataBinding.viewPetAnimation.ivPetDecorUsing.loadFromUrl(AppPreference.getKidPetDecorAssignment())
         dataBinding.viewPetAnimation.lottiePet.apply {
-            when(AppPreference.getPetCurrentEmotion()){
+            when (AppPreference.getPetCurrentEmotion()) {
                 PetEmotion.PET_EMOTION_ANGRY -> {
                     setAnimation(petThemeColor.angryPose)
                 }
-                PetEmotion.PET_EMOTION_HAPPY ->{
+
+                PetEmotion.PET_EMOTION_HAPPY -> {
                     setAnimation(petThemeColor.happyPose)
                 }
-                PetEmotion.PET_EMOTION_HUNGRY ->{
+
+                PetEmotion.PET_EMOTION_HUNGRY -> {
                     setAnimation(petThemeColor.hungryPose)
                 }
-                PetEmotion.PET_EMOTION_YUMMY ->{
+
+                PetEmotion.PET_EMOTION_YUMMY -> {
                     setAnimation(petThemeColor.yummyPose)
                 }
+
                 PetEmotion.PET_EMOTION_NORMAL -> {
                     setAnimation(petThemeColor.normalPose)
                 }

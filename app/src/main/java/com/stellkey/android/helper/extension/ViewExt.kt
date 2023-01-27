@@ -432,6 +432,12 @@ fun ImageView.loadImage(
     }
 }
 
+fun ImageView.loadFromUrl(url: String){
+    Glide.with(context)
+        .load(url)
+        .into(this)
+}
+
 // Image Shape Options
 enum class ImageCornerOptions {
     NORMAL, CIRCLE, ROUNDED

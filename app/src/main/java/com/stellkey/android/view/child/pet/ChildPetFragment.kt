@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
@@ -12,7 +11,7 @@ import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildPetBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
-import com.stellkey.android.helper.extension.loadImage
+import com.stellkey.android.helper.extension.loadFromUrl
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.PetStore
@@ -143,8 +142,8 @@ class ChildPetFragment : BaseFragment() {
     }
 
     private fun initAnimation() {
-        dataBinding.viewPetAnimation.ivFoodUsing.loadImage(AppPreference.getKidPetFoodAssignment())
-        dataBinding.viewPetAnimation.ivPetDecorUsing.loadImage(AppPreference.getKidPetDecorAssignment())
+        dataBinding.viewPetAnimation.ivFoodUsing.loadFromUrl(AppPreference.getKidPetFoodAssignment())
+        dataBinding.viewPetAnimation.ivPetDecorUsing.loadFromUrl(AppPreference.getKidPetDecorAssignment())
         dataBinding.viewPetAnimation.lottiePet.apply {
             when (AppPreference.getPetCurrentEmotion()) {
                 PetEmotion.PET_EMOTION_ANGRY -> {

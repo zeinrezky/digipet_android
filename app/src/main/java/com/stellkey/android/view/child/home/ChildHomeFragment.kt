@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
@@ -15,7 +13,7 @@ import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildHomeBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
-import com.stellkey.android.helper.extension.loadImage
+import com.stellkey.android.helper.extension.loadFromUrl
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
@@ -230,25 +228,30 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
 
     private fun updatePetTheme() {
         petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
-        dataBinding.viewPetAnimation.ivFoodUsing.loadImage(AppPreference.getKidPetFoodAssignment())
-        dataBinding.viewPetAnimation.ivPetDecorUsing.loadImage(AppPreference.getKidPetDecorAssignment())
+        dataBinding.viewPetAnimation.ivFoodUsing.loadFromUrl(AppPreference.getKidPetFoodAssignment())
+        dataBinding.viewPetAnimation.ivPetDecorUsing.loadFromUrl(AppPreference.getKidPetDecorAssignment())
         dataBinding.viewPetAnimation.lottiePet.apply {
-            when(AppPreference.getPetCurrentEmotion()){
+            when (AppPreference.getPetCurrentEmotion()) {
                 PetEmotion.PET_EMOTION_ANGRY -> {
                     setAnimation(petThemeColor.angryPose)
                 }
-                PetEmotion.PET_EMOTION_HAPPY ->{
+
+                PetEmotion.PET_EMOTION_HAPPY -> {
                     setAnimation(petThemeColor.happyPose)
                 }
-                PetEmotion.PET_EMOTION_HUNGRY ->{
+
+                PetEmotion.PET_EMOTION_HUNGRY -> {
                     setAnimation(petThemeColor.hungryPose)
                 }
-                PetEmotion.PET_EMOTION_YUMMY ->{
+
+                PetEmotion.PET_EMOTION_YUMMY -> {
                     setAnimation(petThemeColor.yummyPose)
                 }
+
                 PetEmotion.PET_EMOTION_NORMAL -> {
                     setAnimation(petThemeColor.normalPose)
                 }
+
                 PetEmotion.PET_EMOTION_GIGGLE -> {
                     setAnimation(petThemeColor.gigglePose)
                 }
