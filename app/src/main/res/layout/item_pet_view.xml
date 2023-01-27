@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="112dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivFoodUsing"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="@dimen/space_x15"
+        android:layout_marginTop="@dimen/space_x18"
+        android:elevation="@dimen/space_x4"
+        android:scaleType="fitXY"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_pet_eat_0" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottiePet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_x30"
+        android:elevation="@dimen/space_x1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/orange_normal_pose"
+        app:lottie_repeatCount="-1" />
+
+
+    <ImageView
+        android:id="@+id/ivPetDecorUsing"
+        android:layout_width="215dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="140dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_pet_decor" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

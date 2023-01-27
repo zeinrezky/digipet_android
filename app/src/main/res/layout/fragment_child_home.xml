@@ -214,7 +214,7 @@
                         android:layout_marginTop="@dimen/space_x25"
                         android:background="@drawable/bg_half_rounded_white_outline"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/lottiePet">
+                        app:layout_constraintTop_toTopOf="@id/viewPetAnimation">
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/tvTodayTask"
@@ -341,18 +341,17 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/lottiePet"
+                    <include
+                        android:id="@+id/viewPetAnimation"
+                        layout="@layout/item_pet_view"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_x30"
                         android:layout_marginTop="@dimen/space_x14"
                         android:elevation="@dimen/space_x1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/clTaskQuestion"
-                        app:lottie_autoPlay="true"
-                        app:lottie_repeatCount="-1"
-                        app:lottie_rawRes="@raw/normal_pose_fix" />
+                        app:layout_constraintTop_toTopOf="@id/clTaskQuestion"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

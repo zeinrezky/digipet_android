@@ -161,8 +161,8 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             clKidLevel.setOnClickListener(onClickCallback)
         }
 
-        dataBinding.lottiePet.setOnClickListener {
-            dataBinding.lottiePet.apply {
+        dataBinding.viewPetAnimation.lottiePet.setOnClickListener {
+            dataBinding.viewPetAnimation.lottiePet.apply {
                 setAnimation(petThemeColor.gigglePose)
                 repeatCount = LottieDrawable.INFINITE
                 playAnimation()
@@ -188,7 +188,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     }
 
     private fun initAnimation() {
-        dataBinding.lottiePet.apply {
+        dataBinding.viewPetAnimation.lottiePet.apply {
             setAnimation(petThemeColor.normalPose)
             repeatCount = LottieDrawable.INFINITE
             playAnimation()

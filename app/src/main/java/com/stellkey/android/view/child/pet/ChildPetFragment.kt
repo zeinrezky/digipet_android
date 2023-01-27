@@ -91,8 +91,8 @@ class ChildPetFragment : BaseFragment() {
             addFragment(LoginChooseProfileFragment.newInstance())
         }
 
-        dataBinding.lottiePet.setOnClickListener {
-            dataBinding.lottiePet.apply {
+        dataBinding.viewPetAnimation.lottiePet.setOnClickListener {
+            dataBinding.viewPetAnimation.lottiePet.apply {
                 setAnimation(petThemeColor.gigglePose)
                 repeatCount = LottieDrawable.INFINITE
                 playAnimation()
@@ -105,7 +105,8 @@ class ChildPetFragment : BaseFragment() {
                     arguments = Bundle().apply {
                         putParcelableArrayList(
                             AccessoriesPickerFragment.LIST_ACCESSORIES,
-                            petStoreList.filter { it.category == "accessory" }.toArrayList()
+                            petStoreList.filter { it.category == AccessoriesPickerFragment.TYPE_ACCESSORIES }
+                                .toArrayList()
                         )
                     }
                 }.show(childFragmentManager, AccessoriesPickerFragment.TAG)
@@ -115,7 +116,19 @@ class ChildPetFragment : BaseFragment() {
 
     private val onPetStoreData = object : PetStoreData {
         override fun onPetstoreSelect(onSelect: PetStore) {
-            AppPreference.putKidPetColorTheme(onSelect.color)
+            when (onSelect.category) {
+                AccessoriesPickerFragment.TYPE_ACCESSORIES -> {
+                    AppPreference.putKidPetColorTheme(onSelect.color)
+                }
+
+                AccessoriesPickerFragment.TYPE_DECOR -> {
+
+                }
+
+                AccessoriesPickerFragment.TYPE_FOOD -> {
+
+                }
+            }
             updatePetTheme()
         }
 
@@ -125,7 +138,7 @@ class ChildPetFragment : BaseFragment() {
     }
 
     private fun initAnimation() {
-        dataBinding.lottiePet.apply {
+        dataBinding.viewPetAnimation.lottiePet.apply {
             setAnimation(petThemeColor.normalPose)
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
@@ -142,7 +155,7 @@ class ChildPetFragment : BaseFragment() {
      **/
     private fun updatePetTheme() {
         petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
-        dataBinding.lottiePet.apply {
+        dataBinding.viewPetAnimation.lottiePet.apply {
             setAnimation(petThemeColor.gigglePose)
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
