@@ -19,7 +19,7 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
-import com.stellkey.android.view.child.pet.dialog.AccessoriesPickerFragment
+import com.stellkey.android.view.child.pet.dialog.PetstorePickerFragment
 import com.stellkey.android.view.child.pet.dialog.PetStoreData
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import org.koin.android.ext.android.inject
@@ -95,6 +95,7 @@ class ChildPetFragment : BaseFragment() {
         }
 
         dataBinding.viewPetAnimation.lottiePet.setOnClickListener {
+            viewModel.postKidTapThePet()
             dataBinding.viewPetAnimation.lottiePet.apply {
                 setAnimation(petThemeColor.gigglePose)
                 repeatCount = LottieDrawable.INFINITE
@@ -103,32 +104,44 @@ class ChildPetFragment : BaseFragment() {
         }
 
         dataBinding.ivPetAccessories.setOnClickListener {
-            if (petStoreList.isNotEmpty()) {
-                AccessoriesPickerFragment(petstoreListener = onPetStoreData).apply {
-                    arguments = Bundle().apply {
-                        putParcelableArrayList(
-                            AccessoriesPickerFragment.LIST_ACCESSORIES,
-                            petStoreList.filter { it.category == AccessoriesPickerFragment.TYPE_ACCESSORIES }
-                                .toArrayList()
-                        )
-                    }
-                }.show(childFragmentManager, AccessoriesPickerFragment.TAG)
-            }
+            showPetstorePicker(PetstorePickerFragment.TYPE_ACCESSORIES)
+        }
+
+        dataBinding.ivPetEat.setOnClickListener {
+            showPetstorePicker(PetstorePickerFragment.TYPE_FOOD)
+        }
+
+        dataBinding.ivPetDecor.setOnClickListener {
+            showPetstorePicker(PetstorePickerFragment.TYPE_DECOR)
+        }
+    }
+
+    private fun showPetstorePicker(typeCategory: String) {
+        if (petStoreList.filter { it.category == typeCategory }.isNotEmpty()) {
+            PetstorePickerFragment(petstoreListener = onPetStoreData).apply {
+                arguments = Bundle().apply {
+                    putParcelableArrayList(
+                        PetstorePickerFragment.LIST_PETSTORE,
+                        petStoreList.filter { it.category == typeCategory }
+                            .toArrayList()
+                    )
+                }
+            }.show(childFragmentManager, PetstorePickerFragment.TAG)
         }
     }
 
     private val onPetStoreData = object : PetStoreData {
         override fun onPetstoreSelect(onSelect: PetStore) {
             when (onSelect.category) {
-                AccessoriesPickerFragment.TYPE_ACCESSORIES -> {
+                PetstorePickerFragment.TYPE_ACCESSORIES -> {
                     AppPreference.putKidPetColorTheme(onSelect.color)
                 }
 
-                AccessoriesPickerFragment.TYPE_DECOR -> {
+                PetstorePickerFragment.TYPE_DECOR -> {
                     AppPreference.putKidPetDecorAssignment(onSelect.icon)
                 }
 
-                AccessoriesPickerFragment.TYPE_FOOD -> {
+                PetstorePickerFragment.TYPE_FOOD -> {
                     AppPreference.putKidPetFoodAssignment(onSelect.icon)
                     AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_YUMMY)
                 }

@@ -258,5 +258,7 @@
     <string name="text_import">Import</string>
     <string name="select">Select</string>
     <string name="not_enough_gem">Not Enough Gem</string>
-
+    <string name="title_accessories">Accessories</string>
+    <string name="title_grocery_store">Grocery Store</string>
+    <string name="title_decor">Decor</string>
 </resources>

@@ -210,7 +210,7 @@ interface UserService {
     @GET("/kid/petstore")
     suspend fun kidGetPetstoreData(): NetworkResponse<ResponseSuccess<AllPetStore>, ResponseError>
 
-    @GET("kid/pet/set-active-item")
+    @POST("kid/pet/set-active-item")
     suspend fun kidPetSetActivatedItem(@Body request: ActivatedItemRequest): NetworkResponse<ResponseSuccess<Any>, ResponseError>
 
     @POST("kid/petstore/purchase/{itemId}")

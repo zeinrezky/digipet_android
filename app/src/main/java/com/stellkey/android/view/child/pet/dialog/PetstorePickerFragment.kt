@@ -12,33 +12,25 @@ import android.view.Window
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.google.android.material.tabs.TabLayoutMediator
 import com.stellkey.android.R
-import com.stellkey.android.databinding.FragmentAccessoriesPickerBinding
+import com.stellkey.android.databinding.FragmentPetstorePickerBinding
 import com.stellkey.android.helper.extension.removeClickListener
 import com.stellkey.android.model.PetStore
 import com.stellkey.android.model.request.ActivatedItemRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.child.ChildViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 import kotlin.math.abs
 
 
-class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFragment() {
+class PetstorePickerFragment(var petstoreListener: PetStoreData) : DialogFragment() {
 
-    private lateinit var dataBinding: FragmentAccessoriesPickerBinding
+    private lateinit var dataBinding: FragmentPetstorePickerBinding
     private lateinit var imageAccessoriesAdapter: AccessoriesImageAdapter
     private val listOfAccessories = arrayListOf<PetStore>()
     private val viewModel by inject<ChildViewModel>()
@@ -49,7 +41,7 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
     ): View {
         dataBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_accessories_picker,
+            R.layout.fragment_petstore_picker,
             container,
             false
         )
@@ -82,7 +74,7 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
                     "RUBY_COST_ABOVE_RUBY_BALANCE" -> {
                         Toast.makeText(
                             requireContext(),
-                            getString(R.string.notification),
+                            getString(R.string.not_enough_gem),
                             Toast.LENGTH_LONG
                         ).show()
                     }
@@ -90,38 +82,47 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
             }
         }
 
-        arguments?.takeIf { it.containsKey(LIST_ACCESSORIES) }?.apply {
+        arguments?.takeIf { it.containsKey(LIST_PETSTORE) }?.apply {
             val userData = if (Build.VERSION.SDK_INT >= 33) {
-                getParcelableArrayList(LIST_ACCESSORIES, PetStore::class.java)
+                getParcelableArrayList(LIST_PETSTORE, PetStore::class.java)
             } else {
-                getParcelableArrayList(LIST_ACCESSORIES)
+                getParcelableArrayList(LIST_PETSTORE)
             }
             userData?.let {
                 listOfAccessories.addAll(it)
             }
         }
+
         setView()
         setOnClick()
-
-
     }
 
     @SuppressLint("SetTextI18n")
     private fun setView() {
-        dataBinding.tvPicker.text = "Accessories"
-
         imageAccessoriesAdapter = AccessoriesImageAdapter(this).apply {
             imageSum = listOfAccessories
         }
-
         dataBinding.vpItemImage.adapter = imageAccessoriesAdapter
-
         dataBinding.vpItemImage.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateButton(listOfAccessories[position])
             }
         })
+
+        when (listOfAccessories.firstOrNull()?.category) {
+            TYPE_ACCESSORIES -> {
+                dataBinding.tvPicker.text = getString(R.string.title_accessories)
+            }
+
+            TYPE_FOOD -> {
+                dataBinding.tvPicker.text = getString(R.string.title_grocery_store)
+            }
+
+            TYPE_DECOR -> {
+                dataBinding.tvPicker.text = getString(R.string.title_decor)
+            }
+        }
     }
 
     private fun updateButton(petStore: PetStore) {
@@ -129,7 +130,10 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
         if (petStore.owned) {
             isAlreadyOwned(true)
             val currentThemePet = AppPreference.getKidPetColorTheme()
-            if (currentThemePet == petStore.color) {
+            val currentFoodPet = AppPreference.getKidPetFoodAssignment()
+            val currentDecorPet = AppPreference.getKidPetDecorAssignment()
+            //checking for anything that currently has attach to pet
+            if (currentThemePet == petStore.color || currentFoodPet == petStore.icon || currentDecorPet == petStore.icon) {
                 disabledButtonView()
             } else {
                 enableButtonView()
@@ -147,7 +151,12 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
     private fun registerListenerButton(petStore: PetStore, isSelected: Boolean, isBuy: Boolean) {
         dataBinding.ivDoneBtn.setOnClickListener {
             if (isSelected) {
-                viewModel.postKidActivatedItem(ActivatedItemRequest(itemId = petStore.id))
+                if(petStore.category == TYPE_FOOD){
+                    petstoreListener.onPetstoreSelect(petStore)
+                    dismiss()
+                }else {
+                    viewModel.postKidActivatedItem(ActivatedItemRequest(itemId = petStore.id))
+                }
             }
             if (isBuy) {
                 viewModel.postKidPurchasePetstoreItem(petStore.id)
@@ -229,10 +238,10 @@ class AccessoriesPickerFragment(var petstoreListener: PetStoreData) : DialogFrag
 
     companion object {
         const val TAG = "AccessoriesPickerFragment"
-        const val LIST_ACCESSORIES = "LIST_ACCESSORIES"
+        const val LIST_PETSTORE = "LIST_PETSTORE"
 
         const val TYPE_ACCESSORIES = "accessory"
-        const val TYPE_FOOD = "food"
+        const val TYPE_FOOD = "Food"
         const val TYPE_DECOR = "decor"
     }
 }

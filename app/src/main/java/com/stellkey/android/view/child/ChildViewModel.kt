@@ -296,6 +296,7 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
 
                 is NetworkResponse.ServerError -> {
                     isLoading.value = false
+                    networkError.value = response.body?.statusCode?.debug
                     snackbarMessage.value = response.body?.message
                 }
 

@@ -157,6 +157,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         }
 
         dataBinding.viewPetAnimation.lottiePet.setOnClickListener {
+            viewModel.postKidTapThePet()
             dataBinding.viewPetAnimation.lottiePet.apply {
                 setAnimation(petThemeColor.gigglePose)
                 repeatCount = LottieDrawable.INFINITE
