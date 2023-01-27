@@ -11,9 +11,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
+import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildHomeBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
+import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
@@ -37,7 +39,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private lateinit var kidTodayTaskAdapter: KidTodayTaskAdapter
     private lateinit var myProgressTaskAdapter: MyProgressAdapter
     private val viewModel by inject<ChildViewModel>()
-    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+    private var petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
 
     companion object {
 
@@ -142,16 +144,11 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                 adapter = myProgressTaskAdapter
             }
         }
+        updateHappinessAndHungry(data.pet.happiness, data.pet.hunger)
     }
 
     override fun onTodayTaskItemClicked(data: AssignmentsModel) {
         viewModel.postCompleteKidTask(KidCompleteTaskRequest(data.id))
-    }
-
-    private fun onBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            requireActivity().finish()
-        }
     }
 
     private fun setOnClick() {
@@ -199,52 +196,65 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
      * Giggle-Pose = happiness x% - x%, hungry x% - x% ||  When Clicked Pet
      * Hungry-Pose = happiness > 50, hungry < 50
      * Normal-Pose = happiness >= 50, hungry >= 50
-     * Yummy-Pose = happiness >50, hungry >= 50
+     * Yummy-Pose = happiness >50, hungry >= 50 [If there are attachment for food]
      * Angry-Pose = happingess < 50, hungry < 50
      * Happy-Pose = happiness >= 75, hungry >= 75
      **/
 
-    private fun updatePetTheme() {
-
-    }
-
-    private fun updateHappiness(happiness: Int) {
-        when (happiness) {
-            in 0..25 -> {
-
-            }
-
-            in 26..50 -> {
-
-            }
-
-            in 51..75 -> {
-
-            }
-
-            in 76..100 -> {
-
-            }
+    private fun updateHappinessAndHungry(happiness: Int, hunger: Int) {
+        if (happiness > 50 && hunger < 50) {
+            // Hungry
+            AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_HUNGRY)
         }
+        if (happiness in 50..75 && hunger in 51..75) {
+            //Normal
+            AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_NORMAL)
+        }
+        if (happiness > 50 && hunger >= 50 && AppPreference.getKidPetFoodAssignment()
+                .isNotEmpty()
+        ) {
+            //Yummy
+            AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_YUMMY)
+        }
+        if (happiness < 50 && hunger < 50) {
+            //Angry
+            AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_ANGRY)
+        }
+        if (happiness in 75..100 && hunger in 75..100) {
+            //Happy
+            AppPreference.putPetCurrentEmotion(PetEmotion.PET_EMOTION_HAPPY)
+        }
+
+        updatePetTheme()
     }
 
-    private fun updateEat(hunger: Int) {
-        when (hunger) {
-            in 0..25 -> {
-
+    private fun updatePetTheme() {
+        petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+        dataBinding.viewPetAnimation.ivFoodUsing.loadImage(AppPreference.getKidPetFoodAssignment())
+        dataBinding.viewPetAnimation.ivPetDecorUsing.loadImage(AppPreference.getKidPetDecorAssignment())
+        dataBinding.viewPetAnimation.lottiePet.apply {
+            when(AppPreference.getPetCurrentEmotion()){
+                PetEmotion.PET_EMOTION_ANGRY -> {
+                    setAnimation(petThemeColor.angryPose)
+                }
+                PetEmotion.PET_EMOTION_HAPPY ->{
+                    setAnimation(petThemeColor.happyPose)
+                }
+                PetEmotion.PET_EMOTION_HUNGRY ->{
+                    setAnimation(petThemeColor.hungryPose)
+                }
+                PetEmotion.PET_EMOTION_YUMMY ->{
+                    setAnimation(petThemeColor.yummyPose)
+                }
+                PetEmotion.PET_EMOTION_NORMAL -> {
+                    setAnimation(petThemeColor.normalPose)
+                }
+                PetEmotion.PET_EMOTION_GIGGLE -> {
+                    setAnimation(petThemeColor.gigglePose)
+                }
             }
-
-            in 26..50 -> {
-
-            }
-
-            in 51..75 -> {
-
-            }
-
-            in 76..100 -> {
-
-            }
+            repeatCount = LottieDrawable.INFINITE
+            playAnimation()
         }
     }
 }

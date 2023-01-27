@@ -2,6 +2,7 @@ package com.stellkey.android.util
 
 import com.orhanobut.hawk.Hawk
 import com.stellkey.android.constant.PetConfigType
+import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.emptyInt
 import com.stellkey.android.helper.extension.emptyString
@@ -52,38 +53,17 @@ class AppPreference {
         private const val tempStartDate = "tempStartDate"
         private const val hasActiveCycle = "hasActiveCycle"
 
-        // config for petColor
+        // config for pet
         private const val petColorTheme = "petColorTheme"
+        // value = link for food
+        private const val petFoodAssignment = "petFoodAssignment"
+        // value = link for decor
+        private const val petDecorAssignment = "petDecorAssignment"
+        // value == hungry, normal, yummy, angry, happy
+        private const val petCurrentEmotion = "petCurrentEmotion"
 
         fun deleteAll() {
-            Hawk.delete(isFirstTime)
-            Hawk.delete(loginToken)
-            Hawk.delete(mainCarerLoginToken)
-            Hawk.delete(accountId)
-            Hawk.delete(tempCarerToken)
-            Hawk.delete(tempKidToken)
-            Hawk.delete(tempChildName)
-            Hawk.delete(tempChildProfilePIN)
-            Hawk.delete(tempChildAge)
-            Hawk.delete(tempChildId)
-            Hawk.delete(tempSelectedGlobalChallengeId)
-            Hawk.delete(tempSelectedChallengeId)
-            Hawk.delete(profileIconId)
-            Hawk.delete(profileIcon)
-            Hawk.delete(profileType)
-            Hawk.delete(tempEmail)
-            Hawk.delete(tempPassword)
-            Hawk.delete(tempTimezone)
-            Hawk.delete(isCompleteLogin)
-            Hawk.delete(selectedCarerId)
-            Hawk.delete(isEditProfile)
-            Hawk.delete(tempProfileList)
-            Hawk.delete(isKidLogin)
-            Hawk.delete(carerLocale)
-            Hawk.delete(kidLocale)
-            Hawk.delete(isUpdateLocale)
-            Hawk.delete(loggedInCarerName)
-            Hawk.delete(petColorTheme)
+            Hawk.deleteAll()
         }
 
         fun deleteProfileIcon() {
@@ -407,5 +387,31 @@ class AppPreference {
         fun getKidPetColorTheme(): String {
             return (Hawk.get(petColorTheme, PetConfigType.PET_ORANGE_THEME))
         }
+
+        fun putKidPetFoodAssignment(value: String) {
+            Hawk.put(petFoodAssignment, value)
+        }
+
+        fun getKidPetFoodAssignment(): String {
+            return (Hawk.get(petFoodAssignment, emptyString))
+        }
+
+
+        fun putKidPetDecorAssignment(value: String) {
+            Hawk.put(petDecorAssignment, value)
+        }
+
+        fun getKidPetDecorAssignment(): String {
+            return (Hawk.get(petDecorAssignment, emptyString))
+        }
+
+        fun putPetCurrentEmotion(value: String){
+            Hawk.put(petCurrentEmotion, value)
+        }
+
+        fun getPetCurrentEmotion(): String{
+            return  (Hawk.get(petCurrentEmotion, PetEmotion.PET_EMOTION_NORMAL))
+        }
+
     }
 }

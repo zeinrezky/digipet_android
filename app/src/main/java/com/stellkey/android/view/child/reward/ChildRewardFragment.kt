@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
+import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildRewardBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
+import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
@@ -41,7 +43,7 @@ class ChildRewardFragment : BaseFragment() {
     private val childRewardAdapter by lazy {
         ChildRewardAdapter(listOf(), listener = onRewardsClickedForRedeemed)
     }
-    private val petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+    private var petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
 
     companion object {
 
@@ -123,12 +125,6 @@ class ChildRewardFragment : BaseFragment() {
         childRewardAdapter.notifyDataSetChanged()
     }
 
-    private fun onBackPressed() {
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            requireActivity().finish()
-        }
-    }
-
     private fun setOnClick() {
         dataBinding.apply {
             cvSwitchUser.setOnClickListener(onClickCallback)
@@ -174,63 +170,28 @@ class ChildRewardFragment : BaseFragment() {
     }
 
     private fun initAnimation() {
+        dataBinding.viewPetAnimation.ivFoodUsing.loadImage(AppPreference.getKidPetFoodAssignment())
+        dataBinding.viewPetAnimation.ivPetDecorUsing.loadImage(AppPreference.getKidPetDecorAssignment())
         dataBinding.viewPetAnimation.lottiePet.apply {
-            setAnimation(petThemeColor.normalPose)
+            when(AppPreference.getPetCurrentEmotion()){
+                PetEmotion.PET_EMOTION_ANGRY -> {
+                    setAnimation(petThemeColor.angryPose)
+                }
+                PetEmotion.PET_EMOTION_HAPPY ->{
+                    setAnimation(petThemeColor.happyPose)
+                }
+                PetEmotion.PET_EMOTION_HUNGRY ->{
+                    setAnimation(petThemeColor.hungryPose)
+                }
+                PetEmotion.PET_EMOTION_YUMMY ->{
+                    setAnimation(petThemeColor.yummyPose)
+                }
+                PetEmotion.PET_EMOTION_NORMAL -> {
+                    setAnimation(petThemeColor.normalPose)
+                }
+            }
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
-        }
-    }
-
-    /**
-     * Giggle-Pose = happiness x% - x%, hungry x% - x% ||  When Clicked Pet
-     * Hungry-Pose = happiness > 50, hungry < 50
-     * Normal-Pose = happiness >= 50, hungry >= 50
-     * Yummy-Pose = happiness >50, hungry >= 50
-     * Angry-Pose = happingess < 50, hungry < 50
-     * Happy-Pose = happiness >= 75, hungry >= 75
-     **/
-
-    private fun updatePetTheme() {
-
-    }
-
-    private fun updateHappiness(happiness: Int) {
-        when (happiness) {
-            in 0..25 -> {
-
-            }
-
-            in 26..50 -> {
-
-            }
-
-            in 51..75 -> {
-
-            }
-
-            in 76..100 -> {
-
-            }
-        }
-    }
-
-    private fun updateEat(hunger: Int) {
-        when (hunger) {
-            in 0..25 -> {
-
-            }
-
-            in 26..50 -> {
-
-            }
-
-            in 51..75 -> {
-
-            }
-
-            in 76..100 -> {
-
-            }
         }
     }
 }
