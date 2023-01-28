@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_child">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x3"
+                android:layout_marginEnd="@dimen/space_x3"
+                app:cardCornerRadius="@dimen/space_x7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_x11"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_x7"
+                        android:fontFamily="@font/nove"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:textColor="@color/colorFadePrimary"
+                        android:textSize="32sp"
+                        android:text="Watch this\nfirst!" />
+
+                    <TextView
+                        android:id="@+id/tvSubtitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/space_x3"
+                        android:fontFamily="@font/sofia_pro_bold"
+                        android:gravity="center"
+                        android:textColor="@color/colorFadePrimary"
+                        android:textSize="20sp"
+                        android:text="Learn how to use StellKey with your parent to blast off!" />
+
+                    <VideoView
+                        android:id="@+id/vvPlayerVideo"
+                        android:layout_width="match_parent"
+                        android:layout_margin="@dimen/space_x3"
+                        android:layout_height="180dp"/>
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_x18"
+            android:elevation="@dimen/space_x11"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ivDoneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="90dp"
+            android:adjustViewBounds="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            tools:visibility="visible">
+
+            <ImageView
+                android:layout_width="224dp"
+                android:layout_height="87dp"
+                android:contentDescription="@string/image_description"
+                android:scaleType="fitXY"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_child_collect" />
+
+            <TextView
+                android:id="@+id/tvButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/space_x2"
+                android:fontFamily="@font/nove"
+                android:textColor="@color/white"
+                android:textSize="32sp"
+                android:text="@string/kid_pet_home_play"
+                app:layout_constraintBottom_toBottomOf="@+id/ivDoneBtn"
+                app:layout_constraintEnd_toEndOf="@+id/ivDoneBtn"
+                app:layout_constraintStart_toStartOf="@+id/ivDoneBtn"
+                app:layout_constraintTop_toTopOf="@+id/ivDoneBtn"
+                tools:text="PLAY" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

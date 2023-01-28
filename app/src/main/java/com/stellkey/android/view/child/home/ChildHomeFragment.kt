@@ -25,6 +25,7 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.dialog.BasicKidVideoDialog
 import com.stellkey.android.view.child.home.adapter.KidTodayTaskAdapter
 import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
 import com.stellkey.android.view.child.home.dialog.TaskCompletedDialog
@@ -88,16 +89,28 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                     Toast.LENGTH_LONG
                 ).show()
             }
-
         }
 
         setView()
+        initOnBoarding()
         initAnimation()
         setOnClick()
     }
 
     private fun setView() {
         viewModel.getKidInfo()
+    }
+
+    private fun initOnBoarding() {
+        BasicKidVideoDialog(
+            onCloseClickListener = {
+
+            }
+        ).show(childFragmentManager, BasicKidVideoDialog.TAG)
+    }
+
+    private fun initDialogDailyTask(){
+
     }
 
     private fun setKidView(data: KidInfoModel) {
@@ -160,6 +173,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     }
 
     override fun onTodayTaskCompleted(data: AssignmentsModel) {
+        /* no op */
     }
 
     private fun setOnClick() {
