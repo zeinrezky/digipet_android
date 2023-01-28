@@ -5,16 +5,19 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/space_half"
+    android:clickable="true"
     android:layout_marginEnd="@dimen/space_half"
-    android:maxWidth="@dimen/space_x14">
+    android:maxWidth="@dimen/space_x14"
+    android:focusable="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/clCompleted"
         android:layout_width="@dimen/space_x14"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:background="@color/yellow"
         android:elevation="@dimen/space_x11"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/yellow"
+        app:cardCornerRadius="@dimen/space_x2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,27 +32,18 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clNotConfirmed"
         android:layout_width="0dp"
-        android:visibility="gone"
         android:layout_height="0dp"
+        android:background="@drawable/bg_white_95"
+        android:elevation="@dimen/space_x40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <View
-            android:id="@+id/viewWhiteOverlay"
-            android:layout_width="@dimen/space_x14"
-            android:layout_height="0dp"
-            android:background="@drawable/bg_white_95"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/ivWaitingConfirmation"
@@ -68,6 +62,7 @@
         android:id="@+id/clNotCompleted"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clKidTodayTask"
             android:layout_width="match_parent"

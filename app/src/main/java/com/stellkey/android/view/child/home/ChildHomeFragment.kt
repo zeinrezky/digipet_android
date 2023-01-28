@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
 import com.stellkey.android.R
@@ -129,7 +130,6 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             }
 
             kidTodayTaskAdapter = KidTodayTaskAdapter(
-                requireContext(),
                 data.tasksToday.assignments,
                 this@ChildHomeFragment
             )
@@ -139,11 +139,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             )
 
             rvTodayTask.apply {
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
+                layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = kidTodayTaskAdapter
             }
 
@@ -155,12 +151,15 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         updateHappinessAndHungry(data.pet.happiness, data.pet.hunger)
     }
 
-    override fun onTodayTaskItemClicked(data: AssignmentsModel) {
+    override fun onTodayTaskCollect(data: AssignmentsModel) {
         viewModel.postCompleteKidTask(KidCompleteTaskRequest(data.id))
     }
 
-    override fun onTodayTaskItemReminderClicked(data: AssignmentsModel) {
+    override fun onTodayTaskReminder(data: AssignmentsModel) {
         viewModel.postKidRemindCareerAssignment(data.id)
+    }
+
+    override fun onTodayTaskCompleted(data: AssignmentsModel) {
     }
 
     private fun setOnClick() {

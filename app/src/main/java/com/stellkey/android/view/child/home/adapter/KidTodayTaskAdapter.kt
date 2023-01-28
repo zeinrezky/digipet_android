@@ -1,10 +1,14 @@
 package com.stellkey.android.view.child.home.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -23,31 +27,54 @@ class KidTodayTaskAdapter(
     private val itemList = todayTaskList
 
     interface Listener {
-        fun onTodayTaskItemClicked(data: AssignmentsModel)
+        fun onTodayTaskCollect(data: AssignmentsModel)
 
-        fun onTodayTaskItemReminderClicked(data: AssignmentsModel)
+        fun onTodayTaskReminder(data: AssignmentsModel)
+
+        fun onTodayTaskCompleted(data: AssignmentsModel)
     }
 
     inner class KidTodayTaskViewHolder(private val binding: ItemKidTodayTaskBinding) :
         ViewHolder(binding.root) {
         fun bind(item: AssignmentsModel) {
             binding.apply {
-                ivTodayTask.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 24)
-                tvTodayTaskName.textOrNull = itemList[position].title
-                if (itemList[position].completedAt == null) {
-                    ivDoneBtn.apply {
-                        isVisible = true
-                        setOnClickListener { listener.onTodayTaskItemClicked(itemList[position]) }
+                ivTodayTask.loadImage(item.icon, ImageCornerOptions.ROUNDED, 24)
+                tvTodayTaskName.textOrNull = item.title
+
+                // completed
+                if (item.completedAt != null && item.confirmedAt != null) {
+                    clNotConfirmed.isVisible = false
+                    clNotCompleted.isInvisible = true
+                    clCompleted.isVisible = true
+                    root.setOnClickListener {
+                        listener.onTodayTaskCompleted(item)
                     }
-                    viewWhiteOverlay.isVisible = false
-                    ivWaitingConfirmation.isVisible = false
-                } else {
+                    return
+                }
+
+                // collect
+                if (item.completedAt == null && item.confirmedAt == null) {
+                    clCompleted.isVisible = false
+                    clNotConfirmed.isVisible = false
+                    clNotCompleted.isVisible = true
+                    ivDoneBtn.setOnClickListener {
+                        listener.onTodayTaskCollect(item)
+                    }
+                    return
+                }
+
+                // reminder
+                if (item.completedAt != null) {
+                    clCompleted.isVisible = false
+                    clNotConfirmed.isVisible = true
+                    clNotCompleted.isVisible = true
                     ivDoneBtn.isVisible = false
-                    viewWhiteOverlay.isVisible = true
-                    ivWaitingConfirmation.isVisible = true
-                    itemView.setOnClickListener {
-                        listener.onTodayTaskItemReminderClicked(itemList[position])
+                    clKidTodayTask.background =
+                        ContextCompat.getDrawable(root.context, R.color.transparent)
+                    root.setOnClickListener {
+                        listener.onTodayTaskReminder(item)
                     }
+                    return
                 }
             }
         }
