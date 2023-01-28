@@ -261,4 +261,6 @@
     <string name="title_accessories">Accessories</string>
     <string name="title_grocery_store">Grocery Store</string>
     <string name="title_decor">Decor</string>
+    <string name="kid_redeem_dialog_kid_info_title">You’re a\nsuperstar!</string>
+    <string name="kid_redeem_dialog_kid_info_subtitle">Now you can use %s stars to\n claim your reward.</string>
 </resources>

@@ -262,4 +262,6 @@
     <string name="title_accessories">Accessoires</string>
     <string name="title_grocery_store">Épicerie</string>
     <string name="title_decor">décor</string>
+    <string name="kid_redeem_dialog_kid_info_title">Vous êtes \nun superstar!</string>
+    <string name="kid_redeem_dialog_kid_info_subtitle">Vous pouvez maintenant utiliser %s étoiles pour\n réclamer votre récompense.</string>
 </resources>

@@ -21,6 +21,7 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
+import com.stellkey.android.view.child.dialog.BasicKidDialog
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.child.reward.adapter.ChildRewardAdapter
@@ -36,6 +37,8 @@ class ChildRewardFragment : BaseFragment() {
         ChildRewardAdapter(listOf(), listener = onRewardsClickedForRedeemed)
     }
     private var petThemeColor = PetTheme(AppPreference.getKidPetColorTheme())
+
+    private var kidRewardRedemptionSelected = KidRewardRedemption()
 
     companion object {
 
@@ -77,7 +80,7 @@ class ChildRewardFragment : BaseFragment() {
             }
 
             kidRedeemRewardSuccess.observe(viewLifecycleOwner) {
-                viewModel.getKidListRewardsAvailableForRedemption()
+                showConfirmationRedeemDialog()
             }
         }
 
@@ -153,6 +156,7 @@ class ChildRewardFragment : BaseFragment() {
 
     private val onRewardsClickedForRedeemed = object : ChildRewardAdapter.Listener {
         override fun onRewardClickedForRedeemed(data: KidRewardRedemption) {
+            kidRewardRedemptionSelected = data
             viewModel.postKidRewardRedeemption(
                 request = KidRedeemRewardRequest(
                     globalRewardId = if (data.isGlobal) data.id else null,
@@ -160,6 +164,29 @@ class ChildRewardFragment : BaseFragment() {
                 )
             )
         }
+    }
+
+    fun showConfirmationRedeemDialog(){
+        val basicParam = BasicKidDialog.BasicKidDialogParam(
+            title = getString(R.string.kid_redeem_dialog_kid_info_title),
+            subtitle = getString(
+                R.string.kid_redeem_dialog_kid_info_subtitle,
+                kidRewardRedemptionSelected.star_cost.toString()
+            ),
+            isShowingImage = true,
+            isImageFromRes = false,
+            imageAttachmentDialogLink = kidRewardRedemptionSelected.icon,
+            imageTitle = kidRewardRedemptionSelected.title
+        )
+
+        BasicKidDialog(onCloseClicked = {
+            viewModel.getKidListRewardsAvailableForRedemption()
+        }).apply {
+            arguments = Bundle().apply {
+
+                putParcelable(BasicKidDialog.BASIC_KID_DIALOG_PARAM, basicParam)
+            }
+        }.show(childFragmentManager, BasicKidDialog.TAG)
     }
 
     private fun initAnimation() {
