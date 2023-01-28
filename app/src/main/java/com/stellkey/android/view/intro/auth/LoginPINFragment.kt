@@ -86,6 +86,7 @@ class LoginPINFragment : BaseFragment() {
             kidLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
                 AppPreference.putKidToken(it.token?: emptyString)
+                AppPreference.resetPetIndicator()
                 startActivity(Intent(requireContext(), ChildMainAct::class.java))
                 requireActivity().finish()
             }

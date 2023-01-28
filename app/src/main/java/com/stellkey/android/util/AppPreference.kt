@@ -66,6 +66,13 @@ class AppPreference {
             Hawk.deleteAll()
         }
 
+        fun resetPetIndicator(){
+            Hawk.delete(petColorTheme)
+            Hawk.delete(petFoodAssignment)
+            Hawk.delete(petDecorAssignment)
+            Hawk.delete(petCurrentEmotion)
+        }
+
         fun deleteProfileIcon() {
             Hawk.delete(profileIconId)
             Hawk.delete(profileIcon)
