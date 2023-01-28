@@ -55,22 +55,31 @@ class AppPreference {
 
         // config for pet
         private const val petColorTheme = "petColorTheme"
+
         // value = link for food
         private const val petFoodAssignment = "petFoodAssignment"
+
         // value = link for decor
         private const val petDecorAssignment = "petDecorAssignment"
+
         // value == hungry, normal, yummy, angry, happy
         private const val petCurrentEmotion = "petCurrentEmotion"
+
+        private const val petShowingOnboardingVideoFirstTime = "petShowingOnboardingVideoFirstTime"
+
+        private const val petShowingOnboardingTask = "petShowingOnboardingTask"
 
         fun deleteAll() {
             Hawk.deleteAll()
         }
 
-        fun resetPetIndicator(){
+        fun resetPetIndicator() {
             Hawk.delete(petColorTheme)
             Hawk.delete(petFoodAssignment)
             Hawk.delete(petDecorAssignment)
             Hawk.delete(petCurrentEmotion)
+            Hawk.delete(petShowingOnboardingVideoFirstTime)
+            Hawk.delete(petShowingOnboardingTask)
         }
 
         fun deleteProfileIcon() {
@@ -412,13 +421,28 @@ class AppPreference {
             return (Hawk.get(petDecorAssignment, emptyString))
         }
 
-        fun putPetCurrentEmotion(value: String){
+        fun putPetCurrentEmotion(value: String) {
             Hawk.put(petCurrentEmotion, value)
         }
 
-        fun getPetCurrentEmotion(): String{
-            return  (Hawk.get(petCurrentEmotion, PetEmotion.PET_EMOTION_NORMAL))
+        fun getPetCurrentEmotion(): String {
+            return (Hawk.get(petCurrentEmotion, PetEmotion.PET_EMOTION_NORMAL))
         }
 
+        fun putPetShowingOnboardingVideoFirstTime(value: Boolean) {
+            Hawk.put(petShowingOnboardingVideoFirstTime, value)
+        }
+
+        fun getPetShowingOnboardingVideoFirstTime(): Boolean {
+            return (Hawk.get(petShowingOnboardingVideoFirstTime, true))
+        }
+
+        fun putPetShowingOnboardingTask(value: Boolean){
+            Hawk.put(petShowingOnboardingTask, value)
+        }
+
+        fun getPetShowingOnboardingTask(): Boolean{
+            return (Hawk.get(petShowingOnboardingTask, false))
+        }
     }
 }

@@ -93,7 +93,13 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         }
 
         setView()
-        initOnBoarding()
+        if (AppPreference.getPetShowingOnboardingVideoFirstTime()) {
+            initOnBoarding()
+        } else {
+            if (AppPreference.getPetShowingOnboardingTask()) {
+                initDialogDailyTask()
+            }
+        }
         initAnimation()
         setOnClick()
     }
@@ -105,6 +111,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private fun initOnBoarding() {
         BasicKidVideoDialog(
             onCloseClickListener = {
+                AppPreference.putPetShowingOnboardingVideoFirstTime(false)
                 initDialogDailyTask()
             }
         ).show(childFragmentManager, BasicKidVideoDialog.TAG)
@@ -113,6 +120,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private fun initDialogDailyTask() {
         TaskDailyOnboardingDialog(
             onCloseClickListener = {
+                AppPreference.putPetShowingOnboardingTask(false)
                 viewModel.getKidInfo()
             }
         ).show(childFragmentManager, TaskDailyOnboardingDialog.TAG)

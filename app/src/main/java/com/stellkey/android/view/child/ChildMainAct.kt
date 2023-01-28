@@ -139,6 +139,11 @@ class ChildMainAct : BaseAct() {
         }
     }
 
+    override fun onDestroy() {
+        AppPreference.putPetShowingOnboardingTask(true)
+        super.onDestroy()
+    }
+
     class NavigationChildHomeEvent(
         val goToScreen: String,
         val extraParams: HashMap<String, String> = hashMapOf()
