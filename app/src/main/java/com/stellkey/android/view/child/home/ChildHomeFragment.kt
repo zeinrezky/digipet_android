@@ -29,6 +29,7 @@ import com.stellkey.android.view.child.dialog.BasicKidVideoDialog
 import com.stellkey.android.view.child.home.adapter.KidTodayTaskAdapter
 import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
 import com.stellkey.android.view.child.home.dialog.TaskCompletedDialog
+import com.stellkey.android.view.child.home.dialog.TaskDailyOnboardingDialog
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
@@ -104,13 +105,17 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
     private fun initOnBoarding() {
         BasicKidVideoDialog(
             onCloseClickListener = {
-
+                initDialogDailyTask()
             }
         ).show(childFragmentManager, BasicKidVideoDialog.TAG)
     }
 
-    private fun initDialogDailyTask(){
-
+    private fun initDialogDailyTask() {
+        TaskDailyOnboardingDialog(
+            onCloseClickListener = {
+                viewModel.getKidInfo()
+            }
+        ).show(childFragmentManager, TaskDailyOnboardingDialog.TAG)
     }
 
     private fun setKidView(data: KidInfoModel) {

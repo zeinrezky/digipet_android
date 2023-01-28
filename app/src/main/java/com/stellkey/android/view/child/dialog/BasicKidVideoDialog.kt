@@ -16,7 +16,8 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogKidVideoBinding
 
 
-class BasicKidVideoDialog(val onCloseClickListener : () -> Unit = {}) : DialogFragment(), SurfaceHolder.Callback,
+class BasicKidVideoDialog(val onCloseClickListener: () -> Unit = {}) : DialogFragment(),
+    SurfaceHolder.Callback,
     MediaPlayer.OnPreparedListener {
     private lateinit var dataBinding: DialogKidVideoBinding
 
@@ -58,9 +59,9 @@ class BasicKidVideoDialog(val onCloseClickListener : () -> Unit = {}) : DialogFr
         dataBinding.ivClose.setOnClickListener {
             if (mediaPlayer.isPlaying) {
                 mediaPlayer.stop()
-                onCloseClickListener.invoke()
-                dismiss()
             }
+            onCloseClickListener.invoke()
+            dismiss()
         }
     }
 

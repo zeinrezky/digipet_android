@@ -268,4 +268,5 @@
     <string name="kid_home_task_button_ok_text">OK!</string>
     <string name="kid_home_remind_parent_message">Nous informons vos parents</string>
     <string name="kid_pet_home_play">Jouer</string>
+    <string name="kid_subtitle_daily_task">Vous avez %d tâches à accomplir aujourd`hui.</string>
 </resources>

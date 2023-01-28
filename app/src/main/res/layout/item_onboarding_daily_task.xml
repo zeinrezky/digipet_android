@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_x1"
+    android:layout_marginBottom="@dimen/space_x1">
+
+    <ImageView
+        android:id="@+id/ivTask"
+        android:layout_width="@dimen/space_x8"
+        android:layout_height="@dimen/space_x8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/primary_disabled" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tvTodayTaskName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/space_x1_half"
+        android:layout_marginEnd="@dimen/space_x1_half"
+        android:ellipsize="end"
+        android:fontFamily="@font/sofia_pro_bold"
+        android:letterSpacing="0"
+        android:maxLines="2"
+        android:minLines="2"
+        android:textAlignment="textStart"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ivDoneBtn"
+        app:layout_constraintStart_toEndOf="@+id/ivTask"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Brush my teeth in the morning in the morning morning in the morning" />
+
+
+    <ImageView
+        android:id="@+id/ivDoneBtn"
+        android:layout_width="@dimen/space_x14"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/image_description"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_child_done" />
+</androidx.constraintlayout.widget.ConstraintLayout>
