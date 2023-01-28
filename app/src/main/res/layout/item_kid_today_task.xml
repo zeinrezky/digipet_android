@@ -9,88 +9,123 @@
     android:maxWidth="@dimen/space_x14">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clKidTodayTask"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/space_x1"
-        android:layout_marginEnd="@dimen/space_x1"
-        android:background="@drawable/bg_half_rounded_white_outline_2"
-        android:paddingTop="@dimen/space_x2"
+        android:id="@+id/clCompleted"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@color/yellow"
+        android:elevation="@dimen/space_x11"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/nove"
+            android:gravity="center"
+            android:text="Completed!"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNotCompleted"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clKidTodayTask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/space_x1"
+            android:layout_marginEnd="@dimen/space_x1"
+            android:background="@drawable/bg_half_rounded_white_outline_2"
+            android:paddingTop="@dimen/space_x2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/ivTodayTask"
+                android:layout_width="@dimen/space_x8"
+                android:layout_height="@dimen/space_x8"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:contentDescription="@string/image_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:background="@color/primary_disabled" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tvTodayTaskName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_x2"
+                android:layout_marginTop="@dimen/space_x1_quarter"
+                android:layout_marginEnd="@dimen/space_x2"
+                android:layout_marginBottom="@dimen/space_x1_half"
+                android:ellipsize="end"
+                android:fontFamily="@font/sofia_pro_bold"
+                android:letterSpacing="0"
+                android:maxLines="3"
+                android:minLines="3"
+                android:textAlignment="center"
+                android:textColor="@color/blue"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivTodayTask"
+                tools:text="Brush my teeth in the morning" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
-            android:id="@+id/ivTodayTask"
-            android:layout_width="@dimen/space_x8"
-            android:layout_height="@dimen/space_x8"
-            android:layout_marginStart="@dimen/space_x2"
-            android:layout_marginEnd="@dimen/space_x2"
-            android:contentDescription="@string/image_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:background="@color/primary_disabled" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tvTodayTaskName"
+            android:id="@+id/ivDoneBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_x2"
-            android:layout_marginTop="@dimen/space_x1_quarter"
-            android:layout_marginEnd="@dimen/space_x2"
-            android:layout_marginBottom="@dimen/space_x1_half"
-            android:ellipsize="end"
-            android:fontFamily="@font/sofia_pro_bold"
-            android:letterSpacing="0"
-            android:maxLines="3"
-            android:minLines="3"
-            android:textAlignment="center"
-            android:textColor="@color/blue"
-            android:textSize="16sp"
+            android:layout_marginTop="@dimen/space_x18"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_description"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivTodayTask"
-            tools:text="Brush my teeth in the morning" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_child_done" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/ivDoneBtn"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clNotConfirmed"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/space_x18"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/image_description"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_child_done" />
-
-    <View
-        android:id="@+id/viewWhiteOverlay"
-        android:layout_width="@dimen/space_x14"
         android:layout_height="0dp"
-        android:background="@drawable/bg_white_95"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/ivWaitingConfirmation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/space_x1"
-        android:contentDescription="@string/image_description"
-        android:src="@drawable/ic_task_wait_confirmation"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <View
+            android:id="@+id/viewWhiteOverlay"
+            android:layout_width="@dimen/space_x14"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_white_95"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:id="@+id/ivWaitingConfirmation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_x1"
+            android:contentDescription="@string/image_description"
+            android:src="@drawable/ic_task_wait_confirmation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
