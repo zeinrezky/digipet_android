@@ -219,6 +219,11 @@ interface UserService {
         @Body request: Any = Any()
     ): NetworkResponse<ResponseSuccess<PetStore>, ResponseError>
 
+    @POST("kid/assignments/remind")
+    suspend fun kidRemindTheCareer(
+        @Body request: AssignmentReminderRequest
+    ): NetworkResponse<ResponseSuccess<Any>, ResponseError>
+
     /* End of Kids Routes */
 
     /* Carers Routes */
@@ -531,6 +536,10 @@ open class UserRepository(private val userService: UserService) {
         userService.kidPetSetActivatedItem(request)
 
     suspend fun kidPurchasePetstoreItem(itemId: Int) = userService.kidPetstorePurchaseItem(itemId)
+
+    suspend fun postKidRemindCareerAssignment(request: AssignmentReminderRequest) =
+        userService.kidRemindTheCareer(request)
+
     /* End of Kids Routes Functions */
 
     /* Carers Routes Functions */

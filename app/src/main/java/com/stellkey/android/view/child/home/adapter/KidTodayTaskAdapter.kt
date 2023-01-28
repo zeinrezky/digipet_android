@@ -25,6 +25,8 @@ class KidTodayTaskAdapter(
 
     interface Listener {
         fun onTodayTaskItemClicked(data: AssignmentsModel)
+
+        fun onTodayTaskItemReminderClicked(data: AssignmentsModel)
     }
 
     override fun onCreateViewHolder(
@@ -55,6 +57,9 @@ class KidTodayTaskAdapter(
                 ivDoneBtn.isVisible = false
                 viewWhiteOverlay.isVisible = true
                 ivWaitingConfirmation.isVisible = true
+                itemView.setOnClickListener {
+                    listener.onTodayTaskItemReminderClicked(itemList[position])
+                }
             }
         }
     }

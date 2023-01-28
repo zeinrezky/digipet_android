@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.airbnb.lottie.LottieDrawable
@@ -79,6 +80,14 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                 showTaskCompletedDialog()
             }
 
+            kidSuccessRemindCareerForAssignment.observe(viewLifecycleOwner) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.kid_home_remind_parent_message),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
         }
 
         setView()
@@ -148,6 +157,10 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
 
     override fun onTodayTaskItemClicked(data: AssignmentsModel) {
         viewModel.postCompleteKidTask(KidCompleteTaskRequest(data.id))
+    }
+
+    override fun onTodayTaskItemReminderClicked(data: AssignmentsModel) {
+        viewModel.postKidRemindCareerAssignment(data.id)
     }
 
     private fun setOnClick() {

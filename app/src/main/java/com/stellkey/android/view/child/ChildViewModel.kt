@@ -9,6 +9,7 @@ import com.stellkey.android.model.KidRewardRedemption
 import com.stellkey.android.model.PetModel
 import com.stellkey.android.model.PetStore
 import com.stellkey.android.model.request.ActivatedItemRequest
+import com.stellkey.android.model.request.AssignmentReminderRequest
 import com.stellkey.android.model.request.KidCompleteTaskRequest
 import com.stellkey.android.model.request.KidRedeemRewardRequest
 import com.stellkey.android.model.request.LocaleModel
@@ -25,6 +26,7 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
     val responseError = SingleLiveEvent<Unit>()
     val kidRedeemRewardSuccess = SingleLiveEvent<Unit>()
     val kidActivatedItemRequest = SingleLiveEvent<Unit>()
+    val kidSuccessRemindCareerForAssignment = SingleLiveEvent<Unit>()
 
     val kidInfoResponse = MutableLiveData<KidInfoModel?>()
     val completeKidTaskResponse = MutableLiveData<Any?>()
@@ -312,5 +314,36 @@ class ChildViewModel(private val userRepository: UserRepository) : BaseViewModel
             }
         }
     }
+
+    fun postKidRemindCareerAssignment(assignmentId: Int) {
+        isLoading.value = true
+        viewModelScope.launch {
+            when (val response = userRepository.postKidRemindCareerAssignment(
+                AssignmentReminderRequest(assignmentId)
+            )) {
+                is NetworkResponse.Success -> {
+                    isLoading.value = false
+                    kidSuccessRemindCareerForAssignment.call()
+                }
+
+                is NetworkResponse.ServerError -> {
+                    isLoading.value = false
+                    networkError.value = response.body?.statusCode?.debug
+                    snackbarMessage.value = response.body?.message
+                }
+
+                is NetworkResponse.NetworkError -> {
+                    isLoading.value = false
+                    networkError.value = response.body?.statusCode?.debug
+                    snackbarMessage.value = response.error.message.toString()
+                }
+
+                else -> {
+                    isLoading.value = false
+                }
+            }
+        }
+    }
+
 
 }

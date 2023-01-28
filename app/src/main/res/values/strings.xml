@@ -265,4 +265,5 @@
     <string name="kid_redeem_dialog_kid_info_subtitle">Now you can use %s stars to\n claim your reward.</string>
     <string name="kid_home_task_completed_subtitle">You completed the task</string>
     <string name="kid_home_task_button_ok_text">OK!</string>
+    <string name="kid_home_remind_parent_message">We let your parent know</string>
 </resources>
