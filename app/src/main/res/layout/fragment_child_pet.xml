@@ -196,29 +196,29 @@
 
             <ImageView
                 android:id="@+id/ivPetEmotion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
                 android:layout_weight="1"
-                android:src="@drawable/ic_pet_emotion_0" />
+                android:src="@drawable/ic_pet_emotion_100" />
 
             <ImageView
                 android:id="@+id/ivPetEat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_pet_eat_0" />
 
             <ImageView
                 android:id="@+id/ivPetAccessories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_pet_accessories" />
 
             <ImageView
                 android:id="@+id/ivPetDecor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="74dp"
+                android:layout_height="74dp"
                 android:layout_weight="1"
                 android:src="@drawable/ic_pet_decor" />
         </LinearLayout>

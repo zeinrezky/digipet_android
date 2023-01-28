@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="112dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_x14">
 
     <ImageView
         android:id="@+id/ivFoodUsing"
@@ -34,13 +34,12 @@
     <ImageView
         android:id="@+id/ivPetDecorUsing"
         android:layout_width="215dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="140dp"
+        android:layout_height="70dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/lottiePet"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_pet_decor" />
+        tools:src="@drawable/ic_sample_decor" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

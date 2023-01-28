@@ -14,6 +14,7 @@ import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.loadFromUrl
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
+import com.stellkey.android.model.PetModel
 import com.stellkey.android.model.PetStore
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
@@ -86,6 +87,8 @@ class ChildPetFragment : BaseFragment() {
             tvChildLevel.textOrNull = data.level.level.toString()
             piChildLevel.progress = 100 - data.level.percentageToNextLevel
         }
+
+        updateIndicatorBar(data.pet)
     }
 
     private fun setOnClick() {
@@ -181,6 +184,52 @@ class ChildPetFragment : BaseFragment() {
             }
             repeatCount = LottieDrawable.INFINITE
             playAnimation()
+        }
+    }
+
+    private fun updateIndicatorBar(petInfo: PetModel) {
+        when (petInfo.happiness) {
+            in 0..24 -> {
+                dataBinding.ivPetEmotion.setImageResource(R.drawable.ic_pet_emotion_0)
+            }
+
+            in 25..49 -> {
+                dataBinding.ivPetEmotion.setImageResource(R.drawable.ic_pet_emotion_25)
+            }
+
+            in 50..74 -> {
+                dataBinding.ivPetEmotion.setImageResource(R.drawable.ic_pet_emotion_50)
+            }
+
+            in 75..99 -> {
+                dataBinding.ivPetEmotion.setImageResource(R.drawable.ic_pet_emotion_75)
+            }
+
+            100 -> {
+                dataBinding.ivPetEmotion.setImageResource(R.drawable.ic_pet_emotion_100)
+            }
+        }
+
+        when (petInfo.hunger) {
+            in 0..24 -> {
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+            }
+
+            in 25..49 -> {
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+            }
+
+            in 50..74 -> {
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+            }
+
+            in 75..99 -> {
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+            }
+
+            100 -> {
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+            }
         }
     }
 
