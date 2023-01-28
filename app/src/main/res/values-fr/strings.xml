@@ -264,4 +264,6 @@
     <string name="title_decor">décor</string>
     <string name="kid_redeem_dialog_kid_info_title">Vous êtes \nun superstar!</string>
     <string name="kid_redeem_dialog_kid_info_subtitle">Vous pouvez maintenant utiliser %s étoiles pour\n réclamer votre récompense.</string>
+    <string name="kid_home_task_completed_subtitle">Vous avez terminé la tâche</string>
+    <string name="kid_home_task_button_ok_text">OK!</string>
 </resources>

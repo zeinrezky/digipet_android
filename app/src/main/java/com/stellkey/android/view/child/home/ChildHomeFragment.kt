@@ -25,6 +25,7 @@ import com.stellkey.android.view.child.ChildMainAct
 import com.stellkey.android.view.child.ChildViewModel
 import com.stellkey.android.view.child.home.adapter.KidTodayTaskAdapter
 import com.stellkey.android.view.child.home.adapter.MyProgressAdapter
+import com.stellkey.android.view.child.home.dialog.TaskCompletedDialog
 import com.stellkey.android.view.child.pet.ChildPetFragment
 import com.stellkey.android.view.child.profile.ChildProfileFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
@@ -75,7 +76,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             }
 
             completeKidTaskResponse.observe(viewLifecycleOwner) {
-                viewModel.getKidInfo()
+                showTaskCompletedDialog()
             }
 
         }
@@ -225,6 +226,24 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         }
 
         updatePetTheme()
+    }
+
+
+    private fun showTaskCompletedDialog() {
+        val taskCompletedparams = TaskCompletedDialog.TaskCompletedParams(
+            subtitleText = getString(R.string.kid_home_task_completed_subtitle),
+            starSum = "X1",
+            gemSum = "X1"
+        )
+        TaskCompletedDialog(
+            onButtonClicked = {
+                viewModel.getKidInfo()
+            }
+        ).apply {
+            arguments = Bundle().apply {
+                putParcelable(TaskCompletedDialog.TASK_COMPLETED_PARAMS, taskCompletedparams)
+            }
+        }.show(childFragmentManager, TaskCompletedDialog.TAG)
     }
 
     private fun updatePetTheme() {
