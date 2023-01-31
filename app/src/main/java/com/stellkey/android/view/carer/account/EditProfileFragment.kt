@@ -98,6 +98,7 @@ class EditProfileFragment : BaseFragment() {
                 requireActivity().supportFragmentManager.popBackStack()
             }
             deleteKidSuccess.observe(viewLifecycleOwner) {
+                AppPreference.putTempChildId(emptyInt)
                 AppPreference.putEditProfile(emptyBoolean)
                 AppPreference.deleteTempCreateMemberData()
 

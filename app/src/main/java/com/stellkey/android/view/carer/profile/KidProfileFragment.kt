@@ -42,8 +42,6 @@ import org.koin.android.ext.android.inject
 class KidProfileFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentKidProfileBinding
-
-    //private val binding by viewBinding<FragmentKidProfileBinding>()
     private val viewModel by inject<ProfileViewModel>()
 
     private lateinit var activeTaskAdapter: ActiveTaskAdapter
@@ -146,7 +144,7 @@ class KidProfileFragment : BaseFragment() {
 
         AppPreference.getTempChildId().let {
             if (it == emptyInt) {
-                onBackPressed()
+                requireActivity().supportFragmentManager.popBackStack()
             } else {
                 viewModel.getDetailKid(profileId = it)
             }
