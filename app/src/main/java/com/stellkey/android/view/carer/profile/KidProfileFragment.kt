@@ -339,34 +339,6 @@ class KidProfileFragment : BaseFragment() {
         }
     }
 
-    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
-        dialogInfoBinding = DialogInfoBinding.inflate(
-            LayoutInflater.from(requireContext()), null, false
-        )
-        val customSnackBar =
-            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
-        val layout = customSnackBar.view as Snackbar.SnackbarLayout
-
-        dialogInfoBinding.apply {
-            tvTitle.textOrNull(textTitle)
-            tvDesc.textOrNull(textDesc)
-            clInfo.setOnClickListener {
-                customSnackBar.dismiss()
-            }
-        }
-
-        val view: View = customSnackBar.view
-        val params = view.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        view.layoutParams = params
-
-        layout.setPadding(0, 0, 0, 0)
-        layout.setBackgroundColor(context.color(R.color.transparent))
-        layout.elevation = 0F
-        layout.addView(dialogInfoBinding.root, 0)
-        customSnackBar.show()
-    }*/
-
     private fun onBackPressed() {
         activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
             AppPreference.deleteTempCreateMemberData()

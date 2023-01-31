@@ -81,6 +81,7 @@
     <string name="current_pin_mismatch">PIN doesn\'t match our records.\nTry again.</string>
     <string name="confirm_pin_mismatch">PIN doesn\'t match. Try again.</string>
     <string name="password_mismatch">Password does not match. Try again.</string>
+    <string name="error_message_please_input_text">Please Input This</string>
 
     <!-- Success Message -->
     <string name="success_exclamation">Success!</string>
@@ -214,6 +215,7 @@
     <string name="dialog_delete_profile_desc">I want to remove %s profile.</string>
     <string name="dialog_confirmation_custom_task_title">One more step to go</string>
     <string name="dialog_confirmation_custom_task_desc">%s task will be added to current %s cycle.</string>
+    <string name="dialog_confirmation_custom_task_date">Select task start date for %s. He doesn’t have a cycle yet.</string>
 
     <!-- Kid -->
     <string name="my_progress">Mes progrès</string>

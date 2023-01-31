@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.stellkey.android.R
 import com.stellkey.android.databinding.DialogConfirmationCustomTaskBinding
+import com.stellkey.android.databinding.DialogConfirmationCycleDateBinding
 import com.stellkey.android.databinding.FragmentAddTaskDetailBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.ImageCornerOptions
@@ -46,7 +47,9 @@ class AddTaskDetailFragment : BaseFragment() {
     private lateinit var dataBinding: FragmentAddTaskDetailBinding
 
     private lateinit var dialogConfirmationAssignCycle: DialogConfirmationCustomTaskBinding
+    private lateinit var dialogConfirmationAssignDate: DialogConfirmationCycleDateBinding
     private lateinit var confirmationDialog: AlertDialog
+    private lateinit var confirmationDateDialog: AlertDialog
 
     private val viewModel by inject<ProfileViewModel>()
 
@@ -188,6 +191,38 @@ class AddTaskDetailFragment : BaseFragment() {
         confirmationDialog.show()
     }
 
+    private fun initDialogConfirmationDateCycle(kidName: String) {
+        dialogConfirmationAssignDate = DialogConfirmationCycleDateBinding.inflate(
+            LayoutInflater.from(requireContext()), null, false
+        )
+
+        confirmationDateDialog = requireActivity().alertDialog(
+            view = dialogConfirmationAssignDate.root,
+            isCancelable = false,
+            fullScreen = false
+        )
+        confirmationDateDialog.window?.setBackgroundDrawableResource(R.color.blurWhite)
+
+        dialogConfirmationAssignDate.tvDesc.textOrNull =
+            getString(R.string.dialog_confirmation_custom_task_date, kidName)
+        dialogConfirmationAssignDate.boxStartDate.editText?.setOnClickListener {
+            initDatePicker(afterSelectedDate = {
+                dialogConfirmationAssignDate.etStartDate.setText(it)
+                dataBinding.etStartDate.setText(it)
+            })
+        }
+        dialogConfirmationAssignDate.btnCreate.setOnClickListener {
+            if (!dialogConfirmationAssignDate.etStartDate.text.isNullOrEmpty()) {
+                confirmationDateDialog.dismiss()
+            }
+        }
+        dialogConfirmationAssignDate.btnCancel.setOnClickListener {
+            confirmationDateDialog.dismiss()
+        }
+
+        confirmationDateDialog.show()
+    }
+
     private fun checkIsKidEligibleToAssignment(kid: AllKidsModel): Boolean {
         if (kid.tasksToday.assignments.size < 3 && isCustomTask) {
             return true
@@ -260,7 +295,10 @@ class AddTaskDetailFragment : BaseFragment() {
         }
     }
 
-    private fun initDatePicker(selectedDate: String? = null) {
+    private fun initDatePicker(
+        selectedDate: String? = null,
+        afterSelectedDate: (String) -> Unit = {}
+    ) {
         val day: Long = 86400000
         val currentDateMillis = Date().time
         var selectedStartDate: Long? = null
@@ -292,6 +330,7 @@ class AddTaskDetailFragment : BaseFragment() {
             tempCurrentDate = formattedTodayDate
             startDate = currentDate
             dataBinding.etStartDate.textOrNull = formattedDate
+            afterSelectedDate.invoke(formattedDate)
         }
     }
 
@@ -332,10 +371,24 @@ class AddTaskDetailFragment : BaseFragment() {
             }
 
             dataBinding.btnCreate -> {
-                if (isCustomTask) {
-                    createTaskForNewTask()
+                if (dataBinding.etStartDate.text.isNullOrEmpty()) {
+                    kidSelectedProfileAdapter.kidProfileList.firstOrNull()?.name?.let { name ->
+                        initDialogConfirmationDateCycle(
+                            name
+                        )
+                    }
                 } else {
-                    createTaskForExistingTask()
+                    if (isCustomTask) {
+                        if (dataBinding.etTitleTask.text.isNullOrEmpty()) {
+                            dataBinding.etTitleTask.error =
+                                getString(R.string.error_message_please_input_text)
+                        } else {
+                            createTaskForNewTask()
+                        }
+
+                    } else {
+                        createTaskForExistingTask()
+                    }
                 }
             }
 
