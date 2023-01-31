@@ -47,6 +47,9 @@ class BasicKidVideoDialog(val onCloseClickListener: () -> Unit = {}) : DialogFra
     private fun initMediaPlayer() {
         mediaPlayer.setOnPreparedListener(this)
         dataBinding.vvPlayerVideo.holder.addCallback(this)
+        if (!mediaPlayer.isPlaying) {
+            mediaPlayer.start()
+        }
     }
 
     private fun initVideoPlayerListener() {
