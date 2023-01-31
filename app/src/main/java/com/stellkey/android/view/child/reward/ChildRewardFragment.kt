@@ -13,6 +13,7 @@ import com.stellkey.android.constant.PetEmotion
 import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildRewardBinding
 import com.stellkey.android.helper.extension.loadFromUrl
+import com.stellkey.android.helper.extension.onBackBlockPressed
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.KidInfoModel
 import com.stellkey.android.model.KidRewardRedemption
@@ -90,6 +91,7 @@ class ChildRewardFragment : BaseFragment() {
     }
 
     private fun setView() {
+        onBackBlockPressed()
         setRecyclerViewRewards()
 
         viewModel.getKidInfo()

@@ -13,6 +13,7 @@ import com.stellkey.android.helper.extension.formatDate
 import com.stellkey.android.helper.extension.getCurrentDate
 import com.stellkey.android.helper.extension.getCurrentDayMonth
 import com.stellkey.android.helper.extension.getCurrentDayYear
+import com.stellkey.android.helper.extension.onBackBlockPressed
 import com.stellkey.android.model.KidLogModel
 import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseFragment
@@ -65,6 +66,7 @@ class ChildLogFragment : BaseFragment() {
     }
 
     private fun setView() {
+        onBackBlockPressed()
         setRecyclerviewLogs()
         dataBinding.tvMonthSelected.text = getCurrentDayMonth("MMM YYYY")
 

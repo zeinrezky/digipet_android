@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.stellkey.android.constant.PetTheme
 import com.stellkey.android.databinding.FragmentChildHomeBinding
 import com.stellkey.android.helper.UtilityHelper.Companion.toArrayList
 import com.stellkey.android.helper.extension.loadFromUrl
+import com.stellkey.android.helper.extension.onBackBlockPressed
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.KidInfoModel
@@ -106,6 +108,8 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
 
     private fun setView() {
         viewModel.getKidInfo()
+
+        onBackBlockPressed()
     }
 
     override fun onResume() {
