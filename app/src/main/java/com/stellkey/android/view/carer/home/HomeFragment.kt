@@ -34,8 +34,6 @@ import org.koin.android.ext.android.inject
 class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentHomeBinding
-
-    //private val binding by viewBinding<FragmentHomeBinding>()
     private val viewModel by inject<HomeViewModel>()
 
     private lateinit var yesterdayTaskAdapter: YesterdayTaskAdapter
@@ -258,7 +256,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                     if (assignment.globalChallengeId != null) {
                         kidsData?.activeAssignments?.assignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
                             ?.map {
-                                TaskStarModel(isCompleted = it.completedAt != null)
+                                TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
                             }?.let { listStarTask ->
                                 groupedActiveTask.add(Pair(assignment, listStarTask))
                             }
@@ -266,7 +264,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                     } else {
                         kidsData?.activeAssignments?.assignments?.filter { it.challengeId == assignment.challengeId }
                             ?.map {
-                                TaskStarModel(isCompleted = it.completedAt != null)
+                                TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
                             }?.let { listStarTask ->
                                 groupedActiveTask.add(Pair(assignment, listStarTask))
                             }

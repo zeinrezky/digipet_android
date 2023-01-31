@@ -209,7 +209,7 @@ class KidProfileFragment : BaseFragment() {
                 taskData.groupBy { it.globalChallengeId }.forEach {
                     if (it.key != null) {
                         val listStarTask = it.value.map { assignment ->
-                            TaskStarModel(isCompleted = assignment.completedAt != null)
+                            TaskStarModel(isCompleted = assignment.completedAt != null && assignment.confirmedAt != null)
                         }
                         groupedActiveTask.add(
                             Pair(
@@ -224,7 +224,7 @@ class KidProfileFragment : BaseFragment() {
                 taskData.groupBy { it.challengeId }.forEach {
                     if (it.key != null) {
                         val listStarTask = it.value.map { assignment ->
-                            TaskStarModel(isCompleted = assignment.completedAt != null)
+                            TaskStarModel(isCompleted = assignment.completedAt != null && assignment.confirmedAt != null)
                         }
                         groupedActiveTask.add(
                             Pair(
