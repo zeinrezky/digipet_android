@@ -47,9 +47,6 @@ class BasicKidVideoDialog(val onCloseClickListener: () -> Unit = {}) : DialogFra
     private fun initMediaPlayer() {
         mediaPlayer.setOnPreparedListener(this)
         dataBinding.vvPlayerVideo.holder.addCallback(this)
-        if (!mediaPlayer.isPlaying) {
-            mediaPlayer.start()
-        }
     }
 
     private fun initVideoPlayerListener() {
@@ -92,7 +89,9 @@ class BasicKidVideoDialog(val onCloseClickListener: () -> Unit = {}) : DialogFra
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {}
 
-    override fun onPrepared(mp: MediaPlayer?) {}
+    override fun onPrepared(mp: MediaPlayer?) {
+        mp?.start()
+    }
 
     companion object {
         const val TAG = "BasicKidVideoDialog"

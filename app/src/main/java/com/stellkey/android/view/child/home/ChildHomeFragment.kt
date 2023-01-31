@@ -108,13 +108,20 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
         viewModel.getKidInfo()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as ChildMainAct).showMenu(true)
+    }
+
     private fun initOnBoarding() {
         BasicKidVideoDialog(
             onCloseClickListener = {
                 AppPreference.putPetShowingOnboardingVideoFirstTime(false)
                 initDialogDailyTask()
             }
-        ).show(childFragmentManager, BasicKidVideoDialog.TAG)
+        ).apply {
+            isCancelable = false
+        }.show(childFragmentManager, BasicKidVideoDialog.TAG)
     }
 
     private fun initDialogDailyTask() {
@@ -123,7 +130,9 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
                 AppPreference.putPetShowingOnboardingTask(false)
                 viewModel.getKidInfo()
             }
-        ).show(childFragmentManager, TaskDailyOnboardingDialog.TAG)
+        ).apply {
+            isCancelable = false
+        }.show(childFragmentManager, TaskDailyOnboardingDialog.TAG)
     }
 
     private fun setKidView(data: KidInfoModel) {
@@ -282,6 +291,7 @@ class ChildHomeFragment : BaseFragment(), KidTodayTaskAdapter.Listener {
             arguments = Bundle().apply {
                 putParcelable(TaskCompletedDialog.TASK_COMPLETED_PARAMS, taskCompletedparams)
             }
+            isCancelable = false
         }.show(childFragmentManager, TaskCompletedDialog.TAG)
     }
 

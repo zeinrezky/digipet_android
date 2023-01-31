@@ -139,6 +139,8 @@ class ChildMainAct : BaseAct() {
         }
     }
 
+
+
     override fun onDestroy() {
         AppPreference.putPetShowingOnboardingTask(true)
         super.onDestroy()
