@@ -38,7 +38,7 @@
         android:id="@+id/clNotConfirmed"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/bg_white_95"
+        android:background="@drawable/bg_white_100"
         android:elevation="@dimen/space_x40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
