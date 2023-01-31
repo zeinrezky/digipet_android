@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -199,6 +200,7 @@ class KidProfileFragment : BaseFragment() {
                     setOnClickListener(onClickCallback)
                 }
             } else {
+                rvProfileTask.isVisible = true
                 tvLabelSwipeTask.isVisible = true
                 AppPreference.putActiveCycle(true)
                 AppPreference.putTempChallengeStartDate(taskData[0].assignDate)
@@ -261,7 +263,7 @@ class KidProfileFragment : BaseFragment() {
                 }
                 val swipeHandler = object : SwipeToDeleteTaskCallback(requireContext()) {
                     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                        selectedPosition = viewHolder.adapterPosition
+                        selectedPosition = viewHolder.absoluteAdapterPosition
                         val selectedTask = activeTaskAdapter.selectTask(selectedPosition)
                         viewModel.deleteAssignment(
                             DeleteChildTaskRequest(
@@ -290,6 +292,7 @@ class KidProfileFragment : BaseFragment() {
                     setOnClickListener(onClickCallback)
                 }
             } else {
+                rvProfileReward.isVisible = true
                 tvLabelSwipeRewards.isVisible = true
 
                 if (listRewards.size < 2) {

@@ -383,7 +383,7 @@
                         android:fontFamily="@font/sofia_pro_regular"
                         android:letterSpacing="0"
                         android:maxLines="3"
-                        android:text="@string/swipe_left"
+                        android:text="@string/swipe_left_reward"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="12sp"

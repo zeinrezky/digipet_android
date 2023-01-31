@@ -158,6 +158,7 @@
     <string name="kid_age">%d y.o.</string>
     <string name="kid_level">Level %d</string>
     <string name="swipe_left">Swipe left to delete task</string>
+    <string name="swipe_left_reward">Swipe left to delete reward</string>
     <string name="add_a_task">Add a task</string>
     <string name="recommended_tasks">Recommended tasks</string>
     <string name="start_from">Start from</string>
