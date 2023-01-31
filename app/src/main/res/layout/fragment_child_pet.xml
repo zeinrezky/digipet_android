@@ -163,7 +163,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="@dimen/space_quarter"
-                            android:background="@drawable/ic_pet_utils"
+                            android:background="@drawable/ic_pet"
                             app:layout_constraintBottom_toBottomOf="@id/bgViewPet"
                             app:layout_constraintEnd_toEndOf="@id/bgViewPet"
                             app:layout_constraintStart_toStartOf="@id/bgViewPet"
