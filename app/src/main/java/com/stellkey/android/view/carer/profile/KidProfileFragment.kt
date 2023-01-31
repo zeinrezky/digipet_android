@@ -138,6 +138,10 @@ class KidProfileFragment : BaseFragment() {
     private fun setView() {
         (activity as HomeAct).showMenu(isShow = false)
         onBackPressed()
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         AppPreference.getTempChildId().let {
             if (it == emptyInt) {
