@@ -216,19 +216,19 @@ class ChildPetFragment : BaseFragment() {
             }
 
             in 25..49 -> {
-                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_25)
             }
 
             in 50..74 -> {
-                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_50)
             }
 
             in 75..99 -> {
-                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_75)
             }
 
             100 -> {
-                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_0)
+                dataBinding.ivPetEat.setImageResource(R.drawable.ic_pet_eat_100)
             }
         }
     }
