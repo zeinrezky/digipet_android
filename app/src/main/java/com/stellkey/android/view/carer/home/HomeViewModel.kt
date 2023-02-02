@@ -15,8 +15,6 @@ import kotlinx.coroutines.launch
 class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel() {
 
     val responseError = SingleLiveEvent<Unit>()
-
-    val getCurrentCycleAssignmentSuccess = SingleLiveEvent<Unit>()
     val getTodayAssignmentSuccess = SingleLiveEvent<Unit>()
     val deleteKidSuccess = SingleLiveEvent<Unit>()
     val deleteCarerSuccess = SingleLiveEvent<Unit>()
@@ -29,6 +27,7 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
     val listAllCarers = MutableLiveData<ArrayList<AllCarersModel>>()
     val todayAssignment = MutableLiveData<AllKidsModel.Assignments?>()
     val yesterdayAssignment = MutableLiveData<AllKidsModel.Assignments?>()
+    val currentCycleAssignmentSuccess = MutableLiveData<AllKidsModel.Assignments?>()
 
     fun getCurrentCycleAssignment(profileId: Int) {
         isLoading.value = true
@@ -36,7 +35,10 @@ class HomeViewModel(private val userRepository: UserRepository) : BaseViewModel(
             when (val response = userRepository.getCurrentCycleAssignment(profileId = profileId)) {
                 is NetworkResponse.Success -> {
                     isLoading.value = false
-                    getCurrentCycleAssignmentSuccess.call()
+                    response.body.data.let {
+                        currentCycleAssignmentSuccess.value = it
+                    }
+
                 }
 
                 is NetworkResponse.ServerError -> {

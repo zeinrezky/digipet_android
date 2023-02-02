@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -30,6 +31,7 @@ import com.stellkey.android.view.carer.home.adapter.YesterdayTaskAdapter
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAdapter.Listener {
 
@@ -42,6 +44,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
 
     private var allKidsList = arrayListOf<AllKidsModel>()
     private var activeTaskList = arrayListOf<AssignmentsModel>()
+    private var currentCycleAssignments = arrayListOf<AssignmentsModel>()
     private var kidId = emptyInt
 
     private var isYesterdayListEmpty = emptyBoolean
@@ -97,30 +100,41 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
             }
 
             yesterdayAssignment.observe(viewLifecycleOwner) {
-                it?.let { it1 -> setYesterdayTaskList(it1) }
+                it?.let { it1 -> setYesterdayTaskList(it1, currentCycleAssignments) }
             }
 
             todayAssignment.observe(viewLifecycleOwner) {
-                it?.let { it1 -> setTodayTaskList(it1, null) }
+                it?.let { it1 -> setTodayTaskList(it1, currentCycleAssignments) }
             }
 
             declineKidTaskCompletionSuccess.observe(viewLifecycleOwner) {
                 /*todayTaskAdapter.removeNotification()*/
-                viewModel.getTodayAssignment(kidId)
+                viewModel.getCurrentCycleAssignment(kidId)
             }
 
             confirmKidTaskCompletionSuccess.observe(viewLifecycleOwner) {
                 /*todayTaskAdapter.removeNotification()*/
-                viewModel.getTodayAssignment(kidId)
+                viewModel.getCurrentCycleAssignment(kidId)
             }
 
             declineKidTaskWithoutCompletionSuccess.observe(viewLifecycleOwner) {
                 /*yesterdayTaskAdapter.removeNotification()*/
-                viewModel.getTodayAssignment(kidId)
+                viewModel.getCurrentCycleAssignment(kidId)
             }
 
             confirmKidTaskWithoutCompletionSuccess.observe(viewLifecycleOwner) {
                 /*yesterdayTaskAdapter.removeNotification()*/
+                viewModel.getCurrentCycleAssignment(kidId)
+            }
+
+            currentCycleAssignmentSuccess.observe(viewLifecycleOwner) {
+                currentCycleAssignments.clear()
+                it?.assignments?.let { currentAssignment ->
+                    currentCycleAssignments.addAll(
+                        currentAssignment
+                    )
+                }
+                viewModel.getYesterdayAssignment(kidId)
                 viewModel.getTodayAssignment(kidId)
             }
 
@@ -137,34 +151,6 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
         onBackPressed()
         validateListVisibility()
     }
-
-    /*private fun initInfoDialog(textTitle: String, textDesc: String) {
-        dialogInfoBinding = DialogInfoBinding.inflate(
-            LayoutInflater.from(requireContext()), null, false
-        )
-        val customSnackBar =
-            Snackbar.make(dataBinding.clFamilyMainContainer, "", Snackbar.LENGTH_LONG)
-        val layout = customSnackBar.view as Snackbar.SnackbarLayout
-
-        dialogInfoBinding.apply {
-            tvTitle.textOrNull(textTitle)
-            tvDesc.textOrNull(textDesc)
-            clInfo.setOnClickListener {
-                customSnackBar.dismiss()
-            }
-        }
-
-        val view: View = customSnackBar.view
-        val params = view.layoutParams as FrameLayout.LayoutParams
-        params.gravity = Gravity.TOP
-        view.layoutParams = params
-
-        layout.setPadding(0, 0, 0, 0)
-        layout.setBackgroundColor(context.color(R.color.transparent))
-        layout.elevation = 0F
-        layout.addView(dialogInfoBinding.root, 0)
-        customSnackBar.show()
-    }*/
 
     private fun setAllKidsList(listData: ArrayList<AllKidsModel>) {
         allKidsList = listData
@@ -204,23 +190,27 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                 tvProfileName.textOrNull = data.name
                 tvCurrentCycleRange.textOrNull = data.activeAssignments.dateRange
 
-                setTodayTaskList(data.tasksToday, data)
+                viewModel.getCurrentCycleAssignment(kidId)
             }
         }
     }
 
-    private fun setYesterdayTaskList(assignmentsResponse: AllKidsModel.Assignments?) {
+    private fun setYesterdayTaskList(
+        assignmentsResponse: AllKidsModel.Assignments?,
+        activeTasksList: ArrayList<AssignmentsModel>
+    ) {
         dataBinding.apply {
             if (assignmentsResponse?.assignments?.isEmpty() == true) {
                 isYesterdayListEmpty = true
             } else {
                 isYesterdayListEmpty = false
-                activeTaskList = assignmentsResponse?.assignments.orEmpty().toArrayList()
+//                activeTaskList = assignmentsResponse?.assignments.orEmpty().toArrayList()
 
                 yesterdayTaskAdapter = YesterdayTaskAdapter(
                     requireContext(),
                     assignmentsResponse?.assignments.orEmpty().toArrayList(),
-                    activeTaskList,
+//                    activeTaskList,
+                    activeTasksList,
                     this@HomeFragment
                 )
 
@@ -241,7 +231,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
 
     private fun setTodayTaskList(
         todayAssignments: AllKidsModel.Assignments?,
-        kidsData: AllKidsModel?
+        currentCycleAssignments: ArrayList<AssignmentsModel>?
     ) {
         dataBinding.apply {
             if (todayAssignments?.assignments?.isEmpty() == true) {
@@ -254,7 +244,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                 todayAssignments?.assignments?.forEach { assignment ->
                     //for global task
                     if (assignment.globalChallengeId != null) {
-                        kidsData?.activeAssignments?.assignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
+                        currentCycleAssignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
                             ?.map {
                                 TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
                             }?.let { listStarTask ->
@@ -262,7 +252,7 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                             }
                         //for custom task
                     } else {
-                        kidsData?.activeAssignments?.assignments?.filter { it.challengeId == assignment.challengeId }
+                        currentCycleAssignments?.filter { it.challengeId == assignment.challengeId }
                             ?.map {
                                 TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
                             }?.let { listStarTask ->
@@ -297,7 +287,6 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     setKidData(allKidsList[position])
-                    viewModel.getYesterdayAssignment(allKidsList[position].id)
                 }
             })
     }

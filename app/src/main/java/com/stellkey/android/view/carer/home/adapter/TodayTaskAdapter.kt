@@ -27,7 +27,7 @@ import com.stellkey.android.view.carer.task.adapter.TaskStarAdapter
 
 class TodayTaskAdapter(
     context: Context,
-    todayTaskList: ArrayList<Pair<AssignmentsModel,List<TaskStarModel>>>,
+    todayTaskList: ArrayList<Pair<AssignmentsModel, List<TaskStarModel>>>,
     private val listener: Listener
 ) : RecyclerView.Adapter<TodayTaskAdapter.TodayTaskViewHolder>() {
 
@@ -38,7 +38,7 @@ class TodayTaskAdapter(
     private var isExpandChildList = emptyBoolean
 
     private lateinit var todayTaskChildAdapter: TodayTaskChildAdapter
-    private lateinit var taskStarAdapter : TaskStarAdapter
+    private lateinit var taskStarAdapter: TaskStarAdapter
     var todayTaskChildList = arrayListOf<AssignmentsModel>()
 
     interface Listener {
@@ -70,7 +70,12 @@ class TodayTaskAdapter(
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: TodayTaskViewHolder, position: Int) {
         holder.apply {
-            ivTodayChallenge.loadImage(itemList[position].first.icon, ImageCornerOptions.ROUNDED, 24)
+            notificationCount = 0
+            ivTodayChallenge.loadImage(
+                itemList[position].first.icon,
+                ImageCornerOptions.ROUNDED,
+                24
+            )
             tvChallengeName.textOrNull = itemList[position].first.title
             taskStarAdapter =
                 TaskStarAdapter(itemView.context, itemList[position].second.toArrayList())
@@ -83,37 +88,12 @@ class TodayTaskAdapter(
                 adapter = taskStarAdapter
             }
 
-            /*val sortedChildItemList = arrayListOf<AssignmentsModel>()
-            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-
-            val dateNow = LocalDateTime.now().format(formatter)
-            val dateNowFormatted = sdf.parse(dateNow)
-
-            itemList.forEach {
-                val itemDate = sdf.parse(it.assignDate)
-                val cmp = itemDate?.compareTo(dateNowFormatted).orEmpty
-
-                if (cmp == 0) {
-                    if (it.completedAt.isEmpty()) {
-                        notificationCount += 1
-                        sortedChildItemList.add(it)
-                    }
-                }
-            }*/
-
-            if (itemList[position].first.completedAt != null) {
-                if (itemList[position].first.confirmedAt != null)
-                    notificationCount = 0
-                else if (itemList[position].first.declinedAt != null)
-                    notificationCount = 0
-                else {
-                    notificationCount += 1
-                    notificationTotal += notificationCount
-                }
-            } else
+            if (itemList[position].first.completedAt != null && itemList[position].first.declinedAt == null && itemList[position].first.confirmedAt == null) {
+                notificationCount += 1
+                notificationTotal += 1
+            } else {
                 notificationCount = 0
-
+            }
             (contexts as HomeAct).setBadge(notificationTotal)
 
             if (notificationCount > 0) {
