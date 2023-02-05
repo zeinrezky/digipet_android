@@ -27,17 +27,18 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.adapter.HomeUserAdapter
 import com.stellkey.android.view.carer.home.adapter.NewTodayTaskAdapter
-import com.stellkey.android.view.carer.home.adapter.YesterdayTaskAdapter
+import com.stellkey.android.view.carer.home.adapter.NewYesterdayTaskAdapter
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
 
-class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener, YesterdayTaskAdapter.Listener {
+class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener,
+    NewYesterdayTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentHomeBinding
     private val viewModel by inject<HomeViewModel>()
 
-    private lateinit var yesterdayTaskAdapter: YesterdayTaskAdapter
+    private lateinit var yesterdayTaskAdapter: NewYesterdayTaskAdapter
     private lateinit var todayTaskAdapter: NewTodayTaskAdapter
     private lateinit var userSliderAdapter: HomeUserAdapter
 
@@ -195,21 +196,46 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener, YesterdayTask
     }
 
     private fun setYesterdayTaskList(
-        assignmentsResponse: AllKidsModel.Assignments?,
-        activeTasksList: ArrayList<AssignmentsModel>
+        yesterdayAssignments: AllKidsModel.Assignments?,
+        currentCycleAssignments: ArrayList<AssignmentsModel>?
     ) {
         dataBinding.apply {
-            if (assignmentsResponse?.assignments?.isEmpty() == true) {
+            if (yesterdayAssignments?.assignments?.isEmpty() == true && yesterdayAssignments.oldAssignments.isEmpty()) {
                 isYesterdayListEmpty = true
             } else {
                 isYesterdayListEmpty = false
-//                activeTaskList = assignmentsResponse?.assignments.orEmpty().toArrayList()
 
-                yesterdayTaskAdapter = YesterdayTaskAdapter(
-                    requireContext(),
-                    assignmentsResponse?.assignments.orEmpty().toArrayList(),
-//                    activeTaskList,
-                    activeTasksList,
+                val groupedActiveTask =
+                    mutableListOf<Pair<AssignmentsModel, List<AssignmentsModel>>>()
+
+                // assignments // cross check with current cycle assignments
+                if ((yesterdayAssignments?.assignments?.size ?: 0) > 0) {
+                    yesterdayAssignments?.assignments?.forEach { assignment ->
+                        //for global task
+                        if (assignment.globalChallengeId != null) {
+                            currentCycleAssignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
+                                ?.let { listChildAssignments ->
+                                    groupedActiveTask.add(Pair(assignment, listChildAssignments))
+                                }
+                        } else {
+                            //for custom task
+                            currentCycleAssignments?.filter { it.challengeId == assignment.challengeId }
+                                ?.let { listChildAssignments ->
+                                    groupedActiveTask.add(Pair(assignment, listChildAssignments))
+                                }
+                        }
+                    }
+                } else {
+                    //old assignments
+                    yesterdayAssignments?.oldAssignments?.groupBy {
+                        it.globalChallengeId ?: it.challengeId
+                    }?.forEach {
+                        groupedActiveTask.add(Pair(it.value.first(), it.value))
+                    }
+                }
+
+                yesterdayTaskAdapter = NewYesterdayTaskAdapter(
+                    groupedActiveTask.toArrayList(),
                     this@HomeFragment
                 )
 
@@ -224,7 +250,6 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener, YesterdayTask
             }
 
             validateListVisibility()
-
         }
     }
 
@@ -409,10 +434,6 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener, YesterdayTask
     }
 
     //Yesterday Task
-    override fun onYesterdayTaskItemClicked(data: AssignmentsModel) {
-
-    }
-
     override fun onYesterdayTaskItemApproved(data: AssignmentsModel) {
         viewModel.postConfirmKidTaskWithoutCompletion(AssignmentActionRequest(assignmentId = data.id))
     }

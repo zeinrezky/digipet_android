@@ -20,9 +20,9 @@ data class AssignmentsModel(
     @SerializedName("createdById")
     var createdById: Int,
     @SerializedName("confirmedById")
-    var confirmedById: Int,
+    var confirmedById: Int?,
     @SerializedName("declinedById")
-    var declinedById: Int,
+    var declinedById: Int?,
     @SerializedName("completedAt")
     var completedAt: String?,
     @SerializedName("confirmedAt")
@@ -38,9 +38,9 @@ data class AssignmentsModel(
     @SerializedName("remindedAt")
     var remindedAt: String,
     @SerializedName("challenge")
-    var challenge: CustomChallengeModel,
+    var challenge: CustomChallengeModel?,
     @SerializedName("globalChallenge")
-    var globalChallenge: GlobalChallengeModel,
+    var globalChallenge: GlobalChallengeModel?,
     @SerializedName("formattedDate")
     var formattedDate: String,
     @SerializedName("title")
