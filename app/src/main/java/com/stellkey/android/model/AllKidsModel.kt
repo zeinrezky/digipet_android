@@ -73,6 +73,8 @@ data class AllKidsModel(
         var dateRange: String,
         @SerializedName("assignments")
         var assignments: ArrayList<AssignmentsModel>,
+        @SerializedName("oldAssignments")
+        var oldAssignments: ArrayList<AssignmentsModel>,
         @SerializedName("suggested")
         var suggested: Any
     )

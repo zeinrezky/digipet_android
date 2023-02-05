@@ -48,7 +48,7 @@
                     android:layout_width="@dimen/space_x3"
                     android:layout_height="@dimen/space_x3"
                     android:src="@drawable/ic_oval_notification"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="@id/tvNotificationCount"
                     app:layout_constraintEnd_toEndOf="@id/tvNotificationCount"
                     app:layout_constraintStart_toStartOf="@id/tvNotificationCount"
@@ -64,7 +64,7 @@
                     android:textAlignment="center"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:visibility="invisible"
+                    android:visibility="visible"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="1" />
@@ -97,7 +97,7 @@
                 android:layout_marginTop="@dimen/space_x2"
                 android:layout_marginEnd="@dimen/space_x2"
                 android:src="@drawable/ic_arrow_down"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,7 +124,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_x1"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvKidChallenge">

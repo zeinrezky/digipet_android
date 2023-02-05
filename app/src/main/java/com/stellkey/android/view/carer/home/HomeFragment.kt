@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -21,25 +20,25 @@ import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.model.TaskChildModel
 import com.stellkey.android.model.TaskStarModel
 import com.stellkey.android.model.request.AssignmentActionRequest
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.adapter.HomeUserAdapter
-import com.stellkey.android.view.carer.home.adapter.TodayTaskAdapter
+import com.stellkey.android.view.carer.home.adapter.NewTodayTaskAdapter
 import com.stellkey.android.view.carer.home.adapter.YesterdayTaskAdapter
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
-class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAdapter.Listener {
+class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener, YesterdayTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentHomeBinding
     private val viewModel by inject<HomeViewModel>()
 
     private lateinit var yesterdayTaskAdapter: YesterdayTaskAdapter
-    private lateinit var todayTaskAdapter: TodayTaskAdapter
+    private lateinit var todayTaskAdapter: NewTodayTaskAdapter
     private lateinit var userSliderAdapter: HomeUserAdapter
 
     private var allKidsList = arrayListOf<AllKidsModel>()
@@ -234,36 +233,117 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
         currentCycleAssignments: ArrayList<AssignmentsModel>?
     ) {
         dataBinding.apply {
-            if (todayAssignments?.assignments?.isEmpty() == true) {
+            if (todayAssignments?.assignments?.isEmpty() == true && todayAssignments.oldAssignments.isEmpty()) {
                 isTodayListEmpty = true
             } else {
                 isTodayListEmpty = false
 
                 val groupedActiveTask = mutableListOf<Pair<AssignmentsModel, List<TaskStarModel>>>()
+                val childActiveTask = ArrayList<List<AssignmentsModel>>()
 
-                todayAssignments?.assignments?.forEach { assignment ->
-                    //for global task
-                    if (assignment.globalChallengeId != null) {
-                        currentCycleAssignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
-                            ?.map {
-                                TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
-                            }?.let { listStarTask ->
-                                groupedActiveTask.add(Pair(assignment, listStarTask))
-                            }
-                        //for custom task
-                    } else {
-                        currentCycleAssignments?.filter { it.challengeId == assignment.challengeId }
-                            ?.map {
-                                TaskStarModel(isCompleted = it.completedAt != null && it.confirmedAt != null)
-                            }?.let { listStarTask ->
-                                groupedActiveTask.add(Pair(assignment, listStarTask))
-                            }
+                if ((todayAssignments?.assignments?.size ?: 0) > 0) {
+                    // assignments
+                    todayAssignments?.assignments?.forEach { assignment ->
+                        //for global task
+                        if (assignment.globalChallengeId != null) {
+                            currentCycleAssignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
+                                ?.map {
+                                    TaskStarModel(
+                                        isCompleted = it.completedAt != null && it.confirmedAt != null,
+                                        taskChildModel = TaskChildModel(
+                                            idTask = it.id,
+                                            dateAssignments = it.assignDate,
+                                            completedAt = it.completedAt,
+                                            confirmedAt = it.confirmedAt
+                                        )
+                                    )
+                                }?.let { listStarTask ->
+                                    childActiveTask.add(todayAssignments.assignments.filter { it.globalChallengeId == assignment.globalChallengeId })
+                                    groupedActiveTask.add(
+                                        Pair(
+                                            assignment,
+                                            listStarTask
+                                        )
+                                    )
+                                }
+                            //for custom task
+                        } else {
+                            currentCycleAssignments?.filter { it.challengeId == assignment.challengeId }
+                                ?.map {
+                                    TaskStarModel(
+                                        isCompleted = it.completedAt != null && it.confirmedAt != null,
+                                        taskChildModel = TaskChildModel(
+                                            idTask = it.id,
+                                            dateAssignments = it.assignDate,
+                                            completedAt = it.completedAt,
+                                            confirmedAt = it.confirmedAt
+                                        )
+                                    )
+                                }?.let { listStarTask ->
+                                    childActiveTask.add(todayAssignments.assignments.filter { it.challengeId == assignment.challengeId })
+                                    groupedActiveTask.add(
+                                        Pair(
+                                            assignment,
+                                            listStarTask
+                                        )
+                                    )
+                                }
+                        }
+                    }
+                } else {
+                    // old assignments
+                    todayAssignments?.oldAssignments?.forEach { assignment ->
+                        //for global task
+                        if (assignment.globalChallengeId != null) {
+                            currentCycleAssignments?.filter { it.globalChallengeId == assignment.globalChallengeId }
+                                ?.map {
+                                    TaskStarModel(
+                                        isCompleted = it.completedAt != null && it.confirmedAt != null,
+                                        taskChildModel = TaskChildModel(
+                                            idTask = it.id,
+                                            dateAssignments = it.assignDate,
+                                            completedAt = it.completedAt,
+                                            confirmedAt = it.confirmedAt
+                                        )
+                                    )
+                                }?.let { listStarTask ->
+                                    childActiveTask.add(todayAssignments.oldAssignments.filter { it.globalChallengeId == assignment.globalChallengeId })
+                                    groupedActiveTask.add(
+                                        Pair(
+                                            assignment,
+                                            listStarTask
+                                        )
+                                    )
+                                }
+                            //for custom task
+                        } else {
+                            currentCycleAssignments?.filter { it.challengeId == assignment.challengeId }
+                                ?.map {
+                                    TaskStarModel(
+                                        isCompleted = it.completedAt != null && it.confirmedAt != null,
+                                        taskChildModel = TaskChildModel(
+                                            idTask = it.id,
+                                            dateAssignments = it.assignDate,
+                                            completedAt = it.completedAt,
+                                            confirmedAt = it.confirmedAt
+                                        )
+                                    )
+                                }?.let { listStarTask ->
+                                    childActiveTask.add(todayAssignments.oldAssignments.filter { it.globalChallengeId == assignment.globalChallengeId })
+                                    groupedActiveTask.add(
+                                        Pair(
+                                            assignment,
+                                            listStarTask
+                                        )
+                                    )
+                                }
+                        }
                     }
                 }
 
-                todayTaskAdapter = TodayTaskAdapter(
-                    requireContext(),
+                todayTaskAdapter = NewTodayTaskAdapter(
                     groupedActiveTask.toArrayList(),
+                    childActiveTask,
                     this@HomeFragment
                 )
 
@@ -320,8 +400,6 @@ class HomeFragment : BaseFragment(), TodayTaskAdapter.Listener, YesterdayTaskAda
     }
 
     //Today Task
-    override fun onTodayTaskItemClicked(data: AssignmentsModel) {}
-
     override fun onTodayTaskItemApproved(data: AssignmentsModel) {
         viewModel.postConfirmKidTaskCompletion(AssignmentActionRequest(assignmentId = data.id))
     }
