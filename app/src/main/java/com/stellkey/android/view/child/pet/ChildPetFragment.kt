@@ -68,6 +68,7 @@ class ChildPetFragment : BaseFragment() {
             }
 
             kidPetStore.observe(viewLifecycleOwner) {
+                petStoreList.clear()
                 petStoreList.addAll(it)
             }
         }
@@ -150,9 +151,11 @@ class ChildPetFragment : BaseFragment() {
                 }
             }
             initAnimation()
+
         }
 
         override fun onPetstoreBuy(onBuy: PetStore) {
+            viewModel.getKidInfo()
             viewModel.getKidPetstoreList()
         }
     }
