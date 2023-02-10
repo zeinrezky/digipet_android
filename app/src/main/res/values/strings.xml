@@ -165,6 +165,7 @@
     <string name="add_a_reward">Add a reward</string>
     <string name="two_stars_reward">2-star reward</string>
     <string name="eight_stars_reward">8-star reward</string>
+    <string name="stars_reward">%s-star reward</string>
     <string name="recommended_rewards">Recommended rewards</string>
     <string name="reward">Reward</string>
     <string name="custom_reward">Custom reward</string>

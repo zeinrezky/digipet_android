@@ -120,7 +120,9 @@ class AddTaskDetailFragment : BaseFragment() {
                 dataBinding.apply {
                     it?.forEach {
                         if (it.id == AppPreference.getTempSelectedCategoryId())
-                            tvCategoryName.textOrNull = it.title
+                            tvCategoryName.textOrNull = if (AppPreference.getCarerLocale()
+                                    .equals("en")
+                            ) it.title else it.titleFr
                     }
                 }
             }

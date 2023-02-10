@@ -42,7 +42,7 @@ class GroupedTaskChildAdapter(
         holder.apply {
             ivChallenge.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 20)
             tvChallengeName.textOrNull =
-                if (localLanguage) itemList[position].title else itemList[position].titleFr
+                if (!localLanguage && itemList[position].isGlobal) itemList[position].titleFr else itemList[position].title
         }
 
         holder.itemView.setOnClickListener {

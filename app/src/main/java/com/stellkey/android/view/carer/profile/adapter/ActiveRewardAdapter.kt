@@ -3,8 +3,10 @@ package com.stellkey.android.view.carer.profile.adapter
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.stellkey.android.R
 import com.stellkey.android.databinding.ItemProfileKidRewardBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.RewardModel
@@ -24,7 +26,7 @@ class ActiveRewardAdapter(
         @SuppressLint("SetTextI18n")
         fun bind(item: RewardModel) {
             binding.ivProfileReward.loadImage(item.icon)
-            binding.tvRewardType.text = "${item.star_cost}-star reward"
+            binding.tvRewardType.text = binding.root.resources.getString(R.string.stars_reward, item.star_cost.toString())
             binding.tvRewardName.text = if(localLanguage) item.title else item.titleFr
         }
     }

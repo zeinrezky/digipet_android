@@ -132,7 +132,7 @@
     <string name="or_via_qr_code">Ou avec un QR code</string>
     <string name="login_choose_profile_title">Choisir un profil</string>
     <string name="cant_find_profile">Vous ne trouvez pas votre profil?</string>
-    <string name="login_pin_title">Enter PIN</string>
+    <string name="login_pin_title">Entre ton PIN</string>
     <string name="forget_pin_question">Forget PIN?</string>
 
     <!-- Home -->
@@ -166,6 +166,7 @@
     <string name="add_a_reward">Add a reward</string>
     <string name="two_stars_reward">Récompense 2 étoiles</string>
     <string name="eight_stars_reward">Récompense 8 étoiles</string>
+    <string name="stars_reward">Récompense %s étoiles</string>
     <string name="recommended_rewards">Récompenses recommandées</string>
     <string name="reward">Récompenses</string>
     <string name="custom_reward">Récompenses personnalisées</string>

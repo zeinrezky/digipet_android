@@ -131,7 +131,9 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
     override fun onItemClicked(data: RecommendedTaskModel) {
         AppPreference.putTempSelectedGlobalChallengeId(data.id)
         AppPreference.putTempSelectedCategoryId(data.challengeCatId)
-        AppPreference.putTempSelectedChallengeName(data.title)
+        val localLanguage = AppPreference.getCarerLocale() == "en"
+        val title = if (!localLanguage) data.titleFr else data.title
+        AppPreference.putTempSelectedChallengeName(title)
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = false
         AddTaskDetailFragment.isGlobalTask = true
@@ -145,7 +147,9 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         AppPreference.putTempSelectedGlobalChallengeId(data.id)
         AppPreference.putTempSelectedChallengeId(data.id)
         AppPreference.putTempSelectedCategoryId(data.challengeCatId)
-        AppPreference.putTempSelectedChallengeName(if (AppPreference.getCarerLocale() == "en") data.title else data.titleFr)
+        val localLanguage = AppPreference.getCarerLocale() == "en"
+        val title = if (!localLanguage && data.isGlobal) data.titleFr else data.title
+        AppPreference.putTempSelectedChallengeName(title)
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = false
         AddTaskDetailFragment.isGlobalTask = data.isGlobal
