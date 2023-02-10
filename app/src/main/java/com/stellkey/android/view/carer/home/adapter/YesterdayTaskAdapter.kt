@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.stellkey.android.R
 import com.stellkey.android.helper.extension.*
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SwipeToActionCallback
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -64,10 +65,13 @@ class YesterdayTaskAdapter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: YesterdayTaskViewHolder, position: Int) {
+        val localLanguage = AppPreference.getCarerLocale() == "en"
+
         holder.apply {
             notificationCount = 0
             ivTodayChallenge.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 24)
-            tvChallengeName.textOrNull = itemList[position].title
+            tvChallengeName.textOrNull =
+                if (localLanguage) itemList[position].title else itemList[position].titleFr
 
             val sortedChildItemList = arrayListOf<AssignmentsModel>()
             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())

@@ -9,6 +9,7 @@ import com.stellkey.android.databinding.ItemKidProgressBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.TaskStarModel
+import com.stellkey.android.util.AppPreference
 
 /**
  * @author Nicolas Manurung (nicolas.manurung@dana.id)
@@ -22,9 +23,9 @@ class MyProgressAdapter(
 
     inner class MyProgressViewHolder(private val binding: ItemKidProgressBinding) :
         ViewHolder(binding.root) {
-
+        private val localLanguage = AppPreference.getCarerLocale() == "en"
         fun bind(assignment: AssignmentsModel, listProgressStar: List<TaskStarModel>) {
-            binding.tvTaskName.text = assignment.title
+            binding.tvTaskName.text = if (localLanguage) assignment.title else assignment.titleFr
             binding.ivTask.loadImage(assignment.icon)
             myProgressStarAdapter = MyProgressStarAdapter(listProgressStar)
             binding.rvProgressStarPart.apply {

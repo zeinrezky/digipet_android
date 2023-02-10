@@ -292,6 +292,7 @@ class SettingFragment : BaseFragment() {
             dataBinding.cvFrench -> {
                 selectedLocale = "fr"
                 setLanguageButton(selectedLocale)
+                AppPreference.getCarerLocale()
                 viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
             }
             dataBinding.cvEnglish -> {

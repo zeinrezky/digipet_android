@@ -45,6 +45,8 @@ data class AssignmentsModel(
     var formattedDate: String,
     @SerializedName("title")
     var title: String,
+    @SerializedName("titleFr")
+    var titleFr: String = "",
     @SerializedName("icon")
     var icon: String
 

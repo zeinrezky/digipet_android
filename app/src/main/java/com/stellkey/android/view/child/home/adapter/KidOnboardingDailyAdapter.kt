@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.stellkey.android.databinding.ItemOnboardingDailyTaskBinding
 import com.stellkey.android.helper.extension.loadFromUrl
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.util.AppPreference
 
 
 class KidOnboardingDailyAdapter(
@@ -17,10 +18,11 @@ class KidOnboardingDailyAdapter(
 
     inner class KidOnboardingDailyViewHolder(private val binding: ItemOnboardingDailyTaskBinding) :
         ViewHolder(binding.root) {
+        private val localLanguage = AppPreference.getCarerLocale() == "en"
         fun bind(item: AssignmentsModel) {
             binding.apply {
                 ivTask.loadFromUrl(item.icon)
-                tvTodayTaskName.text = item.title
+                tvTodayTaskName.text = if (localLanguage) item.title else item.titleFr
                 ivDoneBtn.setOnClickListener {
                     onItemClick.invoke(item)
                 }

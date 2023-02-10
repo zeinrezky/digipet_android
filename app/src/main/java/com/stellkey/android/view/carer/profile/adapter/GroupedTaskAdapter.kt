@@ -13,6 +13,7 @@ import com.stellkey.android.helper.extension.emptyBoolean
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.CategorizedTaskModel
 import com.stellkey.android.model.TaskModel
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.carer.task.adapter.AddCustomTaskAdapter
 
 class GroupedTaskAdapter(
@@ -52,7 +53,7 @@ class GroupedTaskAdapter(
 
     inner class GroupedTaskViewHolder(private val binding: ItemGroupedTaskBinding) :
         RecyclerView.ViewHolder(binding.root) {
-
+        private val localLanguage = AppPreference.getCarerLocale() == "en"
         fun bind(item: CategorizedTaskModel) {
             val addedCatTaskList = item.tasks
 
@@ -61,7 +62,7 @@ class GroupedTaskAdapter(
             }
 
             binding.apply {
-                tvCategoryName.textOrNull = item.title
+                tvCategoryName.textOrNull = if (localLanguage) item.title else item.titleFr
 
                 ivExpand.apply {
                     isVisible = true

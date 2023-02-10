@@ -473,7 +473,7 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
     private fun setOnClick() {
         dataBinding.apply {
             ivExpandPremiumUpgrade.setOnClickListener(onClickCallback)
-            ivExpandSetting.setOnClickListener(onClickCallback)
+            clSetting.setOnClickListener(onClickCallback)
             tvLogActivity.setOnClickListener(onClickCallback)
             tvClearLogActivity.setOnClickListener(onClickCallback)
             clCustomTask.setOnClickListener(onClickCallback)
@@ -512,7 +512,7 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
                     }
                 }
             }
-            dataBinding.ivExpandSetting -> {
+            dataBinding.clSetting -> {
                 addFragment(SettingFragment.newInstance())
             }
             dataBinding.tvLogActivity -> {

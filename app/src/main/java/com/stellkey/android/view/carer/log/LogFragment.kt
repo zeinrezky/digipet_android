@@ -28,8 +28,6 @@ import org.koin.android.ext.android.inject
 class LogFragment : BaseFragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var dataBinding: FragmentLogBinding
-
-    //private val binding by viewBinding<FragmentLogBinding>()
     private val viewModel by inject<LogViewModel>()
 
     private lateinit var carerLogAdapter: LogAdapter

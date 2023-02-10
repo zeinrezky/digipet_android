@@ -39,8 +39,7 @@ class LogAdapter(
                     tvCarerLog.textOrNull = itemList[position].description
                 }
                 Constant.LogType.CARER_CONFIRM_ASSIGNMENT -> {
-                    tvName.textOrNull =
-                        if (AppPreference.getLoggedInCarerName() == itemList[position].carer.name) "You" else itemList[position].carer.name
+                    tvName.textOrNull = if (AppPreference.getLoggedInCarerName() == itemList[position].carer.name) "You" else itemList[position].carer.name
                     tvCarerLog.textOrNull = itemList[position].description
                 }
                 Constant.LogType.KID_COMPLETED_TASK -> {

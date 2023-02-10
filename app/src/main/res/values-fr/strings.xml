@@ -48,9 +48,9 @@
     <string name="change">Change</string>
     <string name="upgrade">Upgrade</string>
     <string name="infinity">&#8734;</string>
-    <string name="sound">Sound</string>
+    <string name="sound">Son</string>
     <string name="notification">Notification</string>
-    <string name="language">Language</string>
+    <string name="language">Langue</string>
     <string name="save_changes">Save Changes</string>
     <string name="old_password">Old Password</string>
     <string name="new_password_placeholder">New Password</string>
@@ -143,7 +143,7 @@
     <string name="no_task_reward_approval">There\'s no task or reward approval</string>
 
     <!-- Family -->
-    <string name="my_family">My Family</string>
+    <string name="my_family">Ma Famille</string>
     <string name="swipe_left_to_delete_profile">Glisser vers la gauche pour supprimer une mission</string>
     <string name="add_a_member">Ajoutez quelqu\'un</string>
     <string name="add_kid_enter_pin">Enter a PIN for your\nkid\'s profile</string>

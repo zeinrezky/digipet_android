@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.stellkey.android.databinding.ItemProfileKidRewardBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.RewardModel
+import com.stellkey.android.util.AppPreference
 
 /**
  * @author Nicolas Manurung (nicolas.manurung@dana.id)
@@ -19,12 +20,12 @@ class ActiveRewardAdapter(
 
     inner class ActiveRewardViewHolder(private val binding: ItemProfileKidRewardBinding) :
         ViewHolder(binding.root) {
-
+        private val localLanguage = AppPreference.getCarerLocale() == "en"
         @SuppressLint("SetTextI18n")
         fun bind(item: RewardModel) {
             binding.ivProfileReward.loadImage(item.icon)
             binding.tvRewardType.text = "${item.star_cost}-star reward"
-            binding.tvRewardName.text = item.title
+            binding.tvRewardName.text = if(localLanguage) item.title else item.titleFr
         }
     }
 

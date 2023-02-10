@@ -15,6 +15,7 @@ import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
 import com.stellkey.android.model.TaskStarModel
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SwipeToActionCallback
 import com.stellkey.android.view.carer.task.adapter.TaskStarAdapter
 
@@ -41,6 +42,7 @@ class NewTodayTaskAdapter(
             starTaskItem: List<TaskStarModel>,
             childAssignmentItem: List<AssignmentsModel>
         ) {
+            val localLanguage = AppPreference.getCarerLocale() == "en"
             binding.apply {
                 ivTodayChallenge.loadImage(
                     assignmentItem.icon,
@@ -48,7 +50,7 @@ class NewTodayTaskAdapter(
                     24
                 )
 
-                tvChallengeName.textOrNull = assignmentItem.title
+                tvChallengeName.textOrNull = if (localLanguage) assignmentItem.title else assignmentItem.titleFr
                 rvAssignmentStar.apply {
                     layoutManager = LinearLayoutManager(
                         itemView.context, LinearLayoutManager.HORIZONTAL,

@@ -38,7 +38,7 @@ import com.stellkey.android.view.carer.profile.CarerProfileFragment
 import com.stellkey.android.view.carer.profile.KidProfileFragment
 import org.koin.android.ext.android.inject
 
-class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapter.Listener{
+class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapter.Listener {
 
     private lateinit var dataBinding: FragmentFamilyBinding
 
@@ -135,9 +135,9 @@ class FamilyFragment : BaseFragment(), FamilyTypeAdapter.Listener, KidListAdapte
 
         dataBinding.apply {
             val familyTypeList = arrayListOf<FamilyTypeModel>()
-            familyTypeList.add(FamilyTypeModel(Constant.FamilyType.KIDS))
-            familyTypeList.add(FamilyTypeModel(Constant.FamilyType.CARERS))
-            familyTypeList.add(FamilyTypeModel(Constant.FamilyType.ADMIN))
+            familyTypeList.add(FamilyTypeModel(getString(R.string.kids)))
+            familyTypeList.add(FamilyTypeModel(getString(R.string.carers)))
+            familyTypeList.add(FamilyTypeModel(getString(R.string.admin)))
 
             familyTypeAdapter = FamilyTypeAdapter(
                 requireContext(),

@@ -22,7 +22,7 @@ import com.stellkey.android.view.carer.profile.adapter.RecommendedTaskAdapter
 import org.koin.android.ext.android.inject
 
 class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
-                        GroupedTaskAdapter.Listener {
+    GroupedTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentAddTaskBinding
 
@@ -145,7 +145,7 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         AppPreference.putTempSelectedGlobalChallengeId(data.id)
         AppPreference.putTempSelectedChallengeId(data.id)
         AppPreference.putTempSelectedCategoryId(data.challengeCatId)
-        AppPreference.putTempSelectedChallengeName(data.title)
+        AppPreference.putTempSelectedChallengeName(if (AppPreference.getCarerLocale() == "en") data.title else data.titleFr)
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = false
         AddTaskDetailFragment.isGlobalTask = data.isGlobal

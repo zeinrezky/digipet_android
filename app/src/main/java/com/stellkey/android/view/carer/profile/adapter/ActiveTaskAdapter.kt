@@ -52,13 +52,15 @@ class ActiveTaskAdapter(
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ActiveTaskViewHolder, position: Int) {
+        val localLanguage = AppPreference.getCarerLocale() == "en"
         holder.apply {
             ivTodayChallenge.loadImage(
                 itemList[position].first.icon,
                 ImageCornerOptions.ROUNDED,
                 24
             )
-            tvChallengeName.textOrNull = itemList[position].first.title
+            tvChallengeName.textOrNull =
+                if (localLanguage) itemList[position].first.title else itemList[position].first.titleFr
 
             taskStarAdapter =
                 TaskStarAdapter(itemView.context, itemList[position].second.toArrayList())

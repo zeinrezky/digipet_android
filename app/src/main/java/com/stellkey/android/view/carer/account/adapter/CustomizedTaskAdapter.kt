@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.stellkey.android.databinding.ItemCustomisedTaskBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.CustomChallengeModel
+import com.stellkey.android.util.AppPreference
+import com.stellkey.android.view.carer.home.HomeAct
+import com.zeugmasolutions.localehelper.Locales
 
 /**
  * @author Nicolas Manurung (nicolas.manurung@dana.id)
@@ -26,8 +29,10 @@ class CustomizedTaskAdapter(
         ViewHolder(binding.root) {
 
         fun bind(item: CustomChallengeModel) {
+            val languageLocal = AppPreference.getCarerLocale() == "en"
             binding.ivChallenge.loadImage(item.challengeCat.icon)
-            binding.tvChallengeCategory.text = item.challengeCat.title
+            binding.tvChallengeCategory.text =
+                if (languageLocal) item.challengeCat.title else item.challengeCat.titleFr
             binding.tvChallengeName.text = item.title
             itemView.setOnClickListener {
                 listener.onChallengeClicked(item)

@@ -14,6 +14,7 @@ import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.RewardModel
+import com.stellkey.android.util.AppPreference
 
 class RecommendedRewardAdapter(
     context: Context,
@@ -50,6 +51,7 @@ class RecommendedRewardAdapter(
     }
 
     override fun onBindViewHolder(holder: RewardListViewHolder, position: Int) {
+        val localLanguage = AppPreference.getCarerLocale() == "en"
         holder.apply {
             if (itemList[position].isSelected)
                 cvKidReward.setCardBackgroundColor(
@@ -66,7 +68,7 @@ class RecommendedRewardAdapter(
                 listener.onItemClicked(itemList[position])
             }
             ivReward.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 100)
-            tvRewardName.textOrNull = itemList[position].title
+            tvRewardName.textOrNull = if(localLanguage) itemList[position].title else itemList[position].titleFr
             tvStarAmount.textOrNull = itemList[position].star_cost.toString()
         }
     }

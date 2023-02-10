@@ -14,6 +14,7 @@ import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.util.AppPreference
 import com.stellkey.android.util.SwipeToActionCallback
 
 
@@ -38,6 +39,8 @@ class NewYesterdayTaskAdapter(
             assignmentItem: AssignmentsModel,
             childAssignmentItem: List<AssignmentsModel>
         ) {
+
+            val localLanguage = AppPreference.getCarerLocale() == "en"
             binding.apply {
                 ivTodayChallenge.loadImage(
                     assignmentItem.icon,
@@ -45,7 +48,7 @@ class NewYesterdayTaskAdapter(
                     24
                 )
 
-                tvChallengeName.textOrNull = assignmentItem.title
+                tvChallengeName.textOrNull = if(localLanguage)assignmentItem.title else assignmentItem.titleFr
 
                 if (childAssignmentItem.isNotEmpty()) {
                     setVisibleNotificationCount(true, childAssignmentItem.size)

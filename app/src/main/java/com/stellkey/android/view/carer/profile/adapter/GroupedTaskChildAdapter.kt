@@ -12,6 +12,7 @@ import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.TaskModel
+import com.stellkey.android.util.AppPreference
 
 class GroupedTaskChildAdapter(
     context: Context,
@@ -37,9 +38,11 @@ class GroupedTaskChildAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        val localLanguage = AppPreference.getCarerLocale() == "en"
         holder.apply {
             ivChallenge.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 20)
-            tvChallengeName.textOrNull = itemList[position].title
+            tvChallengeName.textOrNull =
+                if (localLanguage) itemList[position].title else itemList[position].titleFr
         }
 
         holder.itemView.setOnClickListener {

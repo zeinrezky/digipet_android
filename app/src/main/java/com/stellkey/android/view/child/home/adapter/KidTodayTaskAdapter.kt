@@ -13,6 +13,7 @@ import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AssignmentsModel
+import com.stellkey.android.util.AppPreference
 
 class KidTodayTaskAdapter(
     todayTaskList: ArrayList<AssignmentsModel>,
@@ -31,10 +32,11 @@ class KidTodayTaskAdapter(
 
     inner class KidTodayTaskViewHolder(private val binding: ItemKidTodayTaskBinding) :
         ViewHolder(binding.root) {
+        private val localLanguage = AppPreference.getCarerLocale() == "en"
         fun bind(item: AssignmentsModel) {
             binding.apply {
                 ivTodayTask.loadImage(item.icon, ImageCornerOptions.ROUNDED, 24)
-                tvTodayTaskName.textOrNull = item.title
+                tvTodayTaskName.textOrNull = if (localLanguage) item.title else item.titleFr
 
                 // completed
                 if (item.completedAt != null && item.confirmedAt != null) {

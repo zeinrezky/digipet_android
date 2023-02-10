@@ -13,6 +13,7 @@ import com.stellkey.android.helper.extension.ImageCornerOptions
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.RecommendedTaskModel
+import com.stellkey.android.util.AppPreference
 
 class RecommendedTaskAdapter(
     context: Context,
@@ -38,12 +39,14 @@ class RecommendedTaskAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
+        val localLanguage = AppPreference.getCarerLocale() == "en"
         holder.apply {
             cvKidChallenge.setOnClickListener {
                 listener.onItemClicked(itemList[position])
             }
             ivChallenge.loadImage(itemList[position].icon, ImageCornerOptions.ROUNDED, 100)
-            tvChallengeName.textOrNull = itemList[position].title
+            tvChallengeName.textOrNull =
+                if (localLanguage) itemList[position].title else itemList[position].titleFr
         }
     }
 
