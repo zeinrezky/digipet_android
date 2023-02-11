@@ -9,6 +9,7 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.ItemKidAchievementBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.BadgesModel
+import com.stellkey.android.util.AppPreference
 
 class BadgeAdapter(
     var listOfBadge: ArrayList<BadgesModel>
@@ -16,9 +17,12 @@ class BadgeAdapter(
 
     inner class BadgeViewHolder(private val binding: ItemKidAchievementBinding) :
         ViewHolder(binding.root) {
+
+        private val localeLanguage = AppPreference.getKidLocale() == "en"
         fun bind(item: BadgesModel) {
             binding.ivAchievementStatus.loadImage(item.icon)
-            binding.tvAchievementName.text = item.description
+            binding.tvAchievementName.text =
+                if (localeLanguage) item.description else item.descriptionFr
             if (item.isOwned) {
                 binding.ivAchievementStatus.clearColorFilter()
             } else {

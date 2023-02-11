@@ -10,8 +10,8 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.ItemKidLogBinding
 import com.stellkey.android.databinding.ItemLogDescriptionBinding
 import com.stellkey.android.helper.extension.append
-import com.stellkey.android.helper.extension.formatDate
 import com.stellkey.android.model.KidLogModel
+import com.stellkey.android.util.AppPreference
 
 class ChildLogAdapter(
     var listLogs: ArrayList<Pair<String, List<KidLogModel>>> // date / list item log
@@ -46,6 +46,7 @@ class ChildLogAdapter(
 
         inner class ChildLogItemViewHolder(private val binding: ItemLogDescriptionBinding) :
             ViewHolder(binding.root) {
+            val localeLanguage = AppPreference.getKidLocale() == "en"
 
             @SuppressLint("SetTextI18n")
             fun bind(item: KidLogModel, position: Int) {
@@ -53,43 +54,76 @@ class ChildLogAdapter(
                     LOG_TYPE_CONFIRM_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your "
+                                "$position." + binding.root.context.getString(
+                                    R.string.kid_log_approved,
+                                    item.carer.name
+                                )
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalChallenge?.title?.let {
-                            binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(
+                                        R.string.kid_log_approved,
+                                        item.carer.name
+                                    )
+                                append(title, R.color.colorPrimary)
+                            }
                         }
                     }
 
                     LOG_TYPE_DECLINE_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your "
+                                "$position." + binding.root.context.getString(
+                                    R.string.kid_log_decline,
+                                    item.carer.name
+                                )
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalChallenge?.title?.let {
-                            binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(
+                                        R.string.kid_log_decline,
+                                        item.carer.name
+                                    )
+                                append(title, R.color.colorPrimary)
+                            }
                         }
                     }
 
                     LOG_TYPE_COMPLETED_ASSIGNMENT -> {
                         item.challenge?.title?.let {
-                            binding.tvLogDescription.text = "$position.You completed "
+                            binding.tvLogDescription.text =
+                                "$position." + binding.root.context.getString(R.string.kid_log_completed)
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalChallenge?.title?.let {
-                            binding.tvLogDescription.text = "$position.You completed "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(R.string.kid_log_completed)
+                                append(title, R.color.colorPrimary)
+                            }
                         }
                     }
 
                     LOG_TYPE_REDEEM_REWARD -> {
                         item.reward?.star_cost?.let {
-                            binding.tvLogDescription.text = "$position.You collected "
+                            binding.tvLogDescription.text =
+                                "$position." + binding.root.context.getString(R.string.kid_log_collected)
                             binding.tvLogDescription.append(it.toString(), R.color.colorPrimary)
                         }
                     }
@@ -97,39 +131,74 @@ class ChildLogAdapter(
                     LOG_TYPE_CREATED_ASSIGNMENT -> {
                         item.challenge?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " create "
+                                "$position." + binding.root.context.getString(
+                                    R.string.kid_log_created,
+                                    item.carer.name
+                                )
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalChallenge?.title?.let {
-                            binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " create "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(
+                                        R.string.kid_log_created,
+                                        item.carer.name
+                                    )
+                                append(title, R.color.colorPrimary)
+                            }
                         }
                     }
 
                     LOG_TYPE_CONFIRM_REDEMPTION -> {
                         item.reward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your "
+                                "$position." + binding.root.context.getString(
+                                    R.string.kid_log_approved,
+                                    item.carer.name
+                                )
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalReward?.title?.let {
-                            binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " approve your "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(
+                                        R.string.kid_log_approved,
+                                        item.carer.name
+                                    )
+                                append(title, R.color.colorPrimary)
+                            }
                         }
                     }
 
                     LOG_TYPE_DECLINE_REDEMPTION -> {
                         item.reward?.title?.let {
                             binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your "
+                                "$position." + binding.root.context.getString(
+                                    R.string.kid_log_decline,
+                                    item.carer.name
+                                )
                             binding.tvLogDescription.append(it, R.color.colorPrimary)
                         }
-                        item.globalReward?.title?.let {
-                            binding.tvLogDescription.text =
-                                "$position." + item.carer.name + " decline your "
-                            binding.tvLogDescription.append(it, R.color.colorPrimary)
+
+                        binding.tvLogDescription.apply {
+                            val title =
+                                if (localeLanguage) item.globalChallenge?.title else item.globalChallenge?.titleFr
+
+                            if (title?.isNotEmpty() == true) {
+                                text =
+                                    "$position." + binding.root.context.getString(
+                                        R.string.kid_log_decline,
+                                        item.carer.name
+                                    )
+                                binding.tvLogDescription.append(title, R.color.colorPrimary)
+                            }
                         }
                     }
                 }

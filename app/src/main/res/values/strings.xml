@@ -225,6 +225,11 @@
     <string name="kid_profile_level">Level %d:</string>
     <string name="kid_my_achievement">My Achievement</string>
     <string name="kid_profile_level_progress">%d/%d</string>
+    <string name="kid_log_approved">%s approved your </string>
+    <string name="kid_log_decline">%s decline your </string>
+    <string name="kid_log_completed">You completed </string>
+    <string name="kid_log_collected">You collected </string>
+    <string name="kid_log_created">%s created </string>
 
     <!-- OnBoarding -->
     <string name="onboarding_kid_name">Sammi</string>
@@ -273,4 +278,7 @@
     <string name="kid_home_remind_parent_message">We let your parent know</string>
     <string name="kid_pet_home_play">Play</string>
     <string name="kid_subtitle_daily_task">You have %d tasks to complete today.</string>
+    <string name="pet_home_questions_task">Have you done your tasks for today?</string>
+    <string name="kid_dialog_video_onboarding">Watch this\nfirst!</string>
+    <string name="kid_dialog_video_onboarding_subtitle">Learn how to use StellKey with your parent to blast off!</string>
 </resources>

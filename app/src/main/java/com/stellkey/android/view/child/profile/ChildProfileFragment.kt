@@ -25,9 +25,11 @@ import org.koin.android.ext.android.inject
 class ChildProfileFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentChildProfileBinding
-    private lateinit var achievementAdapter : BadgeAdapter
+    private lateinit var achievementAdapter: BadgeAdapter
 
     private val viewModel by inject<ChildViewModel>()
+
+    private val localeLanguage = AppPreference.getKidLocale() == "en"
 
     companion object {
         @JvmStatic
@@ -102,7 +104,8 @@ class ChildProfileFragment : BaseFragment() {
                 R.string.kid_profile_level,
                 data.level.level
             )
-            tvChildLevelName.textOrNull = data.level.levelName
+            tvChildLevelName.textOrNull =
+                if (localeLanguage) data.level.levelName else data.level.levelNameFr
             tvChildLevelProgress.textOrNull = requireContext().resources.getString(
                 R.string.kid_profile_level_progress,
                 100 - data.level.percentageToNextLevel,
@@ -137,6 +140,7 @@ class ChildProfileFragment : BaseFragment() {
                 (activity as ChildMainAct).showMenu(isShow = true)
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
             dataBinding.ivSetting -> {
                 addFragment(ChildSettingsFragment.newInstance())
             }

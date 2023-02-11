@@ -11,6 +11,7 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.ItemKidRewardBinding
 import com.stellkey.android.helper.extension.loadImage
 import com.stellkey.android.model.KidRewardRedemption
+import com.stellkey.android.util.AppPreference
 
 /**
  * @author Nicolas Manurung (nicolas.manurung@dana.id)
@@ -28,11 +29,12 @@ class ChildRewardAdapter(
 
     inner class ChildRewardViewHolder(private val binding: ItemKidRewardBinding) :
         ViewHolder(binding.root) {
+        private val localeLanguage = AppPreference.getKidLocale() == "en"
 
         @SuppressLint("SetTextI18n")
         fun bind(item: KidRewardRedemption) {
             binding.ivReward.loadImage(item.icon)
-            binding.tvReward.text = item.title
+            binding.tvReward.text = if (localeLanguage && !item.isGlobal) item.title else item.titleFr
             if (item.star_balance >= item.star_cost) {
                 binding.ivReward.clearColorFilter()
                 binding.clRewardUnavailable.isVisible = false

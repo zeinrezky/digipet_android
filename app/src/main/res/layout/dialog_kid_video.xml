@@ -53,7 +53,7 @@
                         android:minLines="2"
                         android:textColor="@color/colorFadePrimary"
                         android:textSize="32sp"
-                        android:text="Watch this\nfirst!" />
+                        android:text="@string/kid_dialog_video_onboarding" />
 
                     <TextView
                         android:id="@+id/tvSubtitle"
@@ -64,7 +64,7 @@
                         android:gravity="center"
                         android:textColor="@color/colorFadePrimary"
                         android:textSize="20sp"
-                        android:text="Learn how to use StellKey with your parent to blast off!" />
+                        android:text="@string/kid_dialog_video_onboarding_subtitle" />
 
                     <VideoView
                         android:id="@+id/vvPlayerVideo"

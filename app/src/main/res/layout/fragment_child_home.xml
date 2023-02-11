@@ -197,7 +197,7 @@
                             android:letterSpacing="0"
                             android:lineSpacingExtra="@dimen/space_half"
                             android:maxWidth="@dimen/space_x22"
-                            android:text="Have you done your tasks for today?"
+                            android:text="@string/pet_home_questions_task"
                             android:textAlignment="viewStart"
                             android:textColor="@color/colorPrimary"
                             android:textSize="20sp"

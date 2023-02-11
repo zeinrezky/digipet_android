@@ -60,7 +60,7 @@
     <string name="add">Ajouter</string>
     <string name="collect">Récupérer</string>
     <string name="image_description">Default Image Desc</string>
-    <string name="profile">Profile</string>
+    <string name="profile">Profil</string>
     <string name="alerts">Alertes</string>
     <string name="sound_fx">Son</string>
     <string name="music">Musique</string>
@@ -225,6 +225,11 @@
     <string name="kid_profile_level">Niveau %d:</string>
     <string name="kid_my_achievement">Mes Médailles</string>
     <string name="kid_profile_level_progress">%d/%d</string>
+    <string name="kid_log_approved">%s a accepté ta mission: </string>
+    <string name="kid_log_decline">%s n\'a pas validé ta mission: </string>
+    <string name="kid_log_completed">Tu as accompli la mission suivante: </string>
+    <string name="kid_log_collected">Tu as reçu la récompense suivante : </string>
+    <string name="kid_log_created">%s créer </string>
 
     <!-- OnBoarding -->
     <string name="onboarding_kid_name">Sammi</string>
@@ -271,6 +276,9 @@
     <string name="kid_home_task_completed_subtitle">Vous avez terminé la tâche</string>
     <string name="kid_home_task_button_ok_text">OK!</string>
     <string name="kid_home_remind_parent_message">Nous informons vos parents</string>
-    <string name="kid_pet_home_play">Jouer</string>
+    <string name="kid_pet_home_play">Lecture</string>
     <string name="kid_subtitle_daily_task">Vous avez %d tâches à accomplir aujourd`hui.</string>
+    <string name="pet_home_questions_task">As-tu fait tes missions pour aujourd\'hui?</string>
+    <string name="kid_dialog_video_onboarding">Regarde la vidéo\nen premier</string>
+    <string name="kid_dialog_video_onboarding_subtitle">On va t\'expliquer comment utiliser StellKey pour impressionner tes parents!</string>
 </resources>
