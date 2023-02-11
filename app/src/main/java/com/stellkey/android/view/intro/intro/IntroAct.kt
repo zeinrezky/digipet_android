@@ -14,6 +14,8 @@ import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.auth.LoginFragment
 import com.stellkey.android.view.intro.auth.RegisterEmailFragment
 import com.stellkey.android.view.intro.auth.RegisterProfileSettingsFragment
+import com.zeugmasolutions.localehelper.Locales
+import com.zeugmasolutions.localehelper.currentLocale
 
 class IntroAct : BaseAct() {
 
@@ -21,7 +23,7 @@ class IntroAct : BaseAct() {
 
     lateinit var introSliderAdapter: IntroAdapter
     lateinit var introList: MutableList<IntroModel>
-
+    private val localeLanguage = AppPreference.getCarerLocale()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
@@ -30,6 +32,11 @@ class IntroAct : BaseAct() {
     }
 
     private fun setView() {
+        val currentLocale = if (currentLocale == Locales.French) "fr" else "en"
+        if (localeLanguage != currentLocale) {
+            updateLocale(if (localeLanguage == "fr") Locales.French else Locales.English)
+        }
+
         if (AppPreference.isUpdateLocale()) {
             AppPreference.putUpdateLocale(false)
             addFragment(RegisterProfileSettingsFragment.newInstance())

@@ -14,14 +14,13 @@ import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.zeugmasolutions.localehelper.Locales
+import com.zeugmasolutions.localehelper.currentLocale
 import org.koin.android.ext.android.inject
 
 
 class SettingFragment : BaseFragment() {
 
     private lateinit var dataBinding: FragmentSettingBinding
-
-    //private val binding by viewBinding<FragmentSettingBinding>()
     private val viewModel by inject<AccountViewModel>()
 
     private var selectedLocale = AppPreference.getCarerLocale()
@@ -81,7 +80,20 @@ class SettingFragment : BaseFragment() {
 
     private fun setView() {
         onBackPressed()
-        setLanguageButton(selectedLocale)
+        val currentLocale = if (requireActivity().currentLocale == Locales.French) "fr" else "en"
+        if (selectedLocale != currentLocale) {
+            if (selectedLocale == "fr") {
+                AppPreference.putCarerLocale("fr")
+                (activity as HomeAct).updateLocale(if (selectedLocale == "fr") Locales.French else Locales.English)
+                setLanguageButton(selectedLocale)
+            } else {
+                AppPreference.putCarerLocale("en")
+                (activity as HomeAct).updateLocale(if (selectedLocale == "fr") Locales.French else Locales.English)
+                setLanguageButton(selectedLocale)
+            }
+        } else {
+            setLanguageButton(selectedLocale)
+        }
     }
 
     private fun setLanguageButton(language: String) {
@@ -177,6 +189,7 @@ class SettingFragment : BaseFragment() {
                 (activity as HomeAct).showMenu(isShow = true)
                 requireActivity().supportFragmentManager.popBackStack()
             }
+
             dataBinding.cvSoundOff -> {
                 dataBinding.apply {
                     cvSoundSwitch.setCardBackgroundColor(
@@ -205,6 +218,7 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
+
             dataBinding.cvSoundOn -> {
                 dataBinding.apply {
                     cvSoundSwitch.setCardBackgroundColor(
@@ -233,6 +247,7 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
+
             dataBinding.cvNotificationOff -> {
                 dataBinding.apply {
                     cvNotificationSwitch.setCardBackgroundColor(
@@ -261,6 +276,7 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
+
             dataBinding.cvNotificationOn -> {
                 dataBinding.apply {
                     cvNotificationSwitch.setCardBackgroundColor(
@@ -289,12 +305,14 @@ class SettingFragment : BaseFragment() {
                     )
                 }
             }
+
             dataBinding.cvFrench -> {
                 selectedLocale = "fr"
                 setLanguageButton(selectedLocale)
                 AppPreference.getCarerLocale()
                 viewModel.putCarerLocale(UpdateLocaleRequest(locale = selectedLocale))
             }
+
             dataBinding.cvEnglish -> {
                 selectedLocale = "en"
                 setLanguageButton(selectedLocale)

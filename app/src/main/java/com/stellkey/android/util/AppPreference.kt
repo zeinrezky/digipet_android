@@ -369,7 +369,7 @@ class AppPreference {
         }
 
         fun getCarerLocale(): String {
-            return (Hawk.get(carerLocale, emptyString))
+            return (Hawk.get(carerLocale, "en"))
         }
 
         fun putKidLocale(value: String) {
@@ -377,7 +377,7 @@ class AppPreference {
         }
 
         fun getKidLocale(): String {
-            return (Hawk.get(kidLocale, emptyString))
+            return (Hawk.get(kidLocale, "en"))
         }
 
         fun putUpdateLocale(value: Boolean) {

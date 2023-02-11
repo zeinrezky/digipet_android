@@ -28,11 +28,6 @@ class SplashScreenAct : BaseAct() {
     private fun setView() {
         val uriPath = "android.resource://com.stellkey.android/" + R.raw.video_splash
         val uri: Uri = Uri.parse(uriPath)
-        /*tvAppVersion.text = "${getString(R.string.app_version)} ${BuildConfig.VERSION_NAME}"
-        Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, IntroAct::class.java))
-            finish()
-        }, 3000)*/
         vvSplash.apply {
             setVideoURI(uri)
             requestFocus()

@@ -25,6 +25,7 @@ import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
 import com.stellkey.android.view.child.ChildMainAct
+import com.zeugmasolutions.localehelper.Locales
 import kotlinx.android.synthetic.main.fragment_login_p_i_n.clErrorMessage
 import org.koin.android.ext.android.inject
 import java.util.Date
@@ -80,12 +81,16 @@ class LoginPINFragment : BaseFragment() {
             carerLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
                 AppPreference.putCarerToken(it.token?: AppPreference.getMainCarerLoginToken())
+                AppPreference.putCarerLocale(it.settingLocale)
+                AppPreference.putUpdateLocale(true)
                 startActivity(Intent(requireContext(), HomeAct::class.java))
                 requireActivity().finish()
             }
             kidLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
                 AppPreference.putKidToken(it.token?: emptyString)
+                AppPreference.putKidLocale(it.settingLocale)
+                AppPreference.putUpdateLocale(true)
                 AppPreference.resetPetIndicator()
                 startActivity(Intent(requireContext(), ChildMainAct::class.java))
                 requireActivity().finish()
