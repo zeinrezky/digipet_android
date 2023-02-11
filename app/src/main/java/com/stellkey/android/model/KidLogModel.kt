@@ -135,7 +135,7 @@ data class Kid(
     @SerializedName("pin")
     val pin: String,
     @SerializedName("settingLocale")
-    val settingLocale: String,
+    val settingLocale: String? = "",
     @SerializedName("settingMusic")
     val settingMusic: Int,
     @SerializedName("settingNotifications")

@@ -80,17 +80,15 @@ class LoginPINFragment : BaseFragment() {
             }
             carerLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
-                AppPreference.putCarerToken(it.token?: AppPreference.getMainCarerLoginToken())
+                AppPreference.putCarerToken(it.token ?: AppPreference.getMainCarerLoginToken())
                 AppPreference.putCarerLocale(it.settingLocale)
-                AppPreference.putUpdateLocale(true)
                 startActivity(Intent(requireContext(), HomeAct::class.java))
                 requireActivity().finish()
             }
             kidLoginSuccess.observe(viewLifecycleOwner) {
                 AppPreference.putCompleteLogin(true)
-                AppPreference.putKidToken(it.token?: emptyString)
-                AppPreference.putKidLocale(it.settingLocale)
-                AppPreference.putUpdateLocale(true)
+                AppPreference.putKidToken(it.token ?: emptyString)
+                AppPreference.putKidLocale(it.settingLocale ?: "en")
                 AppPreference.resetPetIndicator()
                 startActivity(Intent(requireContext(), ChildMainAct::class.java))
                 requireActivity().finish()

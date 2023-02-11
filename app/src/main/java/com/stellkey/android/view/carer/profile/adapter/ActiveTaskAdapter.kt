@@ -32,7 +32,7 @@ class ActiveTaskAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveTaskViewHolder {
         val view =
-            LayoutInflater.from(contexts).inflate(R.layout.item_today_task, parent, false)
+            LayoutInflater.from(contexts).inflate(R.layout.item_profile_task, parent, false)
         return ActiveTaskViewHolder(view)
     }
 

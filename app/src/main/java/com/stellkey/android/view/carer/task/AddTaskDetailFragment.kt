@@ -31,11 +31,14 @@ import com.stellkey.android.model.AllKidsModel
 import com.stellkey.android.model.request.CreateAssignmentRequest
 import com.stellkey.android.model.request.CustomTaskRequest
 import com.stellkey.android.util.AppPreference
+import com.stellkey.android.util.Constant
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.home.HomeFragment
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.task.adapter.ActionButtonAdapter
 import com.stellkey.android.view.carer.task.adapter.KidProfileAdapter
+import org.greenrobot.eventbus.EventBus
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -82,6 +85,7 @@ class AddTaskDetailFragment : BaseFragment() {
 
         var isCustomTask = false
         var isGlobalTask = false
+        var isFromHome = false
     }
 
     override fun onCreateView(
@@ -337,18 +341,22 @@ class AddTaskDetailFragment : BaseFragment() {
     }
 
     private fun popToInitialFragment() {
-        val backStackCount: Int = requireActivity().supportFragmentManager.backStackEntryCount
-        val backStackLimit = 3
+        if (isFromHome) {
+            EventBus.getDefault().post(HomeAct.NavigationCarerHomeEvent(Constant.CarerMenu.HOME))
+        } else {
+            val backStackCount: Int = requireActivity().supportFragmentManager.backStackEntryCount
+            val backStackLimit = 3
 
-        for (i in (backStackCount - 1) downTo backStackLimit) {
+            for (i in (backStackCount - 1) downTo backStackLimit) {
 
-            // Get the back stack fragment id.
-            val backStackId: Int =
-                requireActivity().supportFragmentManager.getBackStackEntryAt(i).id
-            requireActivity().supportFragmentManager.popBackStack(
-                backStackId,
-                FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
+                // Get the back stack fragment id.
+                val backStackId: Int =
+                    requireActivity().supportFragmentManager.getBackStackEntryAt(i).id
+                requireActivity().supportFragmentManager.popBackStack(
+                    backStackId,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+                )
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -28,6 +29,7 @@ import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.adapter.HomeUserAdapter
 import com.stellkey.android.view.carer.home.adapter.NewTodayTaskAdapter
 import com.stellkey.android.view.carer.home.adapter.NewYesterdayTaskAdapter
+import com.stellkey.android.view.carer.task.AddTaskFragment
 import com.stellkey.android.view.intro.auth.LoginChooseProfileFragment
 import com.stellkey.android.view.intro.intro.IntroAct
 import org.koin.android.ext.android.inject
@@ -46,6 +48,7 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener,
     private var activeTaskList = arrayListOf<AssignmentsModel>()
     private var currentCycleAssignments = arrayListOf<AssignmentsModel>()
     private var kidId = emptyInt
+    private lateinit var selectedKid: AllKidsModel
 
     private var isYesterdayListEmpty = emptyBoolean
     private var isTodayListEmpty = emptyBoolean
@@ -186,6 +189,7 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener,
         if (data != null) {
             dataBinding.apply {
                 kidId = data.id
+                selectedKid = data
                 ivAvatar.loadImage(data.profileIcon.icon, ImageCornerOptions.ROUNDED, 100)
                 tvProfileName.textOrNull = data.name
                 tvCurrentCycleRange.textOrNull = data.activeAssignments.dateRange
@@ -260,6 +264,17 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener,
         dataBinding.apply {
             if (todayAssignments?.assignments?.isEmpty() == true && todayAssignments.oldAssignments.isEmpty()) {
                 isTodayListEmpty = true
+                AppPreference.putActiveCycle(false)
+
+                cvAddTask.apply {
+                    isVisible = true
+                    setOnClickListener {
+                        AppPreference.putTempChildId(kidId)
+                        addFragment(AddTaskFragment.newInstance())
+                        AddTaskFragment.kidAge = selectedKid.age
+                        AddTaskFragment.isFromHome = true
+                    }
+                }
             } else {
                 isTodayListEmpty = false
 
@@ -363,6 +378,25 @@ class HomeFragment : BaseFragment(), NewTodayTaskAdapter.Listener,
                                     )
                                 }
                         }
+                    }
+                }
+
+                AppPreference.putActiveCycle(true)
+                AppPreference.putTempChallengeStartDate(groupedActiveTask.first().first.assignDate)
+                if (groupedActiveTask.size < 3) {
+                    cvAddTask.apply {
+                        isVisible = true
+                        setOnClickListener {
+                            AppPreference.putTempChildId(kidId)
+                            addFragment(AddTaskFragment.newInstance())
+                            AddTaskFragment.kidAge = selectedKid.age
+                            AddTaskFragment.isFromHome = true
+                        }
+                    }
+                } else {
+                    cvAddTask.apply {
+                        isVisible = false
+                        setOnClickListener(null)
                     }
                 }
 

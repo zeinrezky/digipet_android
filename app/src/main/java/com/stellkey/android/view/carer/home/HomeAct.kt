@@ -10,20 +10,35 @@ import com.stellkey.android.R
 import com.stellkey.android.databinding.ActivityHomeBinding
 import com.stellkey.android.helper.extension.viewBinding
 import com.stellkey.android.util.AppPreference
+import com.stellkey.android.util.Constant
+import com.stellkey.android.util.EventBusBinder
 import com.stellkey.android.view.base.BaseAct
 import com.stellkey.android.view.carer.account.AccountFragment
 import com.stellkey.android.view.carer.account.SettingFragment
 import com.stellkey.android.view.carer.family.FamilyFragment
 import com.stellkey.android.view.carer.log.LogFragment
+import com.stellkey.android.view.child.ChildMainAct
 import kotlinx.android.synthetic.main.activity_home.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class HomeAct : BaseAct() {
     private val binding by viewBinding<ActivityHomeBinding>()
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onMessageEvent(gotoScreen: NavigationCarerHomeEvent) {
+        when (gotoScreen.goToScreen) {
+            Constant.CarerMenu.HOME -> {
+                addFragment(HomeFragment.newInstance())
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        EventBusBinder.bind(this)
         setView()
         setOnClick()
     }
@@ -56,18 +71,22 @@ class HomeAct : BaseAct() {
                         addFragment(HomeFragment.newInstance())
                         true
                     }
+
                     R.id.family -> {
                         addFragment(FamilyFragment.newInstance())
                         true
                     }
+
                     R.id.log -> {
                         addFragment(LogFragment.newInstance())
                         true
                     }
+
                     R.id.account -> {
                         addFragment(AccountFragment.newInstance())
                         true
                     }
+
                     else -> {
                         addFragment(HomeFragment.newInstance())
                         true
@@ -102,4 +121,9 @@ class HomeAct : BaseAct() {
             }
         }
     }
+
+    class NavigationCarerHomeEvent(
+        val goToScreen: String,
+        val extraParams: HashMap<String, String> = hashMapOf()
+    )
 }

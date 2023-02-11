@@ -35,6 +35,10 @@ object Constant {
         const val LOG = "log"
     }
 
+    object CarerMenu {
+        const val HOME = "home"
+    }
+
     object KidWidget {
         const val DIALOG_WHEEL_PICKER = "dialog_wheel_picker"
         const val DIALOG_WHEEL_DISMISSED = "dialog_wheel_dismissed"
@@ -46,13 +50,20 @@ object Constant {
     }
 
     object OnBoarding {
-        const val KID_ICON = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/ps_ico1662607860983.jpg"
-        const val TASK_PUT_DISHES = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146228142.png"
-        const val TASK_MAKE_BED = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146618230.png"
-        const val TASK_PUT_DIRTY_CLOTHES = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146802223.png"
-        const val TASK_EAT_VEGETABLE = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146176165.png"
-        const val TASK_BRUSH_TEETH = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146751666.png"
-        const val TASK_PRACTICE_INSTRUMENT = "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146395335.png"
+        const val KID_ICON =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/ps_ico1662607860983.jpg"
+        const val TASK_PUT_DISHES =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146228142.png"
+        const val TASK_MAKE_BED =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146618230.png"
+        const val TASK_PUT_DIRTY_CLOTHES =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146802223.png"
+        const val TASK_EAT_VEGETABLE =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146176165.png"
+        const val TASK_BRUSH_TEETH =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146751666.png"
+        const val TASK_PRACTICE_INSTRUMENT =
+            "https://storage.googleapis.com/stellkey-49e4e.appspot.com/c_ico1663146395335.png"
     }
 
     object LogType {

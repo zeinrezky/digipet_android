@@ -16,6 +16,7 @@ import com.stellkey.android.model.TaskModel
 import com.stellkey.android.util.AppPreference
 import com.stellkey.android.view.base.BaseFragment
 import com.stellkey.android.view.carer.home.HomeAct
+import com.stellkey.android.view.carer.home.HomeFragment
 import com.stellkey.android.view.carer.profile.ProfileViewModel
 import com.stellkey.android.view.carer.profile.adapter.GroupedTaskAdapter
 import com.stellkey.android.view.carer.profile.adapter.RecommendedTaskAdapter
@@ -25,8 +26,6 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
     GroupedTaskAdapter.Listener {
 
     private lateinit var dataBinding: FragmentAddTaskBinding
-
-    //private val binding by viewBinding<FragmentAddTaskBinding>()
     private val viewModel by inject<ProfileViewModel>()
 
     private lateinit var recommendedTaskAdapter: RecommendedTaskAdapter
@@ -37,6 +36,7 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         @JvmStatic
         fun newInstance() = AddTaskFragment()
         var kidAge = emptyInt
+        var isFromHome = false
     }
 
     override fun onCreateView(
@@ -137,7 +137,7 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = false
         AddTaskDetailFragment.isGlobalTask = true
-
+        AddTaskDetailFragment.isFromHome = isFromHome
 
         addFragment(AddTaskDetailFragment.newInstance())
     }
@@ -153,6 +153,7 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = false
         AddTaskDetailFragment.isGlobalTask = data.isGlobal
+        AddTaskDetailFragment.isFromHome = isFromHome
 
         addFragment(AddTaskDetailFragment.newInstance())
     }
@@ -162,6 +163,7 @@ class AddTaskFragment : BaseFragment(), RecommendedTaskAdapter.Listener,
         AppPreference.putTempSelectedChallengeIcon(data.icon)
         AddTaskDetailFragment.isCustomTask = true
         AddTaskDetailFragment.isGlobalTask = false
+        AddTaskDetailFragment.isFromHome = isFromHome
 
         addFragment(AddTaskDetailFragment.newInstance())
     }
