@@ -22,6 +22,7 @@ import com.stellkey.android.databinding.FragmentAccountBinding
 import com.stellkey.android.helper.extension.alertDialog
 import com.stellkey.android.helper.extension.color
 import com.stellkey.android.helper.extension.emptyBoolean
+import com.stellkey.android.helper.extension.openUrl
 import com.stellkey.android.helper.extension.textOrNull
 import com.stellkey.android.model.AllCarersModel
 import com.stellkey.android.model.AllKidsModel
@@ -46,8 +47,6 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
     PPCAdminListAdapter.Listener, PPCCarerListAdapter.Listener, PPCKidListAdapter.Listener {
 
     private lateinit var dataBinding: FragmentAccountBinding
-
-    //private val binding by viewBinding<FragmentAccountBinding>()
     private val viewModel by inject<AccountViewModel>()
 
     private lateinit var subscriptionAdapter: SubscriptionAdapter
@@ -481,6 +480,17 @@ class AccountFragment : BaseFragment(), SubscriptionAdapter.Listener,
             ivExpandMembership.setOnClickListener(onClickCallback)
             ivExpandBillingInformation.setOnClickListener(onClickCallback)
             tvLogout.setOnClickListener(onClickCallback)
+            tvFAQ.setOnClickListener {
+                context?.openUrl("https://stellkey.com/help/")
+            }
+            tvPrivacyPolicy.setOnClickListener {
+                context?.openUrl("https://stellkey.com/privacy/")
+            }
+            tvTNC.setOnClickListener {
+                context?.openUrl("https://stellkey.com/terms-and-conditions/")
+            }
+
+
         }
     }
 
